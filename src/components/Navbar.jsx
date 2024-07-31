@@ -1,28 +1,24 @@
 import { NavLink } from "react-router-dom"
+import { navLinks } from "../constants/data"
+import { capitalize } from "lodash"
 
-const Navbar = () => {
-    
-    // const links = [
-    //     { menLink: "/men" },
-    //     { womenLink: "/women" },
-    //     { kidLink: "/kids" }
-    // ]
+
+const Navbar = ({ containerStyles1, containerStyles2 }) => {
+
 
     return (
-        <nav>
-            <div className="flex flex-row justify-around items-center w-full">
-                <NavLink to={"/"}>
-                    Home
-                </NavLink>
-                <NavLink to={"/men"}>
-                    Men
-                </NavLink>
-                <NavLink to={"/women"}>
-                    Women
-                </NavLink>
-                <NavLink to={"/kids"}>
-                    Kids
-                </NavLink>
+        <nav className="w-full">
+            <div className={containerStyles1}>
+                {
+                    navLinks.map((nav, index) => (
+                        <NavLink 
+                            key={index}
+                            to={nav.link} 
+                            className={containerStyles2}>
+                            {capitalize(nav.name)}
+                        </NavLink>
+                    ))
+                }
             </div>
         </nav>
     )
