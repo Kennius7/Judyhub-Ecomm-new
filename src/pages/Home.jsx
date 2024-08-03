@@ -2,7 +2,11 @@
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      <div className="w-full h-[400px] overflow-hidden bg-red-100">
+        Home
+      </div>
+    </>
   )
 }
 

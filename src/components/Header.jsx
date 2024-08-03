@@ -11,7 +11,8 @@ const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
 
   return (
-    <div className="relative flex flex-row justify-between items-center w-full h-[60px] bg-yellow-100 px-2">
+    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-yellow-100 
+      px-2">
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
@@ -26,11 +27,12 @@ const Header = () => {
         />
       </div>
       {/*Mobile Screen Nav block*/}
-      <div className="xs:hidden flex">
+      <div className="fixed xs:hidden flex w-full bg-red-500">
         <Navbar 
-          containerStyles1={`${menuOpened 
-            ? "absolute z-1 top-[110%] right-[3%] flex flex-col justify-around items-start h-[200px] transition-all duration-300 shadow-lg w-[140px] h-[160px] border-2 border-yellow-300 rounded-[8px]"
-            : "absolute z-1 top-[110%] -right-[100%] flex flex-col justify-around items-start h-[200px] transition-all duration-300 shadow-lg w-[140px] h-[160px] border-2 border-yellow-300 rounded-[8px]" }`}
+          containerStyles1={`fixed z-1 top-[35px] flex flex-col justify-around items-start 
+            h-[200px] transition-all duration-300 shadow-lg w-[140px] h-[160px] border-2 
+            border-yellow-300 rounded-[8px] 
+            ${menuOpened ? "right-[3%]" : "-right-[100%]" }`}
           containerStyles2={`flex flex-row justify-start items-center border-2 border-yellow-300/7 rounded-[8px] w-[95%] h-[35px] pl-2`}
         />
       </div>
