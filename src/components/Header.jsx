@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import logo from "../assets/JudyHubLogo3.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { capitalize } from "lodash"
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineMenu } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
@@ -14,6 +15,17 @@ const Header = () => {
   const navigate = useNavigate();
   const [menuOpened, setMenuOpened] = useState(false);
   let cartItemNumber = 10;
+  const [logState, setLogState] = useState(false);
+  const [logText, setLogText] = useState("login");
+  const handleLogStateText = () => {
+    if (!logState) {
+      setLogState(true);
+      setLogText("login");
+    } else {
+      setLogState(false);
+      setLogText("logout");
+    }
+  }
 
   return (
     <div className="flex flex-row justify-between items-center w-full h-[60px] bg-yellow-100 
@@ -49,15 +61,25 @@ const Header = () => {
           { !menuOpened ? <MdMenuOpen size={24} /> : <MdOutlineMenu size={24} /> }
         </button>
       </div>
+      {/*Cart Icon Nav block*/}
       <NavLink
         to={"/cart"} 
-        className="relative flex justify-center items-center w-8 h-8 ring-1 ring-slate-900/3 rounded-full p-1" >
+        className="relative flex justify-center items-center w-8 h-8 ring-1 ring-slate-900/3 
+        rounded-full p-1 mr-2" >
         <IoCartOutline size={32}/>
-        <span className={`absolute z-2 left-5 bottom-5 w-5 h-5 p-1 bg-red-500 rounded-full 
+        <span className={`absolute z-2 left-5 bottom-5 w-5 h-5 p-1 bg-primaryGreen rounded-full 
           text-white text-center flex justify-center items-center 
           ${cartItemNumber >= 100 ? "text-[10px]" : "text-[12px]" }`}>
           {cartItemNumber}
         </span>
+      </NavLink>
+      {/*Login Button Nav block*/}
+      <NavLink to={logText} >
+        <button onClick={handleLogStateText}
+          className="xs:w-20 xs:h-8 w-16 h-8 rounded-[20px] bg-primaryGreen 
+          xs:text-[14px] text-[12px] text-white">
+          {capitalize(logText)}
+        </button>
       </NavLink>
     </div>
   )

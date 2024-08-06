@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { Cart, Category, Login, Home, Product } from "./pages";
+import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 
 
 
@@ -25,6 +25,7 @@ function App () {
           </Route>
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/logout" element={<Logout/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

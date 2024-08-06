@@ -12,9 +12,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#00040f",
-        primary2: "#010718",
-        secondary: "#00f6ff",
+        primaryBlack: "#00040f",
+        primaryGreen: "#0db915",
+        secondaryBrown: "#613207",
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
       },
