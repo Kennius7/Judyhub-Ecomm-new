@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom"
 import { navLinks } from "../constants/data"
 import { capitalize } from "lodash"
