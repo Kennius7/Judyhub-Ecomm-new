@@ -5,7 +5,7 @@ const Footer = () => {
 
     return (
         <>
-            Footer
+            <div className="italic text-[12px]">Footer</div>
         </>
     )
 }

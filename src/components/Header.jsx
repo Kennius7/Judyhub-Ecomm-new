@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import logo from "../assets/JudyHubLogo3.png";
+import logo from "../assets/judyhub-logo02.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { capitalize } from "lodash"
@@ -32,8 +32,13 @@ const Header = () => {
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
-        className="cursor-pointer w-12 h-12 ring-1 ring-slate-700/1 rounded-full bg-slate-400/10">
+        className="cursor-pointer ss:w-[170px] ss:h-[50px] w-[120px] h-[50px] rounded-[4px] flex justify-start ss:items-end items-center relative"
+      >
         <img src={logo} alt="logo pics" className="w-full h-full"/>
+        {/* <div className="text-center md:text-[35px] ss:text-[28px] text-[26px] text-secondaryBrown 
+          font-bold font-poppins absolute ss:left-16 left-12 ss:top-2 top-3 ss:tracking-normal -tracking-[1px]">
+          Judyhub
+        </div> */}
       </div>
       <div className="flex-1 flex justify-end items-center">
         {/*Large Screen Nav Block*/}
