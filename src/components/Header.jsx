@@ -28,7 +28,7 @@ const Header = () => {
   }
 
   return (
-    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-yellow-100 px-2">
+    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-white px-2">
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
