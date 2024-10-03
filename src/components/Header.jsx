@@ -32,7 +32,7 @@ const Header = () => {
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
-        className="cursor-pointer ss:w-[170px] ss:h-[50px] w-[120px] h-[50px] rounded-[4px] 
+        className="cursor-pointer ss:w-[170px] ss:h-[50px] xs:w-[120px] xs:h-[50px] w-[110px] h-[45px] rounded-[4px] 
         flex justify-start ss:items-end items-center relative"
       >
         <img src={logo} alt="logo pics" className="w-full h-full"/>

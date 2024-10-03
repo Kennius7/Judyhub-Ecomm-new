@@ -7,12 +7,15 @@ import logo from "../assets/judyhub-logo02.png";
 
 
 const Footer = () => {
-    const margTop = "mt-[12px]";
+    const margTop = "xs:mt-[12px] mt-[8px]";
 
     const FooterColumn = ({ title, children }) => {
         return (
             <div className={`flex justify-center items-start ${title === "Socials" ? "flex-row" : "flex-col"}`}>
-                <h4 className={`text-[20px] font-sans font-semibold ${title === "Socials" ? "hidden" : "block"}`}>
+                <h4 
+                    className={`xs:text-[20px] text-[16px] font-sans font-semibold 
+                    ${title === "Socials" ? "hidden" : "block"}`}
+                >
                     {title}
                 </h4>
                 {children}
@@ -24,7 +27,7 @@ const Footer = () => {
     return (
         <>
             <footer>
-                <div className="px-4">
+                <div className="xs:px-4 px-1">
                     <Link to={'/'}>
                         <div className="w-[200px] h-[70px] mb-[20px]">
                             <img src={logo} alt="logo" className="w-full h-full" />
@@ -38,7 +41,8 @@ const Footer = () => {
                                         {
                                             col.links.map((link, index) => (
                                                 <Link to={'/'} key={index}>
-                                                    <li className="text-slate-500 text-[14px] ss:mb-[16px] mb-[8px]">
+                                                    <li className="text-slate-500 xs:text-[14px] text-[12px] 
+                                                        ss:mb-[16px] xs:mb-[8px] mb-[4px]">
                                                         {link}
                                                     </li>
                                                 </Link>
@@ -53,7 +57,10 @@ const Footer = () => {
                                 {
                                     FOOTER_CONTACT_INFO.links.map((link) => (
                                         <Link to={'/'} key={link.label}>
-                                            <div className="flex ss:flex-row flex-col justify-center items-start mt-[16px]">
+                                            <div 
+                                                className="flex ss:flex-row flex-col justify-center items-start 
+                                                ss:mt-[16px] xs:mt-[8px] mt-[4px]"
+                                            >
                                                 <p className="text-slate-500 text-[14px]">
                                                     {link.label}:&nbsp;&nbsp;
                                                 </p> 
