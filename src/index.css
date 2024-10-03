@@ -125,11 +125,19 @@
 .title-text-shadow1{
   /* color: #270404; */
   /* text-shadow: #270404; */
-  text-shadow: 0 0 8px #270404;
+  text-shadow: 0 0 3px #270404;
 }
 
 .title-text-shadow2{
   text-shadow: 0 0 4px #d3e0d3;
+}
+
+.title-text-shadow3{
+  text-shadow: 0 0 5px #e2eee2;
+}
+
+.title-text-no-shadow{
+  text-shadow: 0 0 0 #e2eee2;
 }
 
 .color-sampling-css {
@@ -140,7 +148,25 @@
   background-image: url("./assets/bg1.jpg");
 }
 
+.button-gradient1 {
+  background: linear-gradient(90deg, "#0db915", #064709);
+}
 
+/* .text1-gradient1 {
+  background: linear-gradient(90deg, "#0db915", #064709);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+} */
+
+.button-shadow1 {
+  --tw-shadow: 1px 2px 1px 2px rgb(0 0 0 / 0.5);
+  box-shadow: var(--tw-shadow);
+}
+
+.color {
+  color: #146409
+}
 
 
 

@@ -32,7 +32,8 @@ const Header = () => {
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
-        className="cursor-pointer ss:w-[170px] ss:h-[50px] w-[120px] h-[50px] rounded-[4px] flex justify-start ss:items-end items-center relative"
+        className="cursor-pointer ss:w-[170px] ss:h-[50px] w-[120px] h-[50px] rounded-[4px] 
+        flex justify-start ss:items-end items-center relative"
       >
         <img src={logo} alt="logo pics" className="w-full h-full"/>
         {/* <div className="text-center md:text-[35px] ss:text-[28px] text-[26px] text-secondaryBrown 
@@ -42,7 +43,7 @@ const Header = () => {
       </div>
       <div className="flex-1 flex justify-end items-center">
         {/*Large Screen Nav Block*/}
-        <div className="xs:flex flex-1 justify-around items-center hidden w-full">
+        <div className="ss:flex flex-1 justify-around items-center hidden w-full">
           <Navbar 
             containerStyles1="flex flex-row justify-center items-center w-full medium-15"
             containerStyles2="px-3 h-[35px] m-2 flex justify-end items-center"
@@ -57,7 +58,7 @@ const Header = () => {
           />
         </div>
         {/*Menu Icon Nav block*/}
-        <div className="xs:hidden cursor-pointer flex flex-row justify-center items-center w-8 h-8 ring-1 
+        <div className="ss:hidden cursor-pointer flex flex-row justify-center items-center w-8 h-8 ring-1 
           ring-slate-900/3 rounded-full p-2 shadow-lg mx-2">
           <button onClick={() => setMenuOpened(!menuOpened)}>
             { !menuOpened ? <MdMenuOpen size={24} /> : <MdOutlineMenu size={24} /> }

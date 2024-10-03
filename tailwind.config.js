@@ -31,7 +31,7 @@ export default {
     //   'xxs': {'max': '290px'},
     // },
     screens: {
-      xxs: "290px",
+      xxs: "350px",
       xs: "480px",
       ss: "620px",
       sm: "768px",
@@ -42,3 +42,4 @@ export default {
   },
   plugins: [],
 }
+

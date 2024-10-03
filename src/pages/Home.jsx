@@ -5,7 +5,7 @@ import Hero from "../components/Hero"
 const Home = () => {
   return (
     <>
-      <section className="w-full h-full">
+      <section className="">
         <Hero/>
       </section>
     </>
