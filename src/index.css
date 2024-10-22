@@ -136,6 +136,10 @@
   text-shadow: 0 0 5px #e2eee2;
 }
 
+.title-text-shadow4{
+  text-shadow: 0 0 2px #0db915;
+}
+
 .title-text-no-shadow{
   text-shadow: 0 0 0 #e2eee2;
 }
@@ -168,9 +172,12 @@
   color: #146409
 }
 
+.blur-effect1 {
+  filter: blur(2px);
+}
 
-
-
+/* #FF0000 */
+/* #0db915 */
 
 
 

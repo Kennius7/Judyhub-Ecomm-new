@@ -29,7 +29,7 @@ const Footer = () => {
             <footer>
                 <div className="xs:px-4 px-1">
                     <Link to={'/'}>
-                        <div className="w-[200px] h-[70px] mb-[20px]">
+                        <div className="ss:w-[200px] ss:h-[70px] w-[150px] h-[50px] mb-[20px] ss:m-1 m-2">
                             <img src={logo} alt="logo" className="w-full h-full" />
                         </div>
                     </Link>
@@ -64,19 +64,19 @@ const Footer = () => {
                                                 <p className="text-slate-500 text-[14px]">
                                                     {link.label}:&nbsp;&nbsp;
                                                 </p> 
-                                                <p className="text-slate-500 text-[14px] flex flex-col 
+                                                <div className="text-slate-500 text-[14px] flex flex-col 
                                                     justify-center items-start">
                                                     {
                                                         link.value.map((value, index) => (
-                                                            <div 
+                                                            <p 
                                                                 key={index} 
                                                                 className="ss:text-[16px] text-[11px]"
                                                             >
                                                                 {value}
-                                                            </div>
+                                                            </p>
                                                         ))
                                                     }
-                                                </p>
+                                                </div>
                                             </div>
                                         </Link>
                                     ))
@@ -100,7 +100,7 @@ const Footer = () => {
                     </div>
                     <div className="w-full border bg-gray-20 ss:my-[30px] my-[10px]"></div>
                     <div className="w-full flex justify-center items-center">
-                        <p className="text-slate-400 text-[13px] text-center ss:mb-3 mb-1">
+                        <p className="text-slate-400 text-[13px] text-center ss:mb-2 mb-1">
                             2024 Judyhub | All rights reserved &copy;
                         </p>
                     </div>

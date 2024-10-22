@@ -1,4 +1,5 @@
-import Hero from "../components/Hero" 
+import Hero from "../components/Hero";
+import Popular from "../components/Popular";
 
 
 
@@ -7,6 +8,7 @@ const Home = () => {
     <>
       <section className="">
         <Hero/>
+        <Popular/>
       </section>
     </>
   )

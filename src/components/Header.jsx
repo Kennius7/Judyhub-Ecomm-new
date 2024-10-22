@@ -14,9 +14,10 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [menuOpened, setMenuOpened] = useState(false);
-  let cartItemNumber = 10;
+  let cartItemNumber = 3;
   const [logState, setLogState] = useState(false);
   const [logText, setLogText] = useState("login");
+
   const handleLogStateText = () => {
     if (!logState) {
       setLogState(true);
@@ -27,6 +28,7 @@ const Header = () => {
     }
   }
 
+
   return (
     <div className="flex flex-row justify-between items-center w-full h-[60px] bg-white px-2">
       {/*Logo block*/}
@@ -36,25 +38,20 @@ const Header = () => {
         flex justify-start ss:items-end items-center relative"
       >
         <img src={logo} alt="logo pics" className="w-full h-full"/>
-        {/* <div className="text-center md:text-[35px] ss:text-[28px] text-[26px] text-secondaryBrown 
-          font-bold font-poppins absolute ss:left-16 left-12 ss:top-2 top-3 ss:tracking-normal -tracking-[1px]">
-          Judyhub
-        </div> */}
       </div>
       <div className="flex-1 flex justify-end items-center">
         {/*Large Screen Nav Block*/}
         <div className="ss:flex flex-1 justify-around items-center hidden w-full">
           <Navbar 
             containerStyles1="flex flex-row justify-center items-center w-full medium-15"
-            containerStyles2="px-3 h-[35px] m-2 flex justify-end items-center"
           />
         </div>
         {/*Mobile Screen Nav block*/}
-        <div className="fixed xs:hidden flex w-full bg-red-500">
+        <div className="relative ss:hidden flex w-full">
           <Navbar 
-            containerStyles1={`fixed z-1 top-[70px] flex flex-col justify-around items-start h-[200px] transition-all 
-              duration-300 w-[140px] h-[160px] rounded-[8px] medium-15 ${menuOpened ? "right-[3%]" : "-right-[100%]" }`}
-            containerStyles2={`flex justify-end items-center border-b-2 border-yellow-300/7 w-full h-[35px] px-2`}
+            containerStyles1={`fixed z-[4] top-[70px] flex flex-col justify-around items-start 
+              transition-all duration-300 ss:w-[140px] w-[110px] ss:h-[160px] h-[140px] 
+              rounded-[8px] bg-white/60 ${menuOpened ? "right-[3%]" : "-right-[100%]" }`}
           />
         </div>
         {/*Menu Icon Nav block*/}

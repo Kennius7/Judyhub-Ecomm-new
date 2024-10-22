@@ -7,9 +7,9 @@ import LinkedInIcon from "../assets/linkedin1.svg";
 
 export const navLinks = [
     { name: "home", link: "/" },
-    { name: "men", link: "/men" },
-    { name: "women", link: "/women" },
-    { name: "kids", link: "/kids" },
+    { name: "perfumes", link: "/perfumes" },
+    { name: "clothes", link: "/clothes" },
+    { name: "accessories", link: "/accessories" },
 ];
 
 export const FOOTER_LINKS = [
