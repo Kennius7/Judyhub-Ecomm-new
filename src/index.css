@@ -57,7 +57,7 @@
   .scroll-style::-webkit-scrollbar-thumb {
     @apply rounded-full bg-gradient-to-tr from-blue-500 to-green-500 via-teal-500;
   }
-   
+
   /* Theme-Colors */
   .bg-theme {
     background-image: linear-gradient( 0.2deg, rgb(111, 241, 128) 4.8%, rgb(3, 138, 21) 85.5% );
@@ -114,6 +114,10 @@
     @apply transition-all duration-700 ease-in-out cursor-pointer;
   }
 
+  .flexCenter {
+    @apply flex flex-row justify-center items-center;
+  }
+
 }
 
 
@@ -137,7 +141,7 @@
 }
 
 .title-text-shadow4{
-  text-shadow: 0 0 2px #0db915;
+  text-shadow: 0 0 1px #0db915;
 }
 
 .title-text-no-shadow{
