@@ -33,17 +33,22 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
                     {name}
                 </div>
                 <div className="flex flex-col justify-center items-start">
-                    <div className="flexCenter py-1">
-                        <div className="text-[18px] font-sans">New Price:&nbsp;</div>
-                        <img src={NairaSign} alt="N" className="w-4 h-4 mr-[2px]" />
-                        <div className="text-[16px] text-primaryGreen font-bold font-poppins">
+                    <div className="flexCenter mb-2">
+                        <div className="text-[17px] font-sans leading-[10px]">
+                            New Price:&nbsp;
+                        </div>
+                        <img src={NairaSign} alt="N" className="w-5 h-5" />
+                        <div className="text-[17px] text-primaryGreen font-bold font-poppins leading-[10px] ml-1">
                             {newPrice}
                         </div>
                     </div>
-                    <div className="flexCenter py-1">
-                        <div className="text-[18px] font-sans">Old Price:&nbsp;</div>
-                        <img src={NairaSign} alt="N" className="w-4 h-4 mr-[2px]" />
-                        <div className="text-[16px] line-through text-secondaryBrown font-semibold font-poppins">
+                    <div className="flexCenter">
+                        <div className="text-[17px] font-sans leading-[10px]">
+                            Old Price:&nbsp;
+                        </div>
+                        <img src={NairaSign} alt="N" className="w-5 h-5" />
+                        <div className="text-[16px] line-through text-secondaryBrown font-semibold 
+                            font-poppins leading-[10px] ml-1">
                             {oldPrice}
                         </div>
                     </div>

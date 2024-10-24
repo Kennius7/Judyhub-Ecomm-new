@@ -118,6 +118,10 @@
     @apply flex flex-row justify-center items-center;
   }
 
+  .flexCenterFlat {
+    @apply flex flex-row justify-center items-end;
+  }
+
 }
 
 
