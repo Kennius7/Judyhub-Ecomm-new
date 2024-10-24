@@ -6,7 +6,7 @@ const Offers = () => {
             className="bg-offers bg-cover ss:bg-center bg-no-repeat w-full ss:h-[500px] 
             xs:h-[350px] h-[400px] relative py-[40px] xs:px-6 px-2"
         >
-            <div className="xs:mt-0 mt-[80px]">
+            <div className="xs:mt-[110px] mt-[80px]">
                 <div className="text-white ss:text-[70px] xs:text-[40px] text-[32px] font-poppins 
                     xs:tracking-normal -tracking-[1px]">
                     End of year sales 50%
