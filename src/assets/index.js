@@ -13,4 +13,5 @@ export { default as TwitterIcon } from "./twitter1.svg";
 export { default as LinkedInIcon } from "./linkedin1.svg";
 
 export { default as SearchIcon } from "./search.svg";
+export { default as NairaSign } from "./NairaSign.svg";
 

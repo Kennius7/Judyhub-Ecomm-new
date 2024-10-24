@@ -156,6 +156,10 @@
   background-image: url("./assets/bg1.jpg");
 }
 
+.bg-offers {
+  background-image: url("./assets/Offers_BG.jpg");
+}
+
 .button-gradient1 {
   background: linear-gradient(90deg, "#0db915", #064709);
 }

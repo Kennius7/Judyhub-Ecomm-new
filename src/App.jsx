@@ -14,7 +14,6 @@ function App () {
   const [active, setActive] = useState("Home");
 
   return (
-    // eslint-disable-next-line no-undef
     <MainContext.Provider value={{active, setActive}}>
       <BrowserRouter>
         <Header/>
@@ -23,6 +22,7 @@ function App () {
           <Route path={navLinks[1].link} element={<Category/>} />
           <Route path={navLinks[2].link} element={<Category/>} />
           <Route path={navLinks[3].link} element={<Category/>} />
+          <Route path={navLinks[4].link} element={<Category/>} />
           <Route path="/product" element={<Product/>}>
             <Route path=":productID" element={<Product/>} />
           </Route>
