@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
+import bannerPics from "./assets/Offers_BG.jpg";
 
 
 
@@ -19,10 +20,10 @@ function App () {
         <Header/>
         <Routes>
           <Route path={navLinks[0].link} element={<Home/>} />
-          <Route path={navLinks[1].link} element={<Category/>} />
-          <Route path={navLinks[2].link} element={<Category/>} />
-          <Route path={navLinks[3].link} element={<Category/>} />
-          <Route path={navLinks[4].link} element={<Category/>} />
+          <Route path={navLinks[1].link} element={<Category category={navLinks[1].name} banner={bannerPics}/>} />
+          <Route path={navLinks[2].link} element={<Category category={navLinks[2].name} banner={bannerPics}/>} />
+          <Route path={navLinks[3].link} element={<Category category={navLinks[3].name} banner={bannerPics}/>} />
+          <Route path={navLinks[4].link} element={<Category category={navLinks[4].name} banner={bannerPics}/>} />
           <Route path="/product" element={<Product/>}>
             <Route path=":productID" element={<Product/>} />
           </Route>

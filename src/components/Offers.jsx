@@ -15,8 +15,11 @@ const Offers = () => {
                     xs:tracking-normal -tracking-[1px]">
                     Oil perfumes in sizes from 3ml to 1litre
                 </div>
-                <button className="text-slate-900 xs:text-[20px] text-[16px] xs:px-10 px-6 py-3 
-                    bg-primaryGreen rounded-[25px] xs:mt-10 mt-4 font-semibold font-poppins">
+                <button 
+                    style={{ background: "linear-gradient(180deg, #0db915, #064709)" }} 
+                    className="text-slate-900 xs:text-[20px] text-[16px] xs:px-10 px-6 py-3 cursor-pointer
+                    bg-primaryGreen rounded-[25px] xs:mt-10 mt-4 font-semibold font-poppins 
+                    outline-none button-shadow1">
                     Go to Store
                 </button>
             </div>

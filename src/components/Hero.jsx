@@ -3,9 +3,7 @@ import Star from "../assets/star.svg";
 
 
 const Hero = () => {
-
-    const starDimensions = "ss:w-8 ss:h-8 w-6 h-6"
-
+    const starDimensions = "ss:w-8 ss:h-8 w-6 h-6";
 
     return (
         <section className="bg-hero bg-cover ss:bg-center bg-no-repeat w-full ss:h-[500px] xs:h-[350px] h-[400px] relative">
@@ -49,12 +47,14 @@ const Hero = () => {
                 >
                     <button 
                         style={{ background: "linear-gradient(180deg, #0db915, #064709)" }} 
-                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] text-[14px]">
+                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] 
+                        text-[14px] text-slate-900 font-semibold">
                         Start Shopping Now
                     </button>
                     <button 
                         style={{ background: "linear-gradient(180deg, #0db915, #064709)" }} 
-                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] text-[14px]">
+                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] 
+                        text-[14px] text-slate-900 font-semibold">
                         Explore Today&apos;s Deals
                     </button>
                 </div>
