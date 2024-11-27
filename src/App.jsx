@@ -13,9 +13,10 @@ import bannerPics from "./assets/Offers_BG.jpg";
 function App () {
 
   const [active, setActive] = useState("Home");
+  const [loginState, setLoginState] = useState(false);
 
   return (
-    <MainContext.Provider value={{active, setActive}}>
+    <MainContext.Provider value={{ active, setActive, loginState, setLoginState }}>
       <BrowserRouter>
         <Header/>
         <Routes>
@@ -25,7 +26,7 @@ function App () {
           <Route path={navLinks[3].link} element={<Category category={navLinks[3].name} banner={bannerPics}/>} />
           <Route path={navLinks[4].link} element={<Category category={navLinks[4].name} banner={bannerPics}/>} />
           <Route path="/product" element={<Product/>}>
-            <Route path=":productID" element={<Product/>} />
+            <Route path=":productId" element={<Product/>} />
           </Route>
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<Login/>} />

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
-import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from "../constants/data";
+import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS, navLinks } from "../constants/data";
 import logo from "../assets/judyhub-logo02.png";
 
 
@@ -40,7 +40,7 @@ const Footer = () => {
                                 <ul className={`${margTop}`}>
                                     {
                                         col.links.map((link, index) => (
-                                            <Link to={'/'} key={index}>
+                                            <Link to={navLinks[1].link} key={index}>
                                                 <li className="text-slate-500 xs:text-[14px] text-[12px] 
                                                     ss:mb-[16px] xs:mb-[8px] mb-[4px]">
                                                     {link}

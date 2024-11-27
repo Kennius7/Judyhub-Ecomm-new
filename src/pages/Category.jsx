@@ -2,12 +2,14 @@
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { CategoryItems } from "../constants/data";
 import ProductItem from "../components/ProductItem";
+import ScrollToTop from "../../ScrollToTop";
 
 
 
 const Category = ({ category, banner }) => {
   return (
     <section className="">
+      <ScrollToTop/>
       <div className="w-full h-[300px]">
         <img src={banner} alt="banner" className="w-full h-full bg-center object-center" />
       </div>

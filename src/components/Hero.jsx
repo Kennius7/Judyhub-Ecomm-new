@@ -1,4 +1,5 @@
 import Star from "../assets/star.svg";
+import Button from "./Button";
 
 
 
@@ -45,18 +46,14 @@ const Hero = () => {
                     className="flex justify-between items-center ss:w-[40%] xs:w-[75%] w-[96%] ss:h-[40px] 
                     h-[35px] ss:mt-8 mt-5"
                 >
-                    <button 
-                        style={{ background: "linear-gradient(180deg, #0db915, #064709)" }} 
-                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] 
-                        text-[14px] text-slate-900 font-semibold">
-                        Start Shopping Now
-                    </button>
-                    <button 
-                        style={{ background: "linear-gradient(180deg, #0db915, #064709)" }} 
-                        className="w-[48%] h-full rounded-[22px] button-shadow1 font-sans ss:text-[16px] 
-                        text-[14px] text-slate-900 font-semibold">
-                        Explore Today&apos;s Deals
-                    </button>
+                    <Button 
+                        buttonText={"Start Shopping Now"}
+                        className={`w-[48%] h-full rounded-[22px] shadow-[0px_0px_5px_0px_#0b1f139c] 
+                        font-sans ss:text-[16px] text-[14px] text-slate-900 font-semibold`} />
+                    <Button 
+                        buttonText={"Explore Today's Deals"}
+                        className={`w-[48%] h-full rounded-[22px] shadow-[0px_0px_5px_0px_#0b1f139c] 
+                        font-sans ss:text-[16px] text-[14px] text-slate-900 font-semibold`} />
                 </div>
             </div>
         </section>

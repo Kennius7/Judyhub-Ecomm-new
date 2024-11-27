@@ -2,11 +2,12 @@ import Navbar from "./Navbar";
 import logo from "../assets/judyhub-logo02.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { capitalize } from "lodash"
+// import { capitalize } from "lodash"
 import { MdMenuOpen } from "react-icons/md";
 import { MdOutlineMenu } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom"
+import Button from "./Button";
 
 
 
@@ -15,18 +16,18 @@ const Header = () => {
   const navigate = useNavigate();
   const [menuOpened, setMenuOpened] = useState(false);
   let cartItemNumber = 3;
-  const [logState, setLogState] = useState(false);
-  const [logText, setLogText] = useState("login");
+  // const [logState, setLogState] = useState(false);
+  // const [logText, setLogText] = useState("login");
 
-  const handleLogStateText = () => {
-    if (!logState) {
-      setLogState(true);
-      setLogText("login");
-    } else {
-      setLogState(false);
-      setLogText("logout");
-    }
-  }
+  // const handleLogStateText = () => {
+  //   if (!logState) {
+  //     setLogState(true);
+  //     setLogText("login");
+  //   } else {
+  //     setLogState(false);
+  //     setLogText("logout");
+  //   }
+  // }
 
 
   return (
@@ -75,12 +76,11 @@ const Header = () => {
           </span>
         </NavLink>
         {/*Login Button Nav block*/}
-        <NavLink to={logText} >
-          <button onClick={handleLogStateText}
-            className="xs:w-20 xs:h-8 w-16 h-8 rounded-[20px] bg-primaryGreen 
-            xs:text-[14px] text-[12px] text-white">
-            {capitalize(logText)}
-          </button>
+        <NavLink to={"/login"} >
+          <Button 
+            buttonText={"Login"} 
+            className={`xs:w-20 xs:h-8 w-16 h-8 rounded-[20px] bg-primaryGreen xs:text-[14px] 
+            text-[12px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
         </NavLink>
       </div>
     </div>
