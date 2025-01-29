@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { Header, Footer, AdminSection, AdminButton } from "./components";
 import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
@@ -19,6 +18,7 @@ function App () {
     <MainContext.Provider value={{ active, setActive, loginState, setLoginState }}>
       <BrowserRouter>
         <Header/>
+        <AdminButton/>
         <Routes>
           <Route path={navLinks[0].link} element={<Home/>} />
           <Route path={navLinks[1].link} element={<Category category={navLinks[1].name} banner={bannerPics}/>} />
@@ -31,6 +31,7 @@ function App () {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
+          <Route path="/admin" element={<AdminSection/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

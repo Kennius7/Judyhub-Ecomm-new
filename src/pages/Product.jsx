@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { CategoryItems as AllProducts } from "../constants/data"
 import ProductHeader from "../components/ProductHeader";
 import ProductDisplay from "../components/ProductDisplay";
-import ScrollToTop from "../../ScrollToTop.js";
+import ScrollToTop from "../../ScrollToTop";
 
 
 const Product = () => {

@@ -8,6 +8,7 @@ import { MdOutlineMenu } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom"
 import Button from "./Button";
+import { userIcon } from "../assets";
 
 
 
@@ -16,6 +17,10 @@ const Header = () => {
   const navigate = useNavigate();
   const [menuOpened, setMenuOpened] = useState(false);
   let cartItemNumber = 3;
+  let DPPics = "";
+  let name = "Kenny";
+  let isLoggedIn = null;
+  let isTokenExpired = false;
   // const [logState, setLogState] = useState(false);
   // const [logText, setLogText] = useState("login");
 
@@ -31,7 +36,8 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-white px-2">
+    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-white/80 
+      px-2 fixed z-10 backdrop-blur-md">
       {/*Logo block*/}
       <div 
         onClick={()=>navigate("/")}
@@ -62,6 +68,16 @@ const Header = () => {
             { !menuOpened ? <MdMenuOpen size={24} /> : <MdOutlineMenu size={24} /> }
           </button>
         </div>
+        {/*Name Welcome block*/}
+        <div className="font-medium font-sans md:text-[15px] ss:text-[13px] text-[11px] 
+          text-secondaryBrown italic ss:px-2 px-1">
+          { 
+              isLoggedIn !== null && !isTokenExpired 
+              ? "Hi, " + name?.split(" ")[0] 
+              : isLoggedIn !== null && isTokenExpired ? "Please sign in again!" 
+              : "Hi, Guest"  
+          }
+        </div>
         {/*Cart Icon Nav block*/}
         <NavLink
           to={"/cart"} 
@@ -75,10 +91,22 @@ const Header = () => {
             {cartItemNumber}
           </span>
         </NavLink>
+        {/*Profile Pics block*/}
+        <NavLink
+          to={"/profile"} 
+          className="flex justify-center items-center sm:w-8 sm:h-8 w-6 h-6 ring-1 ring-primaryGreen/80 
+          rounded-full shadow-lg overflow-hidden xs:mx-2 mx-2 bg-secondaryBrown"
+        >
+            <img 
+                src={ DPPics === "" || DPPics === undefined ? userIcon : DPPics } 
+                alt="profile pics" 
+                className="w-full h-full object-cover opacity-80"
+            />
+        </NavLink>
         {/*Login Button Nav block*/}
         <NavLink to={"/login"} >
           <Button 
-            buttonText={"Login"} 
+            buttonText={"Sign up"} 
             className={`xs:w-20 xs:h-8 w-16 h-8 rounded-[20px] bg-primaryGreen xs:text-[14px] 
             text-[12px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
         </NavLink>
