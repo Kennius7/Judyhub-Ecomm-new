@@ -6,6 +6,8 @@ import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
 import bannerPics from "./assets/Offers_BG.jpg";
+import { ToastContainer } from 'react-toastify';
+import '@mantine/core/styles.css';
 
 
 
@@ -16,6 +18,16 @@ function App () {
 
   return (
     <MainContext.Provider value={{ active, setActive, loginState, setLoginState }}>
+      <ToastContainer 
+        position='top-right' 
+        autoClose={4000} 
+        hideProgressBar={false} 
+        newestOnTop={true} 
+        closeOnClick
+        draggable
+        pauseOnHover
+        theme='light'
+      />
       <BrowserRouter>
         <Header/>
         <AdminButton/>

@@ -36,7 +36,7 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center w-full h-[60px] bg-white/80 
+    <div className="flex flex-row justify-between items-center w-full sm:h-[60px] h-[70px] bg-white/80 
       px-2 fixed z-10 backdrop-blur-md">
       {/*Logo block*/}
       <div 

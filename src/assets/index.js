@@ -15,4 +15,5 @@ export { default as LinkedInIcon } from "./linkedin1.svg";
 export { default as SearchIcon } from "./search.svg";
 export { default as NairaSign } from "./NairaSign.svg";
 export { default as userIcon } from "./UserIcon.png";
+export { default as X_Icon } from "./X_Icon.svg";
 

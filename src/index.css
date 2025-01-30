@@ -125,6 +125,38 @@
 }
 
 
+.flexCenter { @apply flex flex-row justify-center items-center};
+.flexAround { @apply flex flex-row justify-around items-center};
+.flexBetween { @apply flex flex-row justify-between items-center};
+.flexStart { @apply flex flex-row justify-start items-center};
+.flexEnd { @apply flex flex-row justify-end items-center};
+
+.flexColCenter { @apply flex flex-col justify-center items-center};
+.flexColAround { @apply flex flex-col justify-around items-center};
+.flexColBetween { @apply flex flex-col justify-between items-center};
+.flexColStart { @apply flex flex-col justify-start items-center};
+.flexColEnd { @apply flex flex-col justify-end items-center};
+
+.flexCenterStart { @apply flex flex-row justify-center items-start }
+.flexStartStart { @apply flex flex-row justify-start items-start }
+.flexStartCenter { @apply flex flex-row justify-start items-center }
+.flexCenterEnd { @apply flex flex-row justify-center items-end }
+.flexEndEnd { @apply flex flex-row justify-end items-end }
+.flexEndCenter { @apply flex flex-row justify-end items-center }
+.flexStartEnd { @apply flex flex-row justify-start items-end }
+.flexEndStart { @apply flex flex-row justify-end items-start }
+
+.flexColCenterStart { @apply flex flex-col justify-center items-start }
+.flexColStartStart { @apply flex flex-col justify-start items-start }
+.flexColStartCenter { @apply flex flex-col justify-start items-center }
+.flexColCenterEnd { @apply flex flex-col justify-center items-end }
+.flexColEndEnd { @apply flex flex-col justify-end items-end }
+.flexColEndCenter { @apply flex flex-col justify-end items-center }
+.flexColStartEnd { @apply flex flex-col justify-start items-end }
+.flexColEndStart { @apply flex flex-col justify-end items-start }
+
+.flexAroundStart { @apply flex flex-row justify-around items-start};
+
 
 /********************************************    CUSTOM CSS   *******************************************/
 

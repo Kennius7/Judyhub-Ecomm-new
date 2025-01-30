@@ -5,15 +5,19 @@ import { getStorage } from "firebase/storage";
 
 
 
+const apiKey = import.meta.env.VITE_API_KEY;
+const messagingSenderId = import.meta.env.VITE_MESSAGING_SENDERID;
+const appId = import.meta.env.VITE_APP_ID;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCoFkIm8rQy2akRj2Izlu3BWCieLis9IKM",
+  apiKey: apiKey,
   authDomain: "judy-hub-ecommerce.firebaseapp.com",
   projectId: "judy-hub-ecommerce",
   storageBucket: "judy-hub-ecommerce.appspot.com",
-  messagingSenderId: "422090492932",
-  appId: "1:422090492932:web:63d0fde2ab0d708c9e7951",
+  messagingSenderId: messagingSenderId,
+  appId: appId,
   measurementId: "G-N0S8329WMD"
-  };
+};
 
 
 const app = initializeApp(firebaseConfig);

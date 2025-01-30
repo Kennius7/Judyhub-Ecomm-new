@@ -7,8 +7,8 @@ const Hero = () => {
     const starDimensions = "ss:w-8 ss:h-8 w-6 h-6";
 
     return (
-        <section className="bg-hero bg-cover ss:bg-center bg-no-repeat w-full ss:h-[500px] xs:h-[350px] h-[400px] relative">
-            <div className="w-full absolute z-[2] ss:top-32 top-10 pl-2">
+        <section className="bg-hero bg-cover ss:bg-center bg-no-repeat w-full sm:h-[500px] xs:h-[350px] h-[450px] relative">
+            <div className="w-full absolute z-[2] xs:top-32 top-24 pl-2">
                 <h1 
                     style={{ 
                         background: "linear-gradient(180deg, #146409, #000)",
