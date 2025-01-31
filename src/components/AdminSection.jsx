@@ -1,7 +1,5 @@
 import { useState } from "react";
 import UploadImage from "./UploadImages";
-// import { db } from "../../firebaseConfig";
-// import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { judyhubProducts } from "../constants/data";
 import Button from "./Button";

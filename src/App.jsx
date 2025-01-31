@@ -8,16 +8,45 @@ import { MainContext } from "./context/mainContext";
 import bannerPics from "./assets/Offers_BG.jpg";
 import { ToastContainer } from 'react-toastify';
 import '@mantine/core/styles.css';
+import axios from "axios";
 
 
 
 function App () {
-
   const [active, setActive] = useState("Home");
   const [loginState, setLoginState] = useState(false);
+  const [menuOpened, setMenuOpened] = useState(false);
+  const [fetchedData, setFetchedData] = useState({ products: [] });
+  const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
+
+  const downloadData = async () => {
+    console.log("Fetched Data:", fetchedData);
+    if (fetchedData.products.length === 0 || fetchedData.products.length === undefined) {
+      try {
+          const response = await axios.get(apiGetDataUrl);
+          const allProducts = response.data.data;
+          setFetchedData({ 
+              ...fetchedData, 
+              products: allProducts, 
+          });
+          console.log("Updated Data: ", fetchedData);
+      } catch (error) {
+        console.error("Error downloading data: >>>>", error.message);
+        // downloadData();
+      }
+    } else {
+      console.log("Data already fetched:", fetchedData);
+    }
+  };
+
+  downloadData();
+
+
 
   return (
-    <MainContext.Provider value={{ active, setActive, loginState, setLoginState }}>
+    <MainContext.Provider 
+      value={{ active, setActive, loginState, setLoginState, fetchedData, menuOpened, setMenuOpened }}
+    >
       <ToastContainer 
         position='top-right' 
         autoClose={4000} 
@@ -30,7 +59,7 @@ function App () {
       />
       <BrowserRouter>
         <Header/>
-        <AdminButton/>
+        { !menuOpened && <AdminButton/> }
         <Routes>
           <Route path={navLinks[0].link} element={<Home/>} />
           <Route path={navLinks[1].link} element={<Category category={navLinks[1].name} banner={bannerPics}/>} />
