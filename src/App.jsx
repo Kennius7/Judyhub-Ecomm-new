@@ -9,6 +9,8 @@ import bannerPics from "./assets/Offers_BG.jpg";
 import { ToastContainer } from 'react-toastify';
 import '@mantine/core/styles.css';
 import axios from "axios";
+import { useEffect } from "react";
+import Profile from "./pages/Profile";
 
 
 
@@ -16,6 +18,7 @@ function App () {
   const [active, setActive] = useState("Home");
   const [loginState, setLoginState] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [pathAccess, setPathAccess] = useState(false);
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
 
@@ -25,10 +28,7 @@ function App () {
       try {
           const response = await axios.get(apiGetDataUrl);
           const allProducts = response.data.data;
-          setFetchedData({ 
-              ...fetchedData, 
-              products: allProducts, 
-          });
+          setFetchedData({ ...fetchedData, products: allProducts, });
           console.log("Updated Data: ", fetchedData);
       } catch (error) {
         console.error("Error downloading data: >>>>", error.message);
@@ -36,16 +36,22 @@ function App () {
       }
     } else {
       console.log("Data already fetched:", fetchedData);
+      setPathAccess(true);
     }
   };
 
-  downloadData();
+  useEffect(() => {
+    downloadData();
+  })
 
 
 
   return (
     <MainContext.Provider 
-      value={{ active, setActive, loginState, setLoginState, fetchedData, menuOpened, setMenuOpened }}
+      value={{ 
+        active, setActive, loginState, setLoginState, fetchedData, menuOpened, 
+        setMenuOpened, pathAccess, setPathAccess 
+      }}
     >
       <ToastContainer 
         position='top-right' 
@@ -73,6 +79,7 @@ function App () {
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
           <Route path="/admin" element={<AdminSection/>} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

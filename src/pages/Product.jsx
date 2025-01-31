@@ -1,15 +1,20 @@
+/* eslint-disable no-unused-vars */
 // /* eslint-disable no-unused-vars */
 import { useParams } from "react-router-dom";
 import { CategoryItems as AllProducts } from "../constants/data"
 import ProductHeader from "../components/ProductHeader";
 import ProductDisplay from "../components/ProductDisplay";
 import ScrollToTop from "../../ScrollToTop";
+import { useContext } from "react";
+import { MainContext } from "../context/mainContext";
 
 
 const Product = () => {
   // const AllProducts = CategoryItems;
+  const { fetchedData } = useContext(MainContext);
   const { productId } = useParams();
-  const Products = AllProducts.find(p => p.id === Number(productId));
+  // const Products = AllProducts.find(p => p.id === Number(productId));
+  const Products = fetchedData.products.find(p => p.id === Number(productId));
   // console.log("Products: ", Products, "Product ID: ", productId);
 
   if (!Products) {

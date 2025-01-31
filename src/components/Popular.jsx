@@ -1,8 +1,11 @@
-import { PopularProducts } from "../constants/data";
 import ProductItem from "./ProductItem";
+import { useContext } from "react";
+import { MainContext } from "../context/mainContext";
 
 
 const Popular = () => {
+    const { fetchedData } = useContext(MainContext);
+    const PopularProducts = fetchedData.products;
 
     return (
         <section className="bg-slate-100 md:py-6 ss:py-4 py-2 px-5">
@@ -15,9 +18,9 @@ const Popular = () => {
             />
             <div className="mt-[20px] grid md:grid-cols-4 ss:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-6">
                 {
-                    PopularProducts.map(product => (
-                        <ProductItem item={product} key={product.id} />
-                    ))
+                    PopularProducts.filter(product => product.tags === "popular").map(
+                        product => <ProductItem item={product} key={product.id} />
+                    )
                 }
             </div>
         </section>

@@ -6,16 +6,11 @@ import SignUpAuth from "../components/SignUpAuth";
 
 
 const Login = () => {
-
     const { loginState } = useContext(MainContext);
 
     return (
         <section className="flex flex-row justify-center items-center w-full bg-slate-200">
-            {
-                loginState 
-                ? (<SignInAuth/>) 
-                : (<SignUpAuth/>)
-            }
+            { !loginState ? <SignInAuth/> : <SignUpAuth/> }
         </section>
     )
 }

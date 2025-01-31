@@ -67,7 +67,7 @@ const Header = () => {
             {/*Login Button Nav block*/}
             <NavLink to={"/login"} className={`flexCenter ml-1 mt-1`}>
               <Button 
-                buttonText={"Sign up"} 
+                buttonText={"Sign in"} 
                 className={`xs:w-20 xs:h-8 w-[70px] h-[24px] rounded-[12px] bg-primaryGreen xs:text-[14px] 
                 text-[11px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
             </NavLink>
@@ -113,7 +113,7 @@ const Header = () => {
             {/*Login Button Nav block*/}
             <NavLink to={"/login"} className={`xs:block hidden`}>
               <Button 
-                buttonText={"Sign up"} 
+                buttonText={"Sign in"} 
                 className={`xs:w-20 xs:h-8 w-16 h-8 rounded-[20px] bg-primaryGreen xs:text-[14px] 
                 text-[12px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
             </NavLink>

@@ -9,7 +9,7 @@ import { BiChevronLeft } from "react-icons/bi";
 
 
 const Navbar = ({ containerStyles1 }) => {
-    const { active, setActive } = useContext(MainContext);
+    const { active, setActive, pathAccess } = useContext(MainContext);
 
     return (
         <nav className="w-full">
@@ -18,7 +18,7 @@ const Navbar = ({ containerStyles1 }) => {
                     navLinks.map((nav, index) => (
                         <NavLink 
                             key={index}
-                            to={nav.link} 
+                            to={pathAccess ? nav.link : "/"} 
                             className={`flex xs:justify-center justify-between items-center 
                             xs:px-3 px-2 xs:h-[35px] h-[30px] m-1 cursor-pointer hover:text-primaryGreen 
                             xs:w-fit w-full duration-500 transition-all xs:hover:border-b-4 hover:border-b-0 
