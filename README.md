@@ -11,8 +11,8 @@ Currently, two official plugins are available:
 
 Note:
 
-1. Make the server functional.
-2. Initiate the sign in and sign up features.
-3. Make the difference between the normal app view and admin access to be the same except for the editable features
-4. Make the logged user state persistent using local storage.
-5. Create a user profile page and a cart page.
+
+
+1. Make the difference between the normal app view and admin access to be the same except for the editable features
+2. Make the logged user state persistent using local storage.
+3. Create a user profile page and a cart page.
