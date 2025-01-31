@@ -32,7 +32,7 @@ const Header = () => {
 
 
   return (
-    <div className="flex flex-row justify-between items-center w-full sm:h-[60px] h-[70px] bg-slate-200/80 
+    <div className="flex flex-row justify-between items-center w-full sm:h-[60px] h-[68px] bg-slate-200/80 
       xs:px-2 px-1 fixed z-10 backdrop-blur-md">
       {/*Logo block*/}
       <div 
@@ -65,11 +65,11 @@ const Header = () => {
               }
             </div>
             {/*Login Button Nav block*/}
-            <NavLink to={"/login"} className={`flexCenter ml-2`}>
+            <NavLink to={"/login"} className={`flexCenter ml-1 mt-1`}>
               <Button 
                 buttonText={"Sign up"} 
-                className={`xs:w-20 xs:h-8 w-16 h-6 rounded-[10px] bg-primaryGreen xs:text-[14px] 
-                text-[12px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
+                className={`xs:w-20 xs:h-8 w-[70px] h-[24px] rounded-[12px] bg-primaryGreen xs:text-[14px] 
+                text-[11px] text-white shadow-[0px_0px_5px_0px_#0b1f139c]`} />
             </NavLink>
           </div>
 
@@ -88,13 +88,13 @@ const Header = () => {
             {/*Cart Icon Nav block*/}
             <NavLink
               to={"/cart"} 
-              className="relative flex justify-center items-center w-8 h-8 ring-1 ring-slate-900/3 rounded-full 
-              p-1 mr-2 shadow-lg"
+              className="relative flex justify-center items-center xs:w-8 xs:h-8 w-7 h-7 ring-1 
+              ring-slate-900/3 rounded-full p-1 xs:mr-2 mr-1 shadow-lg"
             >
               <IoCartOutline size={32}/>
-              <span className={`absolute z-2 left-5 bottom-5 w-5 h-5 p-1 bg-primaryGreen rounded-full 
-                text-white text-center flex justify-center items-center 
-                ${cartItemNumber >= 100 ? "text-[10px]" : "text-[12px]" }`}>
+              <span className={`absolute z-2 xs:left-5 xs:bottom-5 left-[19px] bottom-4 xs:w-5 xs:h-5 w-4 h-4 p-1 
+                bg-primaryGreen rounded-full text-white text-center flex justify-center items-center 
+                ${cartItemNumber >= 100 ? "xs:text-[10px] text-[8px]" : "xs:text-[12px] text-[10px]" }`}>
                 {cartItemNumber}
               </span>
             </NavLink>
@@ -102,7 +102,7 @@ const Header = () => {
             <NavLink
               to={"/profile"} 
               className="flex justify-center items-center sm:w-8 sm:h-8 w-7 h-7 ring-1 ring-primaryGreen/80 
-              rounded-full shadow-lg xs:mx-2 mx-2 bg-secondaryBrown"
+              rounded-full shadow-lg xs:mx-2 mx-1 bg-secondaryBrown"
             >
                 <img 
                     src={ DPPics === "" || DPPics === undefined ? userIcon : DPPics } 
