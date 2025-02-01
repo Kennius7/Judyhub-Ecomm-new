@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import UploadImage from "./UploadImages";
 import { toast } from "react-toastify";
 import { judyhubProducts } from "../constants/data";
 import Button from "./Button";
 import axios from "axios";
+import PopularAdmin from "./PopularAdmin";
 
 
 
@@ -50,8 +52,9 @@ const AdminSection = () => {
     }
 
     return (
-        <section className="w-full h-[600px] bg-slate-400 flexColCenter">
-            <div className="w-full flexCenter">
+        <section className="w-full bg-slate-100 flexColCenter py-20">
+            <PopularAdmin/>
+            {/* <div className="w-full flexCenter">
                 <div 
                     onClick={handlePictureEdit} 
                     className="text-[22px]"
@@ -89,7 +92,7 @@ const AdminSection = () => {
                 setImage={setImage}
                 buttonText={buttonText}
                 setButtonText={setButtonText}
-            />
+            /> */}
         </section>
     )
 }
