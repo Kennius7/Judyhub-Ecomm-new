@@ -1,8 +1,13 @@
 
 
 const Cart = () => {
+
   return (
-    <div>Cart</div>
+    <div className="w-full h-[70vh] flexCenter">
+        <div>
+            Your Cart Profile
+        </div>
+    </div>
   )
 }
 

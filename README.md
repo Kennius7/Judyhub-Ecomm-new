@@ -16,3 +16,5 @@ Note:
 1. Make the difference between the normal app view and admin access to be the same except for the editable features
 2. Make the logged user state persistent using local storage.
 3. Create a user profile page and a cart page.
+4. Check the Signin validations.
+5. Make the admin dashboard for editing

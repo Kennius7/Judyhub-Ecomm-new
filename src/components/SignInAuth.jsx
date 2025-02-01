@@ -36,7 +36,7 @@ const SignUp = () => {
                 const fetchedToken = response?.data?.token;
                 localStorage.setItem("user-token", fetchedToken);
                 console.log("Token:>>>>", fetchedToken);
-                const message = response?.data?.message || "Signed in successfully!";
+                const message = response?.data?.message;
                 // console.log("Message:>>>>", response);
                 toast(message, { type: "success" });
                 setSignInFormData({ ...signInFormData, email: "", password: "" });
@@ -45,7 +45,7 @@ const SignUp = () => {
                 setTimeout(() => navigate("/profile"), 3000);
             } catch (error) {
                 console.error("Error signing in:", error);
-                const errorMessage = error?.message || "An unexpected error occurred.";
+                const errorMessage = error?.response?.data?.error || "An unexpected error occurred.";
                 toast(`Error: ${errorMessage}`, { type: "error" });
                 setSigninText("Sign In Failed!");
                 setTimeout(() => setSigninText("Sign In"), 2000);

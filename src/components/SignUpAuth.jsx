@@ -45,7 +45,9 @@ const SignUp = () => {
                 const errorMessage = error?.response?.data?.error;
                 const errMessage = errorMessage === "Error: Firebase: Error (auth/email-already-in-use)." 
                 ? "Email has been used before." : errorMessage === "Error: Firebase: Error (auth/network-request-failed)." 
-                ? "Network error. Check you network." : "An unexpected error occurred."
+                ? "Network error. Check you network." 
+                : errorMessage === "Password is too weak. Please choose a stronger password." 
+                ? "Password too weak. Use a stronger password." : "An unexpected error occurred."
                 toast(errMessage, { type: "error" });
                 setSignupText("Sign Up Failed!");
                 setTimeout(() => setSignupText("Sign Up"), 2000);
@@ -138,3 +140,4 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
