@@ -25,7 +25,7 @@ const Button = ({
                 <div className={`flexCenter`}>
                     {/* <Loader size="xs" variant="bars" color={loaderColor} /> */}
                     <div 
-                        style={{ borderColor: loaderColor }} 
+                        style={{ borderColor: loaderColor, borderTopColor: "transparent" }} 
                         className="w-5 h-5 border-4 border-t-transparent rounded-full animate-spin"></div>
                 </div>
             )

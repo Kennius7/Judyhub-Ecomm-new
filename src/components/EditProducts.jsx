@@ -1,0 +1,373 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useState, useRef } from "react";
+import { storage } from "../../firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import Modal from "./Modal";
+import Button from "./Button";
+import { toast } from "react-toastify";
+import { PiPencil } from "react-icons/pi";
+import axios from "axios";
+
+
+
+const EditProducts = ({ 
+    isShow, onClose, title="Edit Data", id, newPrice, oldPrice, productName, category, tags, image,
+}) => {
+
+    const [imageUrl, setImageUrl] = useState(image);
+    const [preview, setPreview] = useState(image);
+    const [images, setImages] = useState(null);
+    const [progress, setProgress] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [buttonText, setButtonText] = useState("Save");
+    let progressWidthValue = progress.toString() + "%";
+    const apiPostProductUrl = import.meta.env.VITE_API_POST_PRODUCT_URL
+
+    const nameRef = useRef(null);
+    const priceRef = useRef(null);
+    const oldPriceRef = useRef(null);
+    const categoryRef = useRef(null);
+    const tagsRef = useRef(null);
+
+    const [isEditProfile, setIsEditProfile] = useState({
+        productName: false,
+        newPrice: false,
+        oldPrice: false,
+        category: false,
+        tags: false,
+    });
+
+    const [productData, setProductData] = useState({
+        productName: productName,
+        newPrice: newPrice,
+        oldPrice: oldPrice,
+        category: category,
+        tags: tags,
+    }); 
+
+    const handleChange = (e) => {
+        setProductData({
+            ...productData,
+            [e.target.name]: e.target.value,
+        });
+        console.log("Product Data Change:", productData);
+    };
+
+    const editField = async (ref) => {
+        console.log("Ref Values Check:", ref.current.firstChild.placeholder, ref.current.firstChild.value);
+        console.log("Doc Id: ", id);
+
+        if (ref.current && ref.current.firstChild.name === "productName") {
+            setIsEditProfile({ ...isEditProfile, productName: !isEditProfile.productName });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+            // setProductData({ ...productData, productName: productData.productName });
+        }
+        if (ref.current && ref.current.firstChild.name === "newPrice") {
+            setIsEditProfile({ ...isEditProfile, newPrice: !isEditProfile.newPrice });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+            // setProductData({ ...productData, newPrice: productData.newPrice });
+        }
+        if (ref.current && ref.current.firstChild.name === "oldPrice") {
+            setIsEditProfile({ ...isEditProfile, oldPrice: !isEditProfile.oldPrice });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+            // setProductData({ ...productData, oldPrice: productData.oldPrice });
+        }
+        if (ref.current && ref.current.firstChild.name === "category") {
+            setIsEditProfile({ ...isEditProfile, category: !isEditProfile.category });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+            // setProductData({ ...productData, category: productData.category });
+        }
+        if (ref.current && ref.current.firstChild.name === "tags") {
+            setIsEditProfile({ ...isEditProfile, tags: !isEditProfile.tags });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+            // setProductData({ ...productData, tags: productData.tags });
+        }
+    }
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImages(file);
+            setPreview(URL.createObjectURL(file));
+            setTimeout(() => { console.log("Preview Pics:", preview, "Image Content:", images) }, 3000);
+        }
+    };
+
+    const handleUpload = async () => {
+        setIsLoading(true);
+        setButtonText("Saving");
+        setProgress(0);
+        if (!images && imageUrl?.length === 0) {
+            toast("Please select a picture to upload", { type: "warning" });
+            setIsLoading(false);
+            setButtonText("Save");
+            return;
+        }
+
+        if (images?.name) {
+            const uniqueFileName = `${uuidv4()}_${images?.name}`;
+            const storageRef = ref(storage, `images/${uniqueFileName}`);
+            const uploadTask = uploadBytesResumable(storageRef, images);
+            const addVar = 0.001;
+    
+            const initialUploadIllusion = () => {
+                for (let index = 0; index < 2; index += addVar) setProgress(prev => prev + addVar);
+            }
+            initialUploadIllusion();
+    
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    setProgress(prev => prev + progress);
+                },
+                (error) => {
+                    console.error("Data update failed", error);
+                    toast(`Picture upload failed!`, { type: "error" } );
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImageUrl(downloadURL);
+                        toast(`Picture saved!`, { type: "success" } );
+                    });
+                }
+            );
+        }
+
+
+        const imageURL = imageUrl;
+
+        try {
+            const response = await axios.post(
+                apiPostProductUrl, { id, productData, imageURL }
+            );
+            const message = response.data.message;
+            console.log("Response:>>>>", message);
+            toast(`Data updated successfully!`, { type: "success" } );
+        } catch (error) {
+            toast(`Error updating data. ${error}`, { type: "error" } );
+            console.error(error);
+        } finally {
+            setButtonText("Save");
+            setIsLoading(false);
+        }
+    };
+
+
+    return (
+        <Modal 
+            show={isShow} 
+            onClose={onClose} 
+            title={title}
+            width={window.innerWidth > 768 ? "650px" : "96%"}
+            height={window.innerWidth > 768 ? "420px" : "250px"}
+        >
+            <div className="flex flex-col justify-between w-full h-full mt-3">
+                <div className="flex flex-row justify-between items-center">
+                    {/* Product Image Data Value */}
+                    <div className="flex flex-col justify-around items-start">
+                        <input 
+                            key={images ? images.name : "default"}
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleFileChange} 
+                            className="w-[250px] mb-4 bg-primaryGreen text-white rounded-lg" 
+                        />
+                        <div className={`w-[200px] xs:h-[180px] h-[220px] flex flex-col justify-center 
+                            items-start mt-10`}>
+                            {
+                                preview ? (
+                                    <div className="flex flex-col justify-around items-start">
+                                        <h3 className="xs:text-[18px] text-[15px]">
+                                            Preview:
+                                        </h3>
+                                        <img 
+                                            src={preview} 
+                                            alt="Selected Preview" 
+                                            className="xs:w-[200px] w-[120px] xs:h-[200px] h-[120px] object-cover" 
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="xs:w-[150px] w-[120px] xs:h-[150px] h-[120px]"></div>
+                                )
+                            }
+                            <div className="w-[200px] flex flex-row justify-start my-2">
+                                <Button 
+                                    buttonText={buttonText}
+                                    onClick={handleUpload}
+                                    className={`w-[140px] h-[35px] rounded-[16px] text-[16px] flex flex-row 
+                                    justify-evenly items-center shadow-[0px_0px_5px_0px_#0b1f139c] 
+                                    font-medium text-white transition-all duration-300`} 
+                                    isLoading={isLoading}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Product Text Data Values */}
+                    <div className="w-[70%] flex flex-col justify-center items-start gap-2 mt-4">
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                                Product Name:
+                            </div>
+                            <div ref={nameRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.productName } 
+                                    disabled={!isEditProfile.productName}
+                                    name="productName"
+                                    value={!isEditProfile.productName ? "" : productData.productName}
+                                    onChange={handleChange}
+                                    onBlur={() => editField(nameRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                />
+                                <PiPencil 
+                                    onClick={() => editField(nameRef)} 
+                                    size={20} 
+                                    color={isEditProfile.productName ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer m-1`}
+                                />
+                            </div>
+                        </div>
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                                New Price:
+                            </div>
+                            <div ref={priceRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.newPrice } 
+                                    disabled={!isEditProfile.newPrice}
+                                    name="newPrice"
+                                    value={!isEditProfile.newPrice ? "" : productData.newPrice}
+                                    onChange={handleChange}
+                                    onBlur={() => editField(priceRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                />
+                                <PiPencil 
+                                    onClick={() => editField(priceRef)} 
+                                    size={20} 
+                                    color={isEditProfile.newPrice ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer m-1`}
+                                />
+                            </div>
+                        </div>
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                                Old Price:
+                            </div>
+                            <div ref={oldPriceRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.oldPrice } 
+                                    disabled={!isEditProfile.oldPrice}
+                                    name="oldPrice"
+                                    value={!isEditProfile.oldPrice ? "" : productData.oldPrice}
+                                    onChange={handleChange}
+                                    onBlur={() => editField(oldPriceRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                />
+                                <PiPencil 
+                                    onClick={() => editField(oldPriceRef)} 
+                                    size={20} 
+                                    color={isEditProfile.oldPrice ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer`}
+                                />
+                            </div>
+                        </div>
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                                Category:
+                            </div>
+                            <div ref={categoryRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.category } 
+                                    disabled={!isEditProfile.category}
+                                    name="category"
+                                    value={!isEditProfile.category ? "" : productData.category}
+                                    onChange={handleChange}
+                                    onBlur={() => editField(categoryRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                />
+                                <PiPencil 
+                                    onClick={() => editField(categoryRef)} 
+                                    size={20} 
+                                    color={isEditProfile.category ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer`}
+                                />
+                            </div>
+                        </div>
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                                Tags:
+                            </div>
+                            <div ref={tagsRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.tags } 
+                                    disabled={!isEditProfile.tags}
+                                    name="tags"
+                                    value={!isEditProfile.tags ? "" : productData.tags}
+                                    onChange={handleChange}
+                                    onBlur={() => editField(tagsRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                />
+                                <PiPencil 
+                                    onClick={() => editField(tagsRef)} 
+                                    size={20} 
+                                    color={isEditProfile.tags ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {
+                    isLoading ? (
+                        <div className="w-full h-[20px] bg-slate-300 rounded-lg flex flex-row 
+                            justify-center items-center mt-14">
+                            <div className="w-[98%] justify-start items-center">
+                                <div 
+                                    style={{ width: progressWidthValue, height: "12px" }} 
+                                    className={`bg-slate-600 rounded transition-all duration-1000`}
+                                >
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="w-full h-[20px]"></div>
+                    )
+                }
+            </div>
+
+        </Modal>
+    );
+};
+
+export default EditProducts;
+
+
+

@@ -2,7 +2,7 @@
 import { X_Icon } from "../assets";
 
 
-const Modal = ({ show, onClose, title, children }) => {
+const Modal = ({ show, onClose, title, children, width="500px", height="300px" }) => {
     if (!show) return null;
 
     return (
@@ -12,8 +12,8 @@ const Modal = ({ show, onClose, title, children }) => {
         >
             <div 
                 onClick={ e => e.stopPropagation() } 
-                className="bg-white p-[20px] rounded-lg xs:max-w-[550px] max-w-[343px] xs:w-full w-[98%] 
-                shadow-[0px_0px_5px_0px_#faf5aac2] fadeInAnimate"
+                style={{ width: width, height: height }}
+                className={`bg-white p-[20px] rounded-lg shadow-[0px_0px_5px_0px_#faf5aac2] fadeInAnimate`}
             >
                 <div className="w-full flexBetween">
                     <h2 className="xs:text-[22px] text-[17px] font-medium font-EncodeSans">

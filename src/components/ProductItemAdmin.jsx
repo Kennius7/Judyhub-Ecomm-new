@@ -1,13 +1,30 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SearchIcon, NairaSign } from "../assets";
+import { PiPencil } from "react-icons/pi";
+import EditProducts from "./EditProducts";
 
 
-const ProductItem = ({ item: { id, name, image, newPrice, oldPrice, category, tags } }) => {
+
+const ProductItem = ({ item, isShow, setIsShow }) => {
+
+    const { id, name, image, newPrice, oldPrice, category, tags } = item;
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const handleEdit = () => {
+        setSelectedProduct(item);
+        setIsShow(true);
+    }
+    const handleClose = () => {
+        setIsShow(false);
+    }
+
+
     return (
-        <div className="rounded-[8px] overflow-hidden shadow-xl bg-slate-100">
-            <div className="flexCenter relative group overflow-hidden transition-all duration-700">
+        <div className="xs:w-[180px] w-[200px] xs:h-[280px] h-[200px] rounded-[8px] overflow-hidden 
+            shadow-xl bg-slate-100">
+            <div className="w-full h-[50%] flexCenter relative group overflow-hidden transition-all duration-700">
                 <Link 
                     to={`/product/${id}`} 
                     className="flexCenter w-10 h-10 bg-white/70 rounded-full absolute z-4 transition-all duration-300"
@@ -27,7 +44,7 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice, category, ta
                     <img 
                         src={image} 
                         alt={name} 
-                        className="w-full block object-cover hover:scale-110 transition-all duration-1000"
+                        className="w-full h-[180px] object-cover hover:scale-110 transition-all duration-1000"
                     />
                 </Link>
             </div>
@@ -73,14 +90,38 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice, category, ta
                             <div className="text-[12px] text-slate-700 font-medium leading-[10px]">
                                 {tags}
                             </div>
-                            <div className="absolute z-[4] -bottom-1 -right-[85px] w-6 h-6 
-                            bg-primaryGreen rounded-full flexCenter">
-                                <div className="text-[12px]">P</div>
+                            <div 
+                                onClick={handleEdit} 
+                                className="absolute z-[4] sm:-bottom-0 -bottom-1 sm:-right-[80px] -right-[90px] 
+                                w-6 h-6 bg-primaryGreen/40 rounded-full flexCenter 
+                                shadow-[0px_0px_5px_0px_#0b1f139c]"
+                            >
+                                <PiPencil  
+                                    size={20} 
+                                    color={"#613207"} 
+                                    style={{ width: 20, height: 20 }} 
+                                    className={`cursor-pointer`}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {
+                isShow && selectedProduct && (
+                    <EditProducts 
+                        isShow={isShow} 
+                        onClose={handleClose} 
+                        id={selectedProduct?.id} 
+                        productName={selectedProduct?.name}
+                        newPrice={selectedProduct?.newPrice}
+                        oldPrice={selectedProduct?.oldPrice}
+                        category={selectedProduct?.category}
+                        tags={selectedProduct?.tags}
+                        image={selectedProduct?.image}
+                    />
+                )
+            }
         </div>
     )
 }
