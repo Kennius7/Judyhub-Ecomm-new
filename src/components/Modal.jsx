@@ -13,7 +13,7 @@ const Modal = ({ show, onClose, title, children, width="500px", height="300px" }
             <div 
                 onClick={ e => e.stopPropagation() } 
                 style={{ width: width, height: height }}
-                className={`bg-white p-[20px] rounded-lg shadow-[0px_0px_5px_0px_#faf5aac2] fadeInAnimate`}
+                className={`bg-white xs:p-[20px] p-[12px] rounded-lg shadow-[0px_0px_5px_0px_#faf5aac2] fadeInAnimate`}
             >
                 <div className="w-full flexBetween">
                     <h2 className="xs:text-[22px] text-[17px] font-medium font-EncodeSans">

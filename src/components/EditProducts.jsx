@@ -177,38 +177,41 @@ const EditProducts = ({
             onClose={onClose} 
             title={title}
             width={window.innerWidth > 768 ? "650px" : "96%"}
-            height={window.innerWidth > 768 ? "420px" : "250px"}
+            height={window.innerWidth > 768 ? "450px" : "650px"}
         >
             <div className="flex flex-col justify-between w-full h-full mt-3">
-                <div className="flex flex-row justify-between items-center">
+                <div className="flex xs:flex-row flex-col xs:justify-between xs:w-[630px] w-full 
+                    justify-center items-center">
                     {/* Product Image Data Value */}
-                    <div className="flex flex-col justify-around items-start">
+                    <div className="flex flex-col xs:justify-around xs:w-[250px] w-full h-[300px]
+                        justify-start items-start">
                         <input 
                             key={images ? images.name : "default"}
                             type="file" 
                             accept="image/*" 
                             onChange={handleFileChange} 
-                            className="w-[250px] mb-4 bg-primaryGreen text-white rounded-lg" 
+                            className="xs:w-[250px] w-full mb-4 bg-primaryGreen text-white 
+                            rounded-lg xs:text-[16px] text-[15px] leading-[30px]"
                         />
-                        <div className={`w-[200px] xs:h-[180px] h-[220px] flex flex-col justify-center 
-                            items-start mt-10`}>
+                        <div className={`xs:w-[200px] w-full xs:h-[180px] h-[260px] flex flex-col justify-center 
+                            items-start xs:mt-4 mt-0`}>
                             {
                                 preview ? (
-                                    <div className="flex flex-col justify-around items-start">
-                                        <h3 className="xs:text-[18px] text-[15px]">
+                                    <div className="w-full flex flex-col justify-around items-start">
+                                        <h3 className="xs:text-[22px] text-[19px] leading-[30px]">
                                             Preview:
                                         </h3>
                                         <img 
                                             src={preview} 
                                             alt="Selected Preview" 
-                                            className="xs:w-[200px] w-[120px] xs:h-[200px] h-[120px] object-cover" 
+                                            className="xs:w-[200px] w-full xs:h-[200px] h-[240px] object-cover" 
                                         />
                                     </div>
                                 ) : (
-                                    <div className="xs:w-[150px] w-[120px] xs:h-[150px] h-[120px]"></div>
+                                    <div className="xs:w-[200px] w-[220px] xs:h-[200px] h-[200px]"></div>
                                 )
                             }
-                            <div className="w-[200px] flex flex-row justify-start my-2">
+                            <div className="w-[200px] xs:flex hidden flex-row justify-start xs:mt-10 mt-4">
                                 <Button 
                                     buttonText={buttonText}
                                     onClick={handleUpload}
@@ -222,9 +225,10 @@ const EditProducts = ({
                     </div>
 
                     {/* Product Text Data Values */}
-                    <div className="w-[70%] flex flex-col justify-center items-start gap-2 mt-4">
+                    <div className="xs:w-[70%] w-full flex flex-col justify-center items-start gap-2 xs:mt-4 mt-10">
                         <div className="w-full flexCenter">
-                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                            <div className="sm:text-[17px] text-[13px] text-slate-700 xs:w-[130px] w-[120px] 
+                            xs:pl-0 pl-1">
                                 Product Name:
                             </div>
                             <div ref={nameRef} className="flexBetween">
@@ -235,8 +239,9 @@ const EditProducts = ({
                                     value={!isEditProfile.productName ? "" : productData.productName}
                                     onChange={handleChange}
                                     onBlur={() => editField(nameRef)}
-                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                    className="placeholder:text-slate-700 placeholder:text-[14px] text-[13px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2
+                                    w-[190px]"
                                 />
                                 <PiPencil 
                                     onClick={() => editField(nameRef)} 
@@ -248,7 +253,8 @@ const EditProducts = ({
                             </div>
                         </div>
                         <div className="w-full flexCenter">
-                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                            <div className="sm:text-[17px] text-[13px] text-slate-700 xs:w-[130px] w-[100px] 
+                            xs:pl-0 pl-1">
                                 New Price:
                             </div>
                             <div ref={priceRef} className="flexBetween">
@@ -259,8 +265,9 @@ const EditProducts = ({
                                     value={!isEditProfile.newPrice ? "" : productData.newPrice}
                                     onChange={handleChange}
                                     onBlur={() => editField(priceRef)}
-                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                    className="placeholder:text-slate-700 placeholder:text-[14px] text-[13px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                    w-[190px]"
                                 />
                                 <PiPencil 
                                     onClick={() => editField(priceRef)} 
@@ -272,7 +279,7 @@ const EditProducts = ({
                             </div>
                         </div>
                         <div className="w-full flexCenter">
-                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                            <div className="sm:text-[17px] text-[13px] text-slate-700 xs:w-[130px] w-[100px]">
                                 Old Price:
                             </div>
                             <div ref={oldPriceRef} className="flexBetween">
@@ -284,7 +291,8 @@ const EditProducts = ({
                                     onChange={handleChange}
                                     onBlur={() => editField(oldPriceRef)}
                                     className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                    w-[190px]"
                                 />
                                 <PiPencil 
                                     onClick={() => editField(oldPriceRef)} 
@@ -296,7 +304,7 @@ const EditProducts = ({
                             </div>
                         </div>
                         <div className="w-full flexCenter">
-                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                            <div className="sm:text-[17px] text-[13px] text-slate-700 xs:w-[130px] w-[100px]">
                                 Category:
                             </div>
                             <div ref={categoryRef} className="flexBetween">
@@ -308,7 +316,8 @@ const EditProducts = ({
                                     onChange={handleChange}
                                     onBlur={() => editField(categoryRef)}
                                     className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                    w-[190px]"
                                 />
                                 <PiPencil 
                                     onClick={() => editField(categoryRef)} 
@@ -320,7 +329,7 @@ const EditProducts = ({
                             </div>
                         </div>
                         <div className="w-full flexCenter">
-                            <div className="sm:text-[17px] text-[14px] text-slate-700 w-[130px]">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 xs:w-[130px] w-[100px]">
                                 Tags:
                             </div>
                             <div ref={tagsRef} className="flexBetween">
@@ -332,7 +341,8 @@ const EditProducts = ({
                                     onChange={handleChange}
                                     onBlur={() => editField(tagsRef)}
                                     className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2"
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                    w-[190px]"
                                 />
                                 <PiPencil 
                                     onClick={() => editField(tagsRef)} 
@@ -345,10 +355,20 @@ const EditProducts = ({
                         </div>
                     </div>
                 </div>
+                <div className="w-[200px] xs:hidden flex flex-row justify-start xs:mt-10 mt-4">
+                    <Button 
+                        buttonText={buttonText}
+                        onClick={handleUpload}
+                        className={`w-[140px] h-[35px] rounded-[16px] text-[16px] flex flex-row 
+                        justify-evenly items-center shadow-[0px_0px_5px_0px_#0b1f139c] 
+                        font-medium text-white transition-all duration-300`} 
+                        isLoading={isLoading}
+                    />
+                </div>
                 {
                     isLoading ? (
                         <div className="w-full h-[20px] bg-slate-300 rounded-lg flex flex-row 
-                            justify-center items-center mt-14">
+                            justify-center items-center xs:mt-14 mt-4">
                             <div className="w-[98%] justify-start items-center">
                                 <div 
                                     style={{ width: progressWidthValue, height: "12px" }} 
