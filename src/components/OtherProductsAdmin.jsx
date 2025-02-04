@@ -1,7 +1,7 @@
 import ProductItemAdmin from "./ProductItemAdmin";
 import { useState, useContext } from "react";
 import { MainContext } from "../context/mainContext";
-import DeleteProducts from "./DeleteProductS";
+import DeleteProducts from "./DeleteProducts";
 
 
 
