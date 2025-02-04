@@ -14,17 +14,7 @@ import { storage } from "../../firebaseConfig";
 
 
 const CreateProduct = () => {
-    const [isShow, setIsShow] = useState(false);
-    const handleCreate = () => setIsShow(true);
-    const handleClose = () => setIsShow(false);
-    const { downloadData } = useContext(MainContext);
-    const [preview, setPreview] = useState(productData.image);
-    const [images, setImages] = useState(null);
-    const [progress, setProgress] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-    const [buttonText, setButtonText] = useState("Save");
     let sampleImageUrl = "https://firebasestorage.googleapis.com/v0/b/judy-hub-ecommerce.appspot.com/o/images%2F858374ea-890c-4a01-ab01-0ce9fbceaa02_shirts3.jpg?alt=media&token=c621b372-3f70-46d1-8e1e-4b9c25b58da8";
-
     const [productData, setProductData] = useState({
         productName: "Sample Name",
         newPrice: "New Price",
@@ -34,6 +24,16 @@ const CreateProduct = () => {
         image: sampleImageUrl,
         id: null,
     }); 
+    const [isShow, setIsShow] = useState(false);
+    const handleCreate = () => setIsShow(true);
+    const handleClose = () => setIsShow(false);
+    const { downloadData } = useContext(MainContext);
+    const [preview, setPreview] = useState(productData.image);
+    const [images, setImages] = useState(null);
+    const [progress, setProgress] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [buttonText, setButtonText] = useState("Save");
+
     
     let progressWidthValue = progress.toString() + "%";
     console.log("Progress Value:>>>", progressWidthValue);
