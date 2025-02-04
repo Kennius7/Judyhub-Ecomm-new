@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -22,27 +23,45 @@ function App () {
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
 
+  // const downloadData = async () => {
+  //   console.log("Fetched Data:", fetchedData);
+  //   if (fetchedData.products.length === 0 || fetchedData.products.length === undefined) {
+  //     try {
+  //         const response = await axios.get(apiGetDataUrl);
+  //         const allProducts = response.data.data;
+  //         setFetchedData({ ...fetchedData, products: allProducts, });
+  //         console.log("Updated Data: ", fetchedData);
+  //     } catch (error) {
+  //       console.error("Error downloading data: >>>>", error.message);
+  //       // downloadData();
+  //     }
+  //   } else {
+  //     console.log("Data already fetched:", fetchedData);
+  //     setPathAccess(true);
+  //   }
+  // };
+
   const downloadData = async () => {
-    console.log("Fetched Data:", fetchedData);
-    if (fetchedData.products.length === 0 || fetchedData.products.length === undefined) {
-      try {
-          const response = await axios.get(apiGetDataUrl);
-          const allProducts = response.data.data;
-          setFetchedData({ ...fetchedData, products: allProducts, });
-          console.log("Updated Data: ", fetchedData);
-      } catch (error) {
-        console.error("Error downloading data: >>>>", error.message);
-        // downloadData();
-      }
-    } else {
-      console.log("Data already fetched:", fetchedData);
-      setPathAccess(true);
+    // console.log("Fetched Data:", fetchedData);
+    try {
+        const response = await axios.get(apiGetDataUrl);
+        const allProducts = response.data.data;
+        setFetchedData({ ...fetchedData, products: allProducts, });
+        console.log("Updated Data: ", fetchedData);
+    } catch (error) {
+      console.error("Error downloading data: >>>>", error.message);
+      // downloadData();
     }
+
+    // } else {
+    //   console.log("Data already fetched:", fetchedData);
+    //   setPathAccess(true);
+    // }
   };
 
   useEffect(() => {
     downloadData();
-  })
+  }, [])
 
 
 
@@ -50,7 +69,7 @@ function App () {
     <MainContext.Provider 
       value={{ 
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, 
-        setMenuOpened, pathAccess, setPathAccess 
+        setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData,
       }}
     >
       <ToastContainer 

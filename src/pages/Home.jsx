@@ -16,10 +16,10 @@ const Home = () => {
         ?
         <div className="w-full flex justify-center items-center h-[100vh]">
           <div className="w-full flex flex-col justify-center items-center">
-            <div className="text-center text-[20px] font-bold">
+            <div className="text-center text-[20px] font-bold mb-4">
               Loading, Please wait...
             </div>
-            <Spinner borColor2="#0db915" />
+            <Spinner borColor2="#0db915" dim2="65px" dim3="50px" />
           </div>
         </div>
         :

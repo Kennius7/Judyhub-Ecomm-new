@@ -5,7 +5,9 @@ import { MainContext } from "../context/mainContext";
 
 const Popular = () => {
     const { fetchedData } = useContext(MainContext);
-    const PopularProducts = fetchedData.products;
+    // const PopularProducts = fetchedData.products;
+    const PopularProducts = Array.isArray(fetchedData?.products) ? fetchedData.products : [];
+    console.log("PopularProducts:>>>>", PopularProducts, Array.isArray(PopularProducts));
 
     return (
         <section className="bg-slate-100 md:py-6 ss:py-4 py-2 px-5">

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { storage } from "../../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -9,20 +9,31 @@ import Button from "./Button";
 import { toast } from "react-toastify";
 import { PiPencil } from "react-icons/pi";
 import axios from "axios";
+import { MainContext } from "../context/mainContext";
 
 
 
 const EditProducts = ({ 
-    isShow, onClose, title="Edit Data", id, newPrice, oldPrice, productName, category, tags, image,
+    isShow, onClose, title, id, newPrice, oldPrice, productName, category, tags, image,
 }) => {
 
-    const [imageUrl, setImageUrl] = useState(image);
-    const [preview, setPreview] = useState(image);
+    const [productData, setProductData] = useState({
+        productName: productName,
+        newPrice: newPrice,
+        oldPrice: oldPrice,
+        category: category,
+        tags: tags,
+        image: image,
+    }); 
+    const { downloadData } = useContext(MainContext);
+    const [preview, setPreview] = useState(productData.image);
     const [images, setImages] = useState(null);
     const [progress, setProgress] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [buttonText, setButtonText] = useState("Save");
+    
     let progressWidthValue = progress.toString() + "%";
+    console.log("Progress Value:>>>", progressWidthValue);
     const apiPostProductUrl = import.meta.env.VITE_API_POST_PRODUCT_URL
 
     const nameRef = useRef(null);
@@ -39,25 +50,17 @@ const EditProducts = ({
         tags: false,
     });
 
-    const [productData, setProductData] = useState({
-        productName: productName,
-        newPrice: newPrice,
-        oldPrice: oldPrice,
-        category: category,
-        tags: tags,
-    }); 
 
     const handleChange = (e) => {
         setProductData({
             ...productData,
             [e.target.name]: e.target.value,
         });
-        console.log("Product Data Change:", productData);
     };
 
     const editField = async (ref) => {
-        console.log("Ref Values Check:", ref.current.firstChild.placeholder, ref.current.firstChild.value);
-        console.log("Doc Id: ", id);
+        // console.log("Ref Values Check:", ref.current.firstChild.placeholder);
+        // console.log("Doc Id: ", id);
 
         if (ref.current && ref.current.firstChild.name === "productName") {
             setIsEditProfile({ ...isEditProfile, productName: !isEditProfile.productName });
@@ -65,7 +68,6 @@ const EditProducts = ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
-            // setProductData({ ...productData, productName: productData.productName });
         }
         if (ref.current && ref.current.firstChild.name === "newPrice") {
             setIsEditProfile({ ...isEditProfile, newPrice: !isEditProfile.newPrice });
@@ -73,7 +75,6 @@ const EditProducts = ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
-            // setProductData({ ...productData, newPrice: productData.newPrice });
         }
         if (ref.current && ref.current.firstChild.name === "oldPrice") {
             setIsEditProfile({ ...isEditProfile, oldPrice: !isEditProfile.oldPrice });
@@ -81,7 +82,6 @@ const EditProducts = ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
-            // setProductData({ ...productData, oldPrice: productData.oldPrice });
         }
         if (ref.current && ref.current.firstChild.name === "category") {
             setIsEditProfile({ ...isEditProfile, category: !isEditProfile.category });
@@ -89,7 +89,6 @@ const EditProducts = ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
-            // setProductData({ ...productData, category: productData.category });
         }
         if (ref.current && ref.current.firstChild.name === "tags") {
             setIsEditProfile({ ...isEditProfile, tags: !isEditProfile.tags });
@@ -97,7 +96,6 @@ const EditProducts = ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
-            // setProductData({ ...productData, tags: productData.tags });
         }
     }
 
@@ -106,7 +104,6 @@ const EditProducts = ({
         if (file) {
             setImages(file);
             setPreview(URL.createObjectURL(file));
-            setTimeout(() => { console.log("Preview Pics:", preview, "Image Content:", images) }, 3000);
         }
     };
 
@@ -114,7 +111,7 @@ const EditProducts = ({
         setIsLoading(true);
         setButtonText("Saving");
         setProgress(0);
-        if (!images && imageUrl?.length === 0) {
+        if (!images && productData?.image?.length === 0) {
             toast("Please select a picture to upload", { type: "warning" });
             setIsLoading(false);
             setButtonText("Save");
@@ -127,16 +124,16 @@ const EditProducts = ({
             const uploadTask = uploadBytesResumable(storageRef, images);
             const addVar = 0.001;
     
-            const initialUploadIllusion = () => {
-                for (let index = 0; index < 2; index += addVar) setProgress(prev => prev + addVar);
-            }
-            initialUploadIllusion();
-    
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
                     const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                    setProgress(prev => prev + progress);
+                    console.log("Current Progress:>>>>", progress);
+                    setProgress(prev => {
+                        if (prev >= 100) {
+                            return prev;
+                        } else return progress;
+                    });
                 },
                 (error) => {
                     console.error("Data update failed", error);
@@ -144,29 +141,33 @@ const EditProducts = ({
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        setImageUrl(downloadURL);
-                        toast(`Picture saved!`, { type: "success" } );
+                        setProductData((prevData) => {
+                            const updatedData = { ...prevData, image: downloadURL };
+                            console.log("Updated Product Data Before Upload:", updatedData);
+                            uploadData(updatedData);
+                            return updatedData;
+                        });
+                        const uploadData = async (updatedData) => {
+                            try {
+                                const response = await axios.post(apiPostProductUrl, { id, updatedData });
+                                console.log("Product Data:>>>>", productData);
+                                const message = response.data.message;
+                                console.log("Response:>>>>", message);
+                                toast(`Data updated successfully!`, { type: "success" } );
+                                downloadData();
+                            } catch (error) {
+                                toast(`Error updating data. ${error}`, { type: "error" } );
+                                console.error(error);
+                            } finally {
+                                setButtonText("Save");
+                                setIsLoading(false);
+                            }
+                        }
+                        // toast(`Picture saved!`, { type: "success" } );
+                        // console.log("Download URL:>>>>", productData.image);
                     });
                 }
             );
-        }
-
-
-        const imageURL = imageUrl;
-
-        try {
-            const response = await axios.post(
-                apiPostProductUrl, { id, productData, imageURL }
-            );
-            const message = response.data.message;
-            console.log("Response:>>>>", message);
-            toast(`Data updated successfully!`, { type: "success" } );
-        } catch (error) {
-            toast(`Error updating data. ${error}`, { type: "error" } );
-            console.error(error);
-        } finally {
-            setButtonText("Save");
-            setIsLoading(false);
         }
     };
 

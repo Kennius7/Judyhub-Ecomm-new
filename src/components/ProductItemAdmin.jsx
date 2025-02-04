@@ -112,6 +112,7 @@ const ProductItem = ({ item, isShow, setIsShow }) => {
                     <EditProducts 
                         isShow={isShow} 
                         onClose={handleClose} 
+                        title="Edit Product Data"
                         id={selectedProduct?.id} 
                         productName={selectedProduct?.name}
                         newPrice={selectedProduct?.newPrice}
