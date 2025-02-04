@@ -19,10 +19,8 @@ const Header = () => {
   const menuRef = useRef(null);
   let cartItemNumber = 3;
   let DPPics = "";
-  let name = "Kenny";
-  let isLoggedIn = null;
-  let isTokenExpired = false;
-  const { menuOpened, setMenuOpened } = useContext(MainContext);
+  const { menuOpened, setMenuOpened, profileFormData, isLoggedIn, isTokenExpired } = useContext(MainContext);
+  const { name } = profileFormData;
 
   const handleMenuClick = () => {
     menuRef.current.focus();

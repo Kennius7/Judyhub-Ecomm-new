@@ -1,14 +1,12 @@
-
+import ProfileSection from "../components/ProfileSection";
 
 
 const Profile = () => {
 
     return (
-        <div className="w-full h-[70vh] flexCenter">
-            <div>
-                Your Profile
-            </div>
-        </div>
+        <section className="w-full h-[80vh] flexCenter">
+            <ProfileSection />
+        </section>
     )
 }
 

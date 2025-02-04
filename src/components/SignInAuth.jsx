@@ -10,7 +10,7 @@ import { BsEyeSlash, BsFillEyeFill } from "react-icons/bs";
 
 const SignUp = () => {
     const navigate = useNavigate();
-    const { setLoginState } = useContext(MainContext);
+    const { setLoginState, downloadProfileData } = useContext(MainContext);
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [signinText, setSigninText] = useState("Sign In");
@@ -40,6 +40,7 @@ const SignUp = () => {
                 // console.log("Message:>>>>", response);
                 toast(message, { type: "success" });
                 setSignInFormData({ ...signInFormData, email: "", password: "" });
+                downloadProfileData();
                 setSigninText("Signed In!");
                 setTimeout(() => setSigninText("Sign In"), 2000);
                 setTimeout(() => navigate("/profile"), 3000);

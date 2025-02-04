@@ -6,6 +6,8 @@ import { judyhubProducts } from "../constants/data";
 import Button from "./Button";
 import axios from "axios";
 import PopularAdmin from "./PopularAdmin";
+import NewCollectionAdmin from "./NewCollectionAdmin";
+import OtherProductsAdmin from "./OtherProductsAdmin";
 
 
 
@@ -54,45 +56,24 @@ const AdminSection = () => {
     return (
         <section className="w-full bg-slate-100 flexColCenter py-20">
             <PopularAdmin/>
-            {/* <div className="w-full flexCenter">
-                <div 
-                    onClick={handlePictureEdit} 
-                    className="text-[22px]"
-                >
-                    Click to upload picture
+            <NewCollectionAdmin/>
+            <OtherProductsAdmin/>
+            {/* 
+                <div className="flexColCenter mt-10">
+                    <div className="mb-10 text-[18px]">
+                        Posting Data to Database
+                    </div>
+                    <Button
+                        buttonText={postButtonText}
+                        onClick={handlePost}
+                        className={`w-[140px] h-[35px] rounded-[16px] text-[16px] flex flex-row 
+                        justify-evenly items-center
+                        shadow-[0px_0px_5px_0px_#0b1f139c] font-medium text-white 
+                        transition-all duration-300`} 
+                        isLoading={isPostLoading}
+                    />
                 </div>
-            </div>
-
-            <div className="flexColCenter mt-10">
-                <div className="mb-10 text-[18px]">
-                    Posting Data to Database
-                </div>
-                <Button
-                    buttonText={postButtonText}
-                    onClick={handlePost}
-                    className={`w-[140px] h-[35px] rounded-[16px] text-[16px] flex flex-row 
-                    justify-evenly items-center
-                    shadow-[0px_0px_5px_0px_#0b1f139c] font-medium text-white 
-                    transition-all duration-300`} 
-                    isLoading={isPostLoading}
-                />
-            </div>
-
-            <UploadImage 
-                isShow={isShow} 
-                onClose={handleClose} 
-                title={"Upload Picture"} 
-                progress={progress} 
-                setProgress={setProgress} 
-                preview={preview} 
-                setPreview={setPreview} 
-                isLoading={isLoading} 
-                setIsLoading={setIsLoading} 
-                image={image}
-                setImage={setImage}
-                buttonText={buttonText}
-                setButtonText={setButtonText}
-            /> */}
+            */}
         </section>
     )
 }

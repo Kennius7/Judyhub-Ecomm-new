@@ -9,7 +9,7 @@ const NewCollection = () => {
     const { fetchedData } = useContext(MainContext);
     // const LatestProducts = fetchedData.products;
     const LatestProducts = Array.isArray(fetchedData?.products) ? fetchedData.products : [];
-    console.log("PopularProducts:>>>>", LatestProducts, Array.isArray(LatestProducts));
+    // console.log("PopularProducts:>>>>", LatestProducts, Array.isArray(LatestProducts));
 
     return (
         <section className="bg-slate-100 md:py-6 ss:py-4 py-2 px-5">

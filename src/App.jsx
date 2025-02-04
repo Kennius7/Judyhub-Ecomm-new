@@ -19,27 +19,21 @@ function App () {
   const [active, setActive] = useState("Home");
   const [loginState, setLoginState] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
   const [pathAccess, setPathAccess] = useState(false);
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
+  const apiGetProfileUrl = import.meta.env.VITE_API_GETPROFILE_URL;
 
-  // const downloadData = async () => {
-  //   console.log("Fetched Data:", fetchedData);
-  //   if (fetchedData.products.length === 0 || fetchedData.products.length === undefined) {
-  //     try {
-  //         const response = await axios.get(apiGetDataUrl);
-  //         const allProducts = response.data.data;
-  //         setFetchedData({ ...fetchedData, products: allProducts, });
-  //         console.log("Updated Data: ", fetchedData);
-  //     } catch (error) {
-  //       console.error("Error downloading data: >>>>", error.message);
-  //       // downloadData();
-  //     }
-  //   } else {
-  //     console.log("Data already fetched:", fetchedData);
-  //     setPathAccess(true);
-  //   }
-  // };
+  const [profileFormData, setProfileFormData] = useState({
+    name: "Guest",
+    email: "guest@mail.com",
+    number: "10000100001",
+    id: "",
+    profilePics: "",
+  });
+
 
   const downloadData = async () => {
     // console.log("Fetched Data:", fetchedData);
@@ -50,26 +44,62 @@ function App () {
         console.log("Updated Data: ", fetchedData);
     } catch (error) {
       console.error("Error downloading data: >>>>", error.message);
-      // downloadData();
     }
-
-    // } else {
-    //   console.log("Data already fetched:", fetchedData);
-    //   setPathAccess(true);
-    // }
   };
 
+  const downloadProfileData = async () => {
+    const userToken = localStorage.getItem("user-token");
+    console.log("User Token: >>>>", userToken);
+    try {
+        const response = await axios.get(apiGetProfileUrl, {
+          headers: { 
+              "Content-Type": "application/json", 
+              Authorization: `Bearer ${userToken}`,
+          },
+          // withCredentials: false,
+        });
+        const { name, email, number, id, profilePics } = response.data.data;
+
+        setProfileFormData({ 
+            ...profileFormData, 
+            name: name, 
+            email: email, 
+            number: number,
+            id: id,
+            profilePics: profilePics,
+        });
+        console.log("Updated Data: ", profileFormData);
+        setIsTokenExpired(false);
+    } catch (error) {
+      const errorMessage = error?.response?.data;
+      if (userToken && errorMessage === "Invalid Token!") setIsTokenExpired(true);
+      console.error("Error downloading data: >>>>", error?.response?.data);
+    }
+  };
+
+  useEffect(() => {downloadData()}, [])
+
   useEffect(() => {
-    downloadData();
-  }, [])
+    if (profileFormData.name !== "Guest") {
+      setIsLoggedIn(true);
+      console.log("Logged In (Success):", isLoggedIn);
+      console.log("Has Token Expired:", isTokenExpired);
+    } else {
+      downloadProfileData();
+      setIsLoggedIn(false);
+      console.log("Logged In (Failure):", isLoggedIn);
+      console.log("Has Token Expired:", isTokenExpired);
+    }
+  });
 
 
 
   return (
     <MainContext.Provider 
       value={{ 
-        active, setActive, loginState, setLoginState, fetchedData, menuOpened, 
-        setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData,
+        active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
+        setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
+        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData,
       }}
     >
       <ToastContainer 

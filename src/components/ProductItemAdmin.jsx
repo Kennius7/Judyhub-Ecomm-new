@@ -8,7 +8,7 @@ import EditProducts from "./EditProducts";
 
 
 
-const ProductItem = ({ item, isShow, setIsShow }) => {
+const ProductItem = ({ item, isShow, setIsShow, handleCheckboxChange, selectProducts }) => {
 
     const { id, name, image, newPrice, oldPrice, category, tags } = item;
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -37,6 +37,8 @@ const ProductItem = ({ item, isShow, setIsShow }) => {
                 </Link>
                 <input 
                     type="checkbox" 
+                    checked={selectProducts?.has(id)}
+                    onChange={() => handleCheckboxChange(id)}
                     className="absolute z-[5] top-2 right-2 w-5 h-5 shadow-[0px_0px_5px_0px_#0b1f139c] 
                     cursor-pointer" 
                 />
