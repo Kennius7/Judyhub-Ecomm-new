@@ -17,6 +17,12 @@ const CreateProduct = () => {
     const [isShow, setIsShow] = useState(false);
     const handleCreate = () => setIsShow(true);
     const handleClose = () => setIsShow(false);
+    const { downloadData } = useContext(MainContext);
+    const [preview, setPreview] = useState(productData.image);
+    const [images, setImages] = useState(null);
+    const [progress, setProgress] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [buttonText, setButtonText] = useState("Save");
     let sampleImageUrl = "https://firebasestorage.googleapis.com/v0/b/judy-hub-ecommerce.appspot.com/o/images%2F858374ea-890c-4a01-ab01-0ce9fbceaa02_shirts3.jpg?alt=media&token=c621b372-3f70-46d1-8e1e-4b9c25b58da8";
 
     const [productData, setProductData] = useState({
@@ -26,23 +32,19 @@ const CreateProduct = () => {
         category: "Category",
         tags: "Tags",
         image: sampleImageUrl,
+        id: null,
     }); 
-    const { downloadData } = useContext(MainContext);
-    const [preview, setPreview] = useState(productData.image);
-    const [images, setImages] = useState(null);
-    const [progress, setProgress] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-    const [buttonText, setButtonText] = useState("Save");
     
     let progressWidthValue = progress.toString() + "%";
     console.log("Progress Value:>>>", progressWidthValue);
-    const apiPostProductUrl = import.meta.env.VITE_API_POST_PRODUCT_URL
+    const apiCreateProductUrl = import.meta.env.VITE_API_CREATE_PRODUCT_URL
 
     const nameRef = useRef(null);
     const priceRef = useRef(null);
     const oldPriceRef = useRef(null);
     const categoryRef = useRef(null);
     const tagsRef = useRef(null);
+    const idRef = useRef(null);
 
     const [isEditProfile, setIsEditProfile] = useState({
         productName: false,
@@ -50,6 +52,7 @@ const CreateProduct = () => {
         oldPrice: false,
         category: false,
         tags: false,
+        id: false,
     });
 
     const handleChange = (e) => {
@@ -93,6 +96,13 @@ const CreateProduct = () => {
         }
         if (ref.current && ref.current.firstChild.name === "tags") {
             setIsEditProfile({ ...isEditProfile, tags: !isEditProfile.tags });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+        }
+        if (ref.current && ref.current.firstChild.name === "id") {
+            setIsEditProfile({ ...isEditProfile, id: !isEditProfile.id });
             setProductData(prevData => ({
                 ...prevData,
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
@@ -150,7 +160,7 @@ const CreateProduct = () => {
                         });
                         const uploadData = async (updatedData) => {
                             try {
-                                const response = await axios.post(apiPostProductUrl, { id, updatedData });
+                                const response = await axios.post(apiCreateProductUrl, { updatedData });
                                 console.log("Product Data:>>>>", productData);
                                 const message = response.data.message;
                                 console.log("Response:>>>>", message);
@@ -175,12 +185,23 @@ const CreateProduct = () => {
 
     return (
         <section>
-            <button 
+            <div>
+            <Button
+                onClick={handleCreate} 
+                buttonText={"Create New Product"}
+                isLoading={isLoading}
+                disabled={isLoading}
+                loaderMargLeft={"mr-3"}
+                className="bg-slate-800 rounded-xl w-[230px] text-center h-[38px] 
+                text-white font-semibold flexCenter" 
+            />
+            </div>
+            {/* <button 
                 onClick={handleCreate}
                 className="bg-primaryGreen text-white px-4 py-2 rounded-[15px]"
             >
                 Create New Product
-            </button>
+            </button> */}
             {
                 isShow && (
                     <Modal 
@@ -359,6 +380,31 @@ const CreateProduct = () => {
                                                 onClick={() => editField(tagsRef)} 
                                                 size={20} 
                                                 color={isEditProfile.tags ? "#ff0101" : "#000"} 
+                                                style={{ width: 20, height: 20, opacity: 0.7}} 
+                                                className={`cursor-pointer`}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full flexCenter">
+                                        <div className="sm:text-[17px] text-[14px] text-slate-700 xs:w-[130px] w-[100px]">
+                                            Product ID Number:
+                                        </div>
+                                        <div ref={idRef} className="flexBetween">
+                                            <input 
+                                                placeholder={ productData.id } 
+                                                disabled={!isEditProfile.id}
+                                                name="id"
+                                                value={!isEditProfile.id ? "" : productData.id}
+                                                onChange={handleChange}
+                                                onBlur={() => editField(idRef)}
+                                                className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                                placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                                w-[190px]"
+                                            />
+                                            <PiPencil 
+                                                onClick={() => editField(idRef)} 
+                                                size={20} 
+                                                color={isEditProfile.id ? "#ff0101" : "#000"} 
                                                 style={{ width: 20, height: 20, opacity: 0.7}} 
                                                 className={`cursor-pointer`}
                                             />
