@@ -205,7 +205,8 @@ const EditProducts = ({
                                         <img 
                                             src={preview} 
                                             alt="Selected Preview" 
-                                            className="xs:w-[200px] w-full xs:h-[200px] h-[240px] object-cover" 
+                                            className="xs:w-[200px] w-full xs:h-[200px] h-[240px] 
+                                            object-cover bg-slate-700" 
                                         />
                                     </div>
                                 ) : (

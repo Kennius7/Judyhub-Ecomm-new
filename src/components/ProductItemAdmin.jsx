@@ -22,9 +22,10 @@ const ProductItem = ({ item, isShow, setIsShow, handleCheckboxChange, selectProd
 
 
     return (
-        <div className="xs:w-[180px] w-[200px] xs:h-[280px] h-[200px] rounded-[8px] overflow-hidden 
-            shadow-xl bg-slate-100">
-            <div className="w-full h-[50%] flexCenter relative group overflow-hidden transition-all duration-700">
+        <div className="xs:w-[320px] w-[320px] xs:h-[280px] h-[290px] rounded-[8px] overflow-hidden 
+            shadow-[0px_0px_5px_0px_#0b1f139c] bg-slate-100 xs:m-0 m-auto flexColCenter">
+            <div className="w-full xs:h-[160px] h-[170px] flexCenter relative group overflow-hidden 
+                transition-all duration-700">
                 <Link 
                     to={`/product/${id}`} 
                     className="flexCenter w-10 h-10 bg-white/70 rounded-full absolute z-4 transition-all duration-300"
@@ -42,15 +43,16 @@ const ProductItem = ({ item, isShow, setIsShow, handleCheckboxChange, selectProd
                     className="absolute z-[5] top-2 right-2 w-5 h-5 shadow-[0px_0px_5px_0px_#0b1f139c] 
                     cursor-pointer" 
                 />
-                <Link to={`/product/${id}`}>
+                <Link to={`/product/${id}`} className="w-full h-full">
                     <img 
                         src={image} 
                         alt={name} 
-                        className="w-full h-[180px] object-cover hover:scale-110 transition-all duration-1000"
+                        className="w-full h-full object-cover hover:scale-110 transition-all 
+                        duration-1000 bg-slate-600"
                     />
                 </Link>
             </div>
-            <div className="p-2 overflow-hidden">
+            <div className="p-2 overflow-hidden w-full xs:h-[120px] h-[120px] relative">
                 <div className="text-slate-900 text-[15px] font-medium">
                     {name}
                 </div>
@@ -88,13 +90,13 @@ const ProductItem = ({ item, isShow, setIsShow, handleCheckboxChange, selectProd
                         <div className="text-[12px] leading-[10px] text-slate-700">
                             Tags:&nbsp;
                         </div>
-                        <div className="relative">
+                        <div className="">
                             <div className="text-[12px] text-slate-700 font-medium leading-[10px]">
                                 {tags}
                             </div>
                             <div 
                                 onClick={handleEdit} 
-                                className="absolute z-[4] sm:-bottom-0 -bottom-1 sm:-right-[80px] -right-[90px] 
+                                className="absolute z-[4] xs:bottom-3 bottom-2 xs:right-[15px] right-[10px] 
                                 w-6 h-6 bg-primaryGreen/40 rounded-full flexCenter 
                                 shadow-[0px_0px_5px_0px_#0b1f139c]"
                             >

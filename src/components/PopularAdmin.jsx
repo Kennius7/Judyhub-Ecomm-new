@@ -27,23 +27,23 @@ const Popular = () => {
 
 
     return (
-        <section className="bg-slate-100">
-            <div className="w-full text-[30px] font-bold text-center py-[10px]">
-                Edit Popular Products
+        <section className="w-full bg-slate-100 xs:py-16 py-12">
+            <div className="w-full xs:text-[30px] text-[22px] xs:font-bold font-semibold text-center py-[10px]">
+                Edit Popular Products ( {FilteredProducts.length} )
             </div>
             <hr 
-                className="h-[3px] md:w-1/2 mx-auto bg-gradient-to-l from-transparent 
+                className="h-[3px] md:w-1/2 w-full mx-auto bg-gradient-to-l from-transparent 
                 via-black to-transparent mb-[20px]"
             />
-            <div className="w-full flex flex-row justify-between items-center">
+            <div className="w-full xs:h-[70px] h-[50px] flex flex-row justify-between items-end xs:px-4 px-3">
                 <DeleteProducts 
                     selectedProducts={selectedProducts} 
                     setSelectedProducts={setSelectedProducts}
                 />
                 <CreateProduct/>
             </div>
-            <div className="mt-[20px] grid md:grid-cols-6 ss:grid-cols-3 xs:grid-cols-2 
-                grid-cols-1 md:gap-3 gap-6 px-2">
+            <div className="mt-[20px] grid md:grid-cols-4 ss:grid-cols-3 xs:grid-cols-2 
+                grid-cols-1 md:gap-3 xs:gap-6 gap-5 xs:px-2 px-4">
                 {
                     FilteredProducts.map( product => (
                             <ProductItemAdmin 

@@ -53,19 +53,23 @@ const DeleteProducts = ({ selectedProducts, setSelectedProducts }) => {
 
 
     return (
-        <section className="w-[450px]">
-            <div className="w-full h-[60px] flex flex-row justify-between items-center">
-                <div className="px-1 text-[17px] font-medium text-slate-900">
-                    Delete { [...selectedProducts]?.length } number of products
+        <section className="xs:w-[450px] w-[200px] xs:px-0 px-2">
+            <div className="w-full xs:h-[60px] h-fit flex xs:flex-row flex-col xs:justify-start 
+                justify-center xs:items-center items-start">
+                <div className="xs:px-1 px-0 xs:text-[17px] text-[15px] font-medium text-slate-900 xs:mr-4 mr-0">
+                    Delete { [...selectedProducts]?.length } products
                 </div>
                 <div>
                     <Button
                         onClick={handleDeletes} 
+                        btnGradColor1="#064709"
+                        btnGradColor2="#000"
                         buttonText={deleteText}
                         isLoading={isLoading}
                         disabled={isLoading}
-                        loaderMargLeft={"mr-3"}
-                        className="bg-slate-800 rounded-xl w-[160px] h-[38px] text-white font-semibold flexCenter" 
+                        loaderMargLeft={isLoading ? "mr-3" : "mr-0"}
+                        className="bg-slate-800 rounded-xl w-[120px] h-[32px] text-white 
+                        xs:text-[14px] text-[12px] font-semibold flexCenter" 
                     />
                 </div>
             </div>

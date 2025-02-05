@@ -97,7 +97,7 @@ function App () {
   // const adminChecker = ["ogbogukenny@yahoo.com", "shinjinchu@gmail.com"].includes(profileFormData.email);
 
   useEffect(() => {
-    setAdminChecker(["ogbogukenny@yahoo.com", "shinjinchu@gmail.com"].includes(profileFormData.email));
+    setAdminChecker(["ogbogukenny@yahoo.com", "wealthyjudy@gmail.com"].includes(profileFormData.email));
   }, [profileFormData.email])
   console.log("Are the authorized users logged in:>>>>", adminChecker);
 

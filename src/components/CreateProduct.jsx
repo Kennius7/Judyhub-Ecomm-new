@@ -228,21 +228,14 @@ const CreateProduct = () => {
 
     return (
         <section>
-            <div>
-            <Button
-                onClick={handleCreate} 
-                buttonText={"Create New Product"}
-                loaderMargLeft={"mr-3"}
-                className="bg-slate-800 rounded-xl w-[230px] text-center h-[38px] 
-                text-white font-semibold flexCenter" 
-            />
+            <div className="xs:px-0 px-2">
+                <Button
+                    onClick={handleCreate} 
+                    buttonText={"Add Product"}
+                    className="bg-slate-800 rounded-xl xs:w-[200px] w-[130px] xs:text-[15px] 
+                    text-[12px] text-center h-[38px] text-white font-semibold flexCenter" 
+                />
             </div>
-            {/* <button 
-                onClick={handleCreate}
-                className="bg-primaryGreen text-white px-4 py-2 rounded-[15px]"
-            >
-                Create New Product
-            </button> */}
             {
                 isShow && (
                     <Modal 
