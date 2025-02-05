@@ -24,9 +24,9 @@ const Product = () => {
   }
 
   return (
-    <section className="px-16 py-6">
+    <section className="w-full xs:px-16 px-4 py-6">
       <ScrollToTop/>
-      <div>
+      <div className="w-full flexColCenter">
         <ProductHeader product={Products} />
         <ProductDisplay product={Products} />
       </div>

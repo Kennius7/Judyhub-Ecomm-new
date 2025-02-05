@@ -8,20 +8,20 @@ import { Star } from "../assets/SvgExport";
 const ProductDisplay = ({ product }) => {
 
     return (
-        <section className="">
-            <div className="">
+        <section className="w-full">
+            <div className="flexColCenter">
                 <div className="flex gap-x-2">
                     <div className="flex flex-col justify-between">
-                        <img src={product.image} alt="product Pics" className="max-w-[99px]" />
-                        <img src={product.image} alt="product Pics" className="max-w-[99px]" />
-                        <img src={product.image} alt="product Pics" className="max-w-[99px]" />
-                        <img src={product.image} alt="product Pics" className="max-w-[99px]" />
+                        <img src={product.image} alt="product Pics" className="m-1 max-w-[99px]" />
+                        <img src={product.image} alt="product Pics" className="m-1 max-w-[99px]" />
+                        <img src={product.image} alt="product Pics" className="m-1 max-w-[99px]" />
+                        <img src={product.image} alt="product Pics" className="m-1 max-w-[99px]" />
                     </div>
                     <div>
-                        <img src={product.image} alt="product Pics" className="max-w-[450px]" />
+                        <img src={product.image} alt="product Pics" className="xs:w-[450px] w-[96%]" />
                     </div>
                 </div>
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col justify-normal items-start">
                     <h3 className="font-semibold text-slate-900 text-[30px]">
                         { product.name }
                     </h3>
@@ -62,10 +62,10 @@ const ProductDisplay = ({ product }) => {
                         <div className="flex flex-col justify-center items-start gap-3 mt-6">
                             <Button 
                                 buttonText={"Add To Cart"} 
-                                className={`rounded-[20px] text-dimWhite w-[550px] h-[40px]`} />
+                                className={`rounded-[20px] text-dimWhite xs:w-[550px] w-[90%] xs:h-[40px] h-[35px]`} />
                             <Button 
                                 buttonText={"Buy It Now"} 
-                                className={`rounded-[20px] text-dimWhite w-[550px] h-[40px]`} />
+                                className={`rounded-[20px] text-dimWhite xs:w-[550px] w-[90%] xs:h-[40px] h-[35px]`} />
                         </div>
                     </div>
                 </div>
