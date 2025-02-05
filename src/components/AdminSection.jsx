@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import UploadImage from "./UploadImages";
 import { toast } from "react-toastify";
 import { judyhubProducts } from "../constants/data";
@@ -8,10 +8,12 @@ import axios from "axios";
 import PopularAdmin from "./PopularAdmin";
 import NewCollectionAdmin from "./NewCollectionAdmin";
 import OtherProductsAdmin from "./OtherProductsAdmin";
+import { MainContext } from "../context/mainContext";
 
 
 
 const AdminSection = () => {
+    const { downloadData } = useContext(MainContext);
     const [isShow, setIsShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isPostLoading, setIsPostLoading] = useState(false);
@@ -43,6 +45,7 @@ const AdminSection = () => {
             console.log(responseMsg);
             console.log("Data updated successfully!");
             toast(responseMsg, { type: "success" } );
+            downloadData();
             setIsPostLoading(false);
             setPostButtonText("Post");
         } catch (error) {
@@ -58,8 +61,8 @@ const AdminSection = () => {
             <PopularAdmin/>
             <NewCollectionAdmin/>
             <OtherProductsAdmin/>
-            {/* 
-                <div className="flexColCenter mt-10">
+            
+                {/* <div className="flexColCenter mt-10">
                     <div className="mb-10 text-[18px]">
                         Posting Data to Database
                     </div>
@@ -72,8 +75,8 @@ const AdminSection = () => {
                         transition-all duration-300`} 
                         isLoading={isPostLoading}
                     />
-                </div>
-            */}
+                </div> */}
+
         </section>
     )
 }

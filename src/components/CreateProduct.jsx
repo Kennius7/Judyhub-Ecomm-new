@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import Modal from "./Modal";
 import { MainContext } from "../context/mainContext";
 import Button from "./Button";
@@ -10,11 +10,40 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { storage } from "../../firebaseConfig";
+import { BiMinus, BiPlus } from "react-icons/bi";
 
 
 
 const CreateProduct = () => {
+    const { downloadData, fetchedData } = useContext(MainContext);
+    const [newID, setNewID] = useState(0);
     let sampleImageUrl = "https://firebasestorage.googleapis.com/v0/b/judy-hub-ecommerce.appspot.com/o/images%2F858374ea-890c-4a01-ab01-0ce9fbceaa02_shirts3.jpg?alt=media&token=c621b372-3f70-46d1-8e1e-4b9c25b58da8";
+    const getNewID = (arr) => {
+        if (!Array.isArray(arr)) {
+            console.error("Fetched Data is not an array...");
+        } else {
+            let newID = arr.reduce((max, item) => (item.id > max ? item.id : max), 0) + 1;
+            setNewID(newID);
+        }
+    }
+    const getNewIDText = (arr) => {
+        if (!Array.isArray(arr)) {
+            console.error("Fetched Data is not an array...");
+        } else {
+            let newID = arr.reduce((max, item) => (item.id > max ? item.id : max), 0) + 1;
+            return newID;
+        }
+    }
+
+    useEffect(() => {
+        getNewID(fetchedData?.products)
+    }, [fetchedData?.products])
+    
+    useEffect(() => {
+        setProductData((prev) => ({ ...prev, id: newID }));
+    }, [newID]);
+
+    console.log("Fetched Data:>>>>", fetchedData);
     const [productData, setProductData] = useState({
         productName: "Sample Name",
         newPrice: "New Price",
@@ -22,12 +51,12 @@ const CreateProduct = () => {
         category: "Category",
         tags: "Tags",
         image: sampleImageUrl,
-        id: null,
+        id: newID,
     }); 
+    console.log("New Id:>>>>", productData.id);
     const [isShow, setIsShow] = useState(false);
     const handleCreate = () => setIsShow(true);
     const handleClose = () => setIsShow(false);
-    const { downloadData } = useContext(MainContext);
     const [preview, setPreview] = useState(productData.image);
     const [images, setImages] = useState(null);
     const [progress, setProgress] = useState(1);
@@ -61,6 +90,20 @@ const CreateProduct = () => {
             [e.target.name]: e.target.value,
         });
     };
+
+    const handleIncrement = () => {
+        setProductData((prevData) => ({
+        ...prevData, id: prevData.id + 1
+        }));
+    }
+
+    const handleDecrement = () => {
+        if (productData.id > getNewIDText(fetchedData.products)) {
+            setProductData((prevData) => ({
+            ...prevData, id: prevData.id - 1
+            }));
+        }
+    }
 
     const editField = async (ref) => {
         // console.log("Ref Values Check:", ref.current.firstChild.placeholder);
@@ -101,13 +144,13 @@ const CreateProduct = () => {
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
         }
-        if (ref.current && ref.current.firstChild.name === "id") {
-            setIsEditProfile({ ...isEditProfile, id: !isEditProfile.id });
-            setProductData(prevData => ({
-                ...prevData,
-                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
-            }));
-        }
+        // if (ref.current && ref.current.firstChild.name === "id") {
+        //     setIsEditProfile({ ...isEditProfile, id: !isEditProfile.id });
+        //     setProductData(prevData => ({
+        //         ...prevData,
+        //         [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+        //     }));
+        // }
     }
 
     const handleFileChange = (e) => {
@@ -129,8 +172,8 @@ const CreateProduct = () => {
             return;
         }
 
-        if (images?.name) {
-            const uniqueFileName = `${uuidv4()}_${images?.name}`;
+        if (images?.name || productData.name.length !== 0) {
+            const uniqueFileName = `${uuidv4()}_${images?.name}` || `${uuidv4()}_${productData?.name}`;
             const storageRef = ref(storage, `images/${uniqueFileName}`);
             const uploadTask = uploadBytesResumable(storageRef, images);
             const addVar = 0.001;
@@ -189,8 +232,6 @@ const CreateProduct = () => {
             <Button
                 onClick={handleCreate} 
                 buttonText={"Create New Product"}
-                isLoading={isLoading}
-                disabled={isLoading}
                 loaderMargLeft={"mr-3"}
                 className="bg-slate-800 rounded-xl w-[230px] text-center h-[38px] 
                 text-white font-semibold flexCenter" 
@@ -273,7 +314,7 @@ const CreateProduct = () => {
                                                 onBlur={() => editField(nameRef)}
                                                 className="placeholder:text-slate-700 placeholder:text-[14px] text-[13px]
                                                 placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2
-                                                w-[190px]"
+                                                w-[190px] placeholder:text-center"
                                             />
                                             <PiPencil 
                                                 onClick={() => editField(nameRef)} 
@@ -299,7 +340,7 @@ const CreateProduct = () => {
                                                 onBlur={() => editField(priceRef)}
                                                 className="placeholder:text-slate-700 placeholder:text-[14px] text-[13px]
                                                 placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
-                                                w-[190px]"
+                                                w-[190px] placeholder:text-center"
                                             />
                                             <PiPencil 
                                                 onClick={() => editField(priceRef)} 
@@ -324,7 +365,7 @@ const CreateProduct = () => {
                                                 onBlur={() => editField(oldPriceRef)}
                                                 className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
                                                 placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
-                                                w-[190px]"
+                                                w-[190px] placeholder:text-center"
                                             />
                                             <PiPencil 
                                                 onClick={() => editField(oldPriceRef)} 
@@ -349,7 +390,7 @@ const CreateProduct = () => {
                                                 onBlur={() => editField(categoryRef)}
                                                 className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
                                                 placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
-                                                w-[190px]"
+                                                w-[190px] placeholder:text-center"
                                             />
                                             <PiPencil 
                                                 onClick={() => editField(categoryRef)} 
@@ -374,7 +415,7 @@ const CreateProduct = () => {
                                                 onBlur={() => editField(tagsRef)}
                                                 className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
                                                 placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
-                                                w-[190px]"
+                                                w-[190px] placeholder:text-center"
                                             />
                                             <PiPencil 
                                                 onClick={() => editField(tagsRef)} 
@@ -386,28 +427,32 @@ const CreateProduct = () => {
                                         </div>
                                     </div>
                                     <div className="w-full flexCenter">
-                                        <div className="sm:text-[17px] text-[14px] text-slate-700 xs:w-[130px] w-[100px]">
-                                            Product ID Number:
+                                        <div className="sm:text-[17px] text-[13px] text-slate-700 xs:w-[130px] w-[100px]">
+                                            Prod. ID No.({getNewIDText(fetchedData?.products)}):
                                         </div>
                                         <div ref={idRef} className="flexBetween">
+                                            <div 
+                                                onClick={handleDecrement} 
+                                                className="bg-slate-400 rounded-md"
+                                            >
+                                                <BiMinus style={{ width: 25, height: 25 }} size={24} />
+                                            </div>
                                             <input 
-                                                placeholder={ productData.id } 
-                                                disabled={!isEditProfile.id}
+                                                type="number"
+                                                placeholder={productData?.id} 
                                                 name="id"
-                                                value={!isEditProfile.id ? "" : productData.id}
-                                                onChange={handleChange}
-                                                onBlur={() => editField(idRef)}
-                                                className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
-                                                placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
-                                                w-[190px]"
+                                                readOnly
+                                                value={productData?.id}
+                                                className="placeholder:text-slate-700 placeholder:text-[18px] text-[15px]
+                                                placeholder:italic bg-blue-100 outline-none cursor-pointer text-center 
+                                                w-[160px] p-2 placeholder:text-center mx-1 rounded-lg"
                                             />
-                                            <PiPencil 
-                                                onClick={() => editField(idRef)} 
-                                                size={20} 
-                                                color={isEditProfile.id ? "#ff0101" : "#000"} 
-                                                style={{ width: 20, height: 20, opacity: 0.7}} 
-                                                className={`cursor-pointer`}
-                                            />
+                                            <div 
+                                                onClick={handleIncrement} 
+                                                className="bg-slate-300 rounded-md"
+                                            >
+                                                <BiPlus style={{ width: 25, height: 25 }} size={24} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

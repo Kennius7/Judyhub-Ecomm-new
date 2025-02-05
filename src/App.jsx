@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { Header, Footer, AdminSection, AdminButton } from "./components";
 import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 import { navLinks } from "./constants/data";
@@ -92,6 +93,22 @@ function App () {
     }
   });
 
+  const [adminChecker, setAdminChecker] = useState(false);
+  // const adminChecker = ["ogbogukenny@yahoo.com", "shinjinchu@gmail.com"].includes(profileFormData.email);
+
+  useEffect(() => {
+    setAdminChecker(["ogbogukenny@yahoo.com", "shinjinchu@gmail.com"].includes(profileFormData.email));
+  }, [profileFormData.email])
+  console.log("Are the authorized users logged in:>>>>", adminChecker);
+
+  const ProtectedRoute = ({ isAuthenticated }) => {
+    let location = useLocation();
+    if (!isAuthenticated) {
+      return <Navigate to="/" state={{ from: location }} replace />
+    }
+    return <Outlet />;
+  }
+
 
 
   return (
@@ -114,7 +131,8 @@ function App () {
       />
       <BrowserRouter>
         <Header/>
-        { !menuOpened && <AdminButton/> }
+        {/* { !menuOpened && <AdminButton/> } */}
+        { !menuOpened && adminChecker && <AdminButton/> }
         <Routes>
           <Route path={navLinks[0].link} element={<Home/>} />
           <Route path={navLinks[1].link} element={<Category category={navLinks[1].name} banner={bannerPics}/>} />
@@ -127,7 +145,9 @@ function App () {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
-          <Route path="/admin" element={<AdminSection/>} />
+          <Route element={<ProtectedRoute isAuthenticated={adminChecker}/>}>
+            <Route path="/admin" element={<AdminSection/>} />
+          </Route>
           <Route path="/profile" element={<Profile/>} />
         </Routes>
         <Footer/>
