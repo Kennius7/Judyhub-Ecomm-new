@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mantine/carousel": "^7.16.2",
     "@mantine/core": "^7.16.2",
     "@mantine/hooks": "^7.16.2",
+    "@mui/icons-material": "^6.4.3",
+    "@mui/material": "^6.4.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.7.9",

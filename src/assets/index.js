@@ -16,4 +16,6 @@ export { default as SearchIcon } from "./search.svg";
 export { default as NairaSign } from "./NairaSign.svg";
 export { default as userIcon } from "./UserIcon.png";
 export { default as X_Icon } from "./X_Icon.svg";
+export { default as logoIcon } from "./judyhub-logo02.png";
+export { default as logoSvg } from "./judyhub-logo.svg";
 

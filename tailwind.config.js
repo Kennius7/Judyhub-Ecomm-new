@@ -8,6 +8,8 @@ export default {
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    // Scan Material UI components
+    "./node_modules/@mui/material/**/*.js",
   ],
   theme: {
     extend: {

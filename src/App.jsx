@@ -13,6 +13,7 @@ import '@mantine/core/styles.css';
 import axios from "axios";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
+import MuiNavbar from "./components/MuiNavbar";
 
 
 
@@ -43,8 +44,10 @@ function App () {
         const allProducts = response.data.data;
         setFetchedData({ ...fetchedData, products: allProducts, });
         console.log("Updated Data: ", fetchedData);
+        setPathAccess(true);
     } catch (error) {
       console.error("Error downloading data: >>>>", error.message);
+      setPathAccess(false);
     }
   };
 
@@ -130,7 +133,8 @@ function App () {
         theme='light'
       />
       <BrowserRouter>
-        <Header/>
+        {/* <Header/> */}
+        <MuiNavbar/>
         {/* { !menuOpened && <AdminButton/> } */}
         { !menuOpened && adminChecker && <AdminButton/> }
         <Routes>

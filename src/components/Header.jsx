@@ -1,5 +1,4 @@
 import Navbar from "./Navbar";
-import logo from "../assets/judyhub-logo02.png";
 import { useNavigate } from "react-router-dom";
 import { useContext, useRef } from "react";
 import { MainContext } from "../context/mainContext";
@@ -9,7 +8,7 @@ import { MdOutlineMenu } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom"
 import Button from "./Button";
-import { userIcon } from "../assets";
+import { userIcon, logoIcon } from "../assets";
 
 
 
@@ -38,7 +37,7 @@ const Header = () => {
         className="cursor-pointer sm:w-[170px] sm:h-[50px] xs:w-[120px] xs:h-[50px] w-[150px] h-[45px] rounded-[4px] 
         flex justify-start ss:items-end items-center relative"
       >
-        <img src={logo} alt="logo pics" className="w-full h-full"/>
+        <img src={logoIcon} alt="logo pics" className="w-full h-full"/>
       </div>
 
       {/* The Rest of the Header after the Logo */}
