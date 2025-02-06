@@ -16,13 +16,13 @@ import { capitalize } from "lodash";
 
 const Navbar = () => {
     // const [mobileOpen, setMobileOpen] = useState(false);
-    const cartItemCount = 3;
+    // const cartItemCount = 3;
     const navigate = useNavigate();
     const { 
         menuOpened, setMenuOpened, profileFormData, isLoggedIn, 
-        isTokenExpired, pathAccess, active, setActive, 
+        isTokenExpired, pathAccess, active, setActive, cartItemNumber
     } = useContext(MainContext);
-    const { name } = profileFormData;
+    const { name, profilePics } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
 
@@ -57,10 +57,13 @@ const Navbar = () => {
                 {/* Profile Avatar */}
                 <Avatar
                     alt="Guest"
-                    src={userIcon}
+                    src={profilePics}
                     onClick={() => navigate("/profile")}
                     sx={{
-                        display: { xs: "block", sm: "none" },
+                        display: { xs: "flex", sm: "none" },
+                        flexDirection:  "row",
+                        justifyContent: "center",
+                        alignItems: "center",
                         width: 38,
                         height: 38, 
                         cursor: "pointer",
@@ -109,7 +112,7 @@ const Navbar = () => {
                 component="div" 
                 sx={{ top: 310, right: 10 }}>
                 <IconButton color="inherit">
-                    <Badge badgeContent={cartItemCount} color="error">
+                    <Badge badgeContent={cartItemNumber} color="error">
                         <ShoppingCart 
                             className="animate-pulseBorder1 !important" 
                             sx={{ width: 30, height: 30, borderRadius: "51%" }} 
@@ -199,7 +202,7 @@ const Navbar = () => {
                         {/* Profile Avatar */}
                         <Avatar
                             alt="Guest"
-                            src={userIcon}
+                            src={profilePics}
                             onClick={()=>navigate("/profile")}
                             sx={{ 
                                 width: window.innerWidth > 768 ? 40 : 
@@ -215,7 +218,7 @@ const Navbar = () => {
                             color="inherit"
                             sx={{ display: { xs: "none", sm: "inline-flex" } }}
                         >
-                            <Badge badgeContent={cartItemCount} color="error">
+                            <Badge badgeContent={cartItemNumber} color="error">
                                 <ShoppingCart 
                                     className="animate-pulseBorder !important" 
                                     sx={{ width: 35, height: 35, borderRadius: "51%" }} 

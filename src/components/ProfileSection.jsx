@@ -34,7 +34,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-slate-400">
+        <div className="xs:w-[700px] w-[400px] xs:mx-auto mx-0 xs:p-6 p-2 bg-slate-300">
             {/* Profile Card */}
             <div className="bg-white shadow-lg rounded-xl p-6 flex items-center gap-4">
                 <div className="relative">

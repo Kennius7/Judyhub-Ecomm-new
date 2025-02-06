@@ -14,6 +14,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import Profile from "./pages/Profile";
 import MuiNavbar from "./components/MuiNavbar";
+import SettingsPage from "./pages/SettingsPage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 
 
@@ -27,11 +29,13 @@ function App () {
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
   const apiGetProfileUrl = import.meta.env.VITE_API_GETPROFILE_URL;
+  let cartItemNumber = 6;
 
   const [profileFormData, setProfileFormData] = useState({
     name: "Guest",
     email: "guest@mail.com",
     number: "10000100001",
+    address: "",
     id: "",
     profilePics: "",
   });
@@ -119,7 +123,7 @@ function App () {
       value={{ 
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
-        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData,
+        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber
       }}
     >
       <ToastContainer 
@@ -153,6 +157,8 @@ function App () {
             <Route path="/admin" element={<AdminSection/>} />
           </Route>
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/settings" element={<SettingsPage/>} />
+          <Route path="/editprofile" element={<EditProfilePage/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>
