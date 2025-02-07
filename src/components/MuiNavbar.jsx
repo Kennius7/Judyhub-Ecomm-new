@@ -146,9 +146,9 @@ const Navbar = () => {
                         src={logoSvg}
                         onClick={()=>navigate("/")}
                         sx={{ 
-                            width: window.innerWidth > 768 ? 65 : 
+                            width: window.innerWidth > 768 ? 55 : 
                             window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 50,
-                            height: window.innerWidth > 768 ? 65 : 
+                            height: window.innerWidth > 768 ? 55 : 
                             window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 50, 
                             cursor: "pointer", padding: "4px"
                         }}
