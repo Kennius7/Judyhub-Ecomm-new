@@ -23,7 +23,7 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
     return (
         <Card
             sx={{ 
-                width: window.innerWidth > 500 ? 195 : 110, 
+                width: window.innerWidth > 500 ? 195 : (window.innerWidth * 0.333) - 10, 
                 boxShadow: 5, 
                 borderRadius: 2,
                 padding: 0,

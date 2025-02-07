@@ -147,9 +147,9 @@ const Navbar = () => {
                         onClick={()=>navigate("/")}
                         sx={{ 
                             width: window.innerWidth > 768 ? 55 : 
-                            window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 50,
+                            window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 40,
                             height: window.innerWidth > 768 ? 55 : 
-                            window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 50, 
+                            window.innerWidth < 768 && window.innerWidth > 480 ? 45 : 40, 
                             cursor: "pointer", padding: "4px"
                         }}
                     />
