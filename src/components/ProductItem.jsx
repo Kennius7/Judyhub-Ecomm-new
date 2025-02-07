@@ -1,60 +1,136 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SearchIcon, NairaSign } from "../assets";
+import { Card, CardMedia, CardContent, CardActions, Typography, Box, Chip, Button, IconButton, Badge } from '@mui/material';
+import { ShoppingCart, Search } from "@mui/icons-material";
+import getSymbolFromCurrency from 'currency-symbol-map'
+import { useContext } from "react";
+import { MainContext } from "../context/mainContext";
+
+
 
 
 const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
+    // const tags = ['New', 'Popular', 'Limited Edition'] 
+    const navigate = useNavigate();
+    const { primaryGreen, secondaryBrown } = useContext(MainContext);
+    const stock = 20;
+    const NGN = getSymbolFromCurrency('NGN');
+
+
+
     return (
-        <div className="rounded-[8px] overflow-hidden shadow-xl bg-slate-100">
-            <div 
-                className="flexCenter relative group overflow-hidden transition-all duration-700"
+        <Card
+            sx={{ 
+                width: window.innerWidth > 500 ? 195 : 110, 
+                boxShadow: 5, 
+                borderRadius: 2,
+                padding: 0,
+                margin: 0, 
+                display: "flex", 
+                flexDirection: "column", 
+                justifyContent: "center", 
+                alignItems: "flex-start",
+                position: "relative",
+            }}
+        >
+            <CardMedia
+                onClick={() => navigate(`/product/${id}`) }
+                component="img"
+                height="100"
+                image={image}
+                alt={name}
+            />
+            <Search 
+                htmlColor={"#fff"} 
+                sx={{ 
+                    width: 30, 
+                    height: 30,
+                    position: "absolute",
+                    zIndex: 4,
+                    top: "25%",
+                    left: "40%",
+                }} 
+            />
+
+            {/* Product Details */}
+            <CardContent 
+                sx={{ 
+                    padding: 1,
+                    marginTop: -1,
+                    height: 100, 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    justifyContent: "center", 
+                    alignItems: "flex-start",
+                }}
             >
-                <Link 
-                    to={`/product/${id}`} 
-                    className="flexCenter w-10 h-10 bg-white/70 rounded-full absolute z-4 transition-all duration-300"
+                {/* Product Name */}
+                <Typography 
+                    variant="h6" 
+                    component="div" 
+                    color={secondaryBrown}
+                    sx={{ 
+                        mt: -3,
+                        fontSize: window.innerWidth > 500 ? 14 : 12
+                    }}
                 >
-                    <img 
-                        src={SearchIcon} 
-                        alt="search-icon" 
-                        className="w-6 h-6 hover:rotate-45 hover:scale-110 transition-all duration-300 opacity-70"
-                    />
-                </Link>
-                <Link to={`/product/${id}`}>
-                    <img 
-                        src={image} 
-                        alt={name} 
-                        className="w-full block object-cover hover:scale-110 transition-all duration-1000"
-                    />
-                </Link>
-            </div>
-            <div className="p-4 overflow-hidden">
-                <div className="my-[6px] medium-16 line-clamp-2 text-slate-900 text-[20px] font-semibold">
                     {name}
-                </div>
-                <div className="flex flex-col justify-center items-start">
-                    <div className="flexCenter mb-2">
-                        <div className="text-[17px] font-sans leading-[10px]">
-                            New Price:&nbsp;
-                        </div>
-                        <img src={NairaSign} alt="N" className="w-5 h-5" />
-                        <div className="text-[17px] text-primaryGreen font-bold font-poppins leading-[10px] ml-1">
-                            {newPrice}
-                        </div>
-                    </div>
-                    <div className="flexCenter">
-                        <div className="text-[17px] font-sans leading-[10px]">
-                            Old Price:&nbsp;
-                        </div>
-                        <img src={NairaSign} alt="N" className="w-5 h-5" />
-                        <div className="text-[16px] line-through text-secondaryBrown font-semibold 
-                            font-poppins leading-[10px] ml-1">
-                            {oldPrice}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </Typography>
+        
+                {/* Price Section */}
+                <Box sx={{ display: 'flex', alignItems: 'center', mt: 0 }}>
+                    <Typography 
+                        variant="body1" 
+                        color={primaryGreen} 
+                        sx={{ 
+                            mr: 1, 
+                            fontSize: window.innerWidth > 500 ? 14 : 11 
+                        }}
+                    >
+                        {NGN}{newPrice}
+                    </Typography>
+                    {
+                        oldPrice && (
+                            <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                sx={{ 
+                                    textDecoration: 'line-through', 
+                                    fontSize: window.innerWidth > 500 ? 14 : 10
+                                }}
+                            >
+                                {NGN}{oldPrice}
+                            </Typography>
+                        )
+                    }
+                </Box>
+
+                <Typography 
+                    variant="body2" 
+                    color="text.secondary" 
+                    sx={{ 
+                        mt: window.innerWidth > 500 ? 0 : 0.5, 
+                        fontSize: window.innerWidth > 500 ? 14 : 9 
+                    }}
+                >
+                    Stock: {stock || 1} pieces.
+                </Typography>
+            </CardContent>
+
+            {/* Actions */}
+            <CardActions className="w-full h-[25px] flexBetween xs:mx-2 mx-0 xs:-mt-6 -mt-8 !important">
+                <ShoppingCart htmlColor={primaryGreen} sx={{ width: 15, height: 15, borderRadius: "51%" }} />
+                <Typography 
+                    onClick={() => navigate(`/product/${id}`) }
+                    variant="body2" 
+                    color={secondaryBrown} 
+                    sx={{ mt: 0, fontSize: window.innerWidth > 500 ? 14 : 9 }}>
+                    See more
+                </Typography>
+            </CardActions>
+        </Card>
     )
 }
 

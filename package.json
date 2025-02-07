@@ -21,6 +21,7 @@
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.7.9",
     "caniuse-lite": "^1.0.30001696",
+    "currency-symbol-map": "^5.1.0",
     "firebase": "^11.2.0",
     "html-react-parser": "^4.2.0",
     "lodash": "^4.17.21",

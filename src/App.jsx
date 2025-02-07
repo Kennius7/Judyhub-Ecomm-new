@@ -30,6 +30,8 @@ function App () {
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
   const apiGetProfileUrl = import.meta.env.VITE_API_GETPROFILE_URL;
   let cartItemNumber = 6;
+  const primaryGreen = "#0db915";
+  const secondaryBrown = "#613207";
 
   const [profileFormData, setProfileFormData] = useState({
     name: "Guest",
@@ -123,7 +125,8 @@ function App () {
       value={{ 
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
-        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber
+        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber, 
+        primaryGreen, secondaryBrown,
       }}
     >
       <ToastContainer 
