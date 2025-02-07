@@ -2,6 +2,7 @@ import ProductItemAdmin from "./ProductItemAdmin";
 import { useState, useContext } from "react";
 import { MainContext } from "../context/mainContext";
 import DeleteProducts from "./DeleteProducts";
+import CreateProduct from "./CreateProduct";
 
 
 
@@ -10,7 +11,7 @@ const OtherProductsAdmin = () => {
     const [isShow, setIsShow] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState(new Set());
     const OtherProducts = Array.isArray(fetchedData?.products) ? fetchedData.products : [];
-    const FilteredProducts = OtherProducts?.filter(p => !["latest", "popular"].includes(p.tags));
+    const FilteredProducts = OtherProducts?.filter(p => ["latest", "popular", ""].includes(p.tags));
 
     const handleCheckboxChange = (productId) => {
         setSelectedProducts(prevSelected => {
@@ -34,11 +35,12 @@ const OtherProductsAdmin = () => {
                 className="h-[3px] md:w-1/2 w-full mx-auto bg-gradient-to-l from-transparent 
                 via-black to-transparent mb-[20px]"
             />
-            <div className="w-full xs:h-[70px] h-[50px] flex flex-row justify-start items-end xs:px-0 px-3">
+            <div className="w-full xs:h-[70px] h-[50px] flex flex-row justify-between items-end xs:px-4 px-3">
                 <DeleteProducts 
                     selectedProducts={selectedProducts} 
                     setSelectedProducts={setSelectedProducts}
                 />
+                <CreateProduct/>
             </div>
             <div className="mt-[20px] grid md:grid-cols-4 ss:grid-cols-3 xs:grid-cols-2 
                 grid-cols-1 md:gap-3 xs:gap-6 gap-5 xs:px-2 px-4">

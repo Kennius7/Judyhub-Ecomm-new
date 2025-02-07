@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { Header, Footer, AdminSection, AdminButton } from "./components";
+import { Footer, AdminSection, AdvancedSection } from "./components";
 import { Cart, Category, Login, Home, Product, Logout } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
@@ -110,7 +110,7 @@ function App () {
   }, [profileFormData.email])
   console.log("Are the authorized users logged in:>>>>", adminChecker);
 
-  const ProtectedRoute = ({ isAuthenticated }) => {
+  const AdminProtectedRoute = ({ isAuthenticated }) => {
     let location = useLocation();
     if (!isAuthenticated) {
       return <Navigate to="/" state={{ from: location }} replace />
@@ -126,12 +126,12 @@ function App () {
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
         isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber, 
-        primaryGreen, secondaryBrown,
+        primaryGreen, secondaryBrown, adminChecker,
       }}
     >
       <ToastContainer 
         position='top-right' 
-        autoClose={4000} 
+        autoClose={3000} 
         hideProgressBar={false} 
         newestOnTop={true} 
         closeOnClick
@@ -140,10 +140,7 @@ function App () {
         theme='light'
       />
       <BrowserRouter>
-        {/* <Header/> */}
         <MuiNavbar/>
-        {/* { !menuOpened && <AdminButton/> } */}
-        { !menuOpened && adminChecker && <AdminButton/> }
         <Routes>
           <Route path={navLinks[0].link} element={<Home/>} />
           <Route path={navLinks[1].link} element={<Category category={navLinks[1].name} banner={bannerPics}/>} />
@@ -156,12 +153,17 @@ function App () {
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
-          <Route element={<ProtectedRoute isAuthenticated={adminChecker}/>}>
-            <Route path="/admin" element={<AdminSection/>} />
+          <Route path="profile">
+            <Route index element={<Profile/>}/>
+            <Route path="settings">
+              <Route index element={<SettingsPage/>} />
+              <Route element={<AdminProtectedRoute isAuthenticated={adminChecker}/>}>
+                <Route path="admin" element={<AdminSection/>} />
+              </Route>
+              <Route path="advanced" element={<AdvancedSection/>} />
+            </Route>
+            <Route path="editprofile" element={<EditProfilePage/>} />
           </Route>
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/settings" element={<SettingsPage/>} />
-          <Route path="/editprofile" element={<EditProfilePage/>} />
         </Routes>
         <Footer/>
       </BrowserRouter>

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { SearchIcon, NairaSign } from "../assets";
-import { Card, CardMedia, CardContent, CardActions, Typography, Box, Chip, Button, IconButton, Badge } from '@mui/material';
+import { Card, CardMedia, CardContent, CardActions, Typography, Box } from '@mui/material';
 import { ShoppingCart, Search } from "@mui/icons-material";
 import getSymbolFromCurrency from 'currency-symbol-map'
 import { useContext } from "react";

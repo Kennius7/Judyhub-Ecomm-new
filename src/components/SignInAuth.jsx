@@ -43,7 +43,7 @@ const SignUp = () => {
                 downloadProfileData();
                 setSigninText("Signed In!");
                 setTimeout(() => setSigninText("Sign In"), 2000);
-                setTimeout(() => navigate("/profile"), 3000);
+                setTimeout(() => navigate(-1), 3000);
             } catch (error) {
                 console.error("Error signing in:", error);
                 const errorMessage = error?.response?.data?.error || "An unexpected error occurred.";

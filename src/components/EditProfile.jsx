@@ -18,7 +18,16 @@ const EditProfilePage = () => {
     };
 
     return (
-        <Card sx={{ maxWidth: 500, mx: "auto", mt: 4, p: 2, boxShadow: 5, borderRadius: 3 }}>
+        <Card 
+            sx={{ 
+                maxWidth: 500, 
+                mx: "auto", 
+                mt: 4, 
+                p: 2, 
+                boxShadow: 5, 
+                borderRadius: 3 
+            }}
+        >
             <CardContent>
                 <Typography variant="h5" fontWeight="bold" textAlign="center" mb={2}>
                     Edit Profile

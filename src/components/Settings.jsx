@@ -1,7 +1,9 @@
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Card, CardContent, Typography, Switch, FormControlLabel, Button, Box, Divider } from "@mui/material";
-import { DarkMode, Notifications, Security } from "@mui/icons-material";
+import { DarkMode, Notifications, Settings } from "@mui/icons-material";
+import { MainContext } from "../context/mainContext";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -9,6 +11,9 @@ import { DarkMode, Notifications, Security } from "@mui/icons-material";
 const SettingsPage = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
+    const navigate = useNavigate();
+    const { secondaryBrown, adminChecker } = useContext(MainContext);
+
 
     return (
         <Card sx={{ maxWidth: 500, mx: "auto", mt: 4, p: 2, boxShadow: 5, borderRadius: 3 }}>
@@ -40,10 +45,30 @@ const SettingsPage = () => {
                 />
                 <Divider sx={{ my: 2 }} />
 
-                {/* Security Section */}
-                <Button variant="outlined" color="error" startIcon={<Security />} fullWidth>
-                    Manage Security
+                <Button 
+                    variant="outlined" 
+                    color={secondaryBrown} 
+                    startIcon={<Settings />} 
+                    fullWidth
+                    onClick={() => navigate("advanced")}
+                >
+                    Advanced Settings
                 </Button>
+
+                {
+                    adminChecker && (
+                        <Button 
+                            variant="outlined" 
+                            color={secondaryBrown} 
+                            startIcon={<Settings />} 
+                            fullWidth
+                            onClick={() => navigate("admin")}
+                            sx={{ mt: 2 }}
+                        >
+                            Manage Product Settings
+                        </Button>
+                    )
+                }
             </CardContent>
         </Card>
     );

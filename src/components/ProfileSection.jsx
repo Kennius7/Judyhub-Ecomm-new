@@ -1,121 +1,83 @@
-import { useContext, useState } from "react";
-import { Edit, Save, Upload } from "lucide-react";
+
+import { Card, CardContent, Typography, Avatar, Button, IconButton, Box, Divider } from "@mui/material";
+import { ShoppingCart, Settings, Edit } from "@mui/icons-material";
+import { useContext } from "react";
 import { MainContext } from "../context/mainContext";
-import { userIcon } from "../assets";
+import { useNavigate } from "react-router-dom";
 
 
 
-const Profile = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const { profileFormData, DPPics } = useContext(MainContext);
-    const { name, email } = profileFormData;
-    const [user, setUser] = useState({
-        name: "John Doe",
-        email: "john@example.com",
-        address: "123 Main St, New York, USA",
-        profilePic: "https://via.placeholder.com/100",
-    });
 
-    const [orders] = useState([
-        { id: "001", date: "2024-01-10", total: "$120.00", status: "Shipped" },
-        { id: "002", date: "2024-02-05", total: "$45.50", status: "Processing" },
-    ]);
+const ProfileSection = () => {
+    const { profileFormData, cartItemNumber } = useContext(MainContext);
+    const { name, email, profilePics, address, number } = profileFormData;
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    };
-
-    const handleProfilePicChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setUser(prev => ({ ...prev, profilePic: imageUrl }));
-        }
-    };
 
     return (
-        <div className="xs:w-[700px] w-[400px] xs:mx-auto mx-0 xs:p-6 p-2 bg-slate-300">
-            {/* Profile Card */}
-            <div className="bg-white shadow-lg rounded-xl p-6 flex items-center gap-4">
-                <div className="relative">
-                    <div className="w-20 h-20 bg-secondaryBrown rounded-full overflow-hidden 
-                        ring-1 ring-primaryGreen/80">
-                        <img 
-                            src={ DPPics === "" || DPPics === undefined ? userIcon : DPPics }
-                            alt="Profile" 
-                            className="w-full h-full border opacity-80" 
-                        />
+        <Card 
+            sx={{ 
+                boxShadow: 5, 
+                borderRadius: 3,
+                width: window.innerWidth > 768 ? 500 : 
+                window.innerWidth < 768 && window.innerWidth > 480 ? 450 : "96%",
+                height: window.innerWidth > 768 ? 480 : 
+                window.innerWidth < 768 && window.innerWidth > 480 ? 400 : 420, 
+                cursor: "pointer", 
+                padding: "4px",
+            }}
+        >
+            <CardContent>
+                {/* User Details */}
+                <Box display="flex" alignItems="center" flexDirection="column">
+                    <Avatar 
+                        src={profilePics} 
+                        sx={{ 
+                            width: window.innerWidth > 480 ? 150 : 120, 
+                            height: window.innerWidth > 480 ? 150 : 120, 
+                            mb: 2 
+                        }} 
+                    />
+                    <div className="w-full flex flex-col justify-center items-center">
+                        <Typography variant="h6" fontWeight="bold">Name: {name}</Typography>
+                        <Typography variant="body1" color="text.secondary">Email: {email}</Typography>
+                        <Typography variant="body1" color="text.secondary">Home Address: {address}</Typography>
+                        <Typography variant="body1" color="text.secondary">Phone: {number}</Typography>
                     </div>
-                    {isEditing && (
-                        <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow cursor-pointer">
-                            <Upload size={16} />
-                            <input type="file" className="hidden" onChange={handleProfilePicChange} />
-                        </label>
-                    )}
-                </div>
-                <div>
-                    {isEditing ? (
-                        <input 
-                            name="name"
-                            value={name}
-                            onChange={handleChange}
-                            className="text-xl font-bold border rounded-md p-1"
-                        />
-                    ) : (
-                        <h2 className="text-xl font-bold">{name}</h2>
-                    )}
-                    <p className="text-gray-500">{email}</p>
-                    {isEditing ? (
-                        <input 
-                            name="address"
-                            value={user.address}
-                            onChange={handleChange}
-                            className="border rounded-md p-1"
-                        />
-                    ) : (
-                        <p className="text-gray-500">{user.address}</p>
-                    )}
-                </div>
-                <button 
-                    onClick={() => setIsEditing(!isEditing)} 
-                    className="ml-auto bg-blue-500 text-white px-3 py-1 rounded-md flex items-center gap-2"
-                >
-                    {isEditing ? <Save size={18} /> : <Edit size={18} />}
-                    {isEditing ? "Save" : "Edit"}
-                </button>
-            </div>
+                </Box>
 
-            {/* Order History Table */}
-            <h3 className="mt-6 text-lg font-semibold">Order History</h3>
-            <div className="bg-white shadow-lg rounded-xl overflow-hidden">
-                <table className="w-full border-collapse">
-                    <thead className="bg-gray-100">
-                        <tr className="text-left text-sm font-semibold">
-                            <th className="p-3">Order ID</th>
-                            <th className="p-3">Date</th>
-                            <th className="p-3">Total</th>
-                            <th className="p-3">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orders.map(order => (
-                            <tr key={order.id} className="border-t text-sm">
-                                <td className="p-3">{order.id}</td>
-                                <td className="p-3">{order.date}</td>
-                                <td className="p-3">{order.total}</td>
-                                <td className="p-3">
-                                    <span className={`px-2 py-1 text-xs rounded-md 
-                                        ${order.status === "Shipped" ? "bg-green-200 text-green-700" : "bg-yellow-200 text-yellow-700"}`}>
-                                        {order.status}
-                                    </span>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                <Divider sx={{ my: 2, borderWidth: 2 }} />
+
+                {/* Cart Details */}
+                <Box display="flex" justifyContent="space-around" alignItems="center" mb={2}>
+                    <Typography variant="body1">Cart Items: {cartItemNumber}</Typography>
+                    <IconButton color="primary">
+                        <ShoppingCart />
+                    </IconButton>
+                </Box>
+
+                {/* Settings & Edit Profile */}
+                <Box display="flex" justifyContent="space-around" gap={1}>
+                    <Button 
+                        variant="outlined" 
+                        startIcon={<Settings />}
+                        onClick={() => navigate("settings")}
+                    >
+                        Settings
+                    </Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        startIcon={<Edit />}
+                        onClick={() => navigate("editprofile")}
+                    >
+                        Edit Profile
+                    </Button>
+                </Box>
+            </CardContent>
+        </Card>
     );
 };
 
-export default Profile;
+export default ProfileSection;
+

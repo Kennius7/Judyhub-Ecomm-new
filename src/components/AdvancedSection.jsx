@@ -58,10 +58,12 @@ const AdminSection = () => {
 
     return (
         <section className="w-full bg-slate-100 flexColCenter py-20">
-            {/* <PopularAdmin/>
-            <NewCollectionAdmin/> */}
-            <OtherProductsAdmin/>
-            
+            {/* <PopularAdmin/> */}
+            {/* <NewCollectionAdmin/>
+            <OtherProductsAdmin/> */}
+            <div className="w-full text-center h-[70vh] flexCenter">
+                Advanced Settings
+            </div>
                 {/* <div className="flexColCenter mt-10">
                     <div className="mb-10 text-[18px]">
                         Posting Data to Database
