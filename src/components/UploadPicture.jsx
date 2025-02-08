@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { storage } from "../../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -8,19 +8,23 @@ import ModalPics from "./ModalPics";
 import Button from "./Button";
 import { toast } from "react-toastify";
 import { AccountCircle } from "@mui/icons-material";
+import axios from "axios";
+import { MainContext } from "../context/mainContext";
 
 
 
 const UploadPicture = ({ 
     isShow, onClose, title, progress, setProgress, preview, fileName, setFileName,
-    setPreview, isLoading, setIsLoading, image, setImage, buttonText, setButtonText
+    setPreview, isLoading, setIsLoading, image, setImage, buttonText, setButtonText,
 }) => {
 
     const imageRef = useRef(null);
-    // const [fileName, setFileName] = useState("No File Selected");
+    const { downloadProfileData, profileFormData, setProfileFormData } = useContext(MainContext);
     const [heightSize, setHeightSize] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
     let progressWidthValue = progress.toString() + "%";
+    const apiUpdatePicsUrl = import.meta.env.VITE_API_UPDATE_PICS_URL
+
     let imageURL1 = "https://firebasestorage.googleapis.com/v0/b/judy-hub-ecommerce.appspot.com/o/images%2F858374ea-890c-4a01-ab01-0ce9fbceaa02_shirts3.jpg?alt=media&token=c621b372-3f70-46d1-8e1e-4b9c25b58da8";
 
     const getHeightValue = () => {
@@ -53,7 +57,7 @@ const UploadPicture = ({
     const handleUpload = () => {
         setIsLoading(true);
         setButtonText("Uploading");
-        setProgress(0);
+        setProgress(1);
         if (!image) {
             toast("Please select a picture to upload", { type: "warning" });
             setIsLoading(false);
@@ -64,12 +68,6 @@ const UploadPicture = ({
         const uniqueFileName = `${uuidv4()}_${image.name}`;
         const storageRef = ref(storage, `images/${uniqueFileName}`);
         const uploadTask = uploadBytesResumable(storageRef, image);
-        // const addVar = 0.001;
-
-        // const initialUploadIllusion = () => {
-        //     for (let index = 0; index < 2; index += addVar) setProgress(prev => prev + addVar);
-        // }
-        // initialUploadIllusion();
 
         uploadTask.on(
             "state_changed",
@@ -80,21 +78,40 @@ const UploadPicture = ({
             (error) => {
                 console.error("Picture upload failed", error);
                 toast(`Picture upload failed!`, { type: "error" } );
-                setPreview(null);
                 setProgress(0);
                 setIsLoading(false);
-                setImage(null);
                 setButtonText("Upload");
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     setImageUrl(downloadURL);
                     toast(`Picture uploaded!`, { type: "success" } );
-                    setPreview(null);
                     setProgress(0);
                     setIsLoading(false);
-                    setImage(null);
                     setButtonText("Upload");
+
+                    setProfileFormData((prevData) => {
+                        const updatedData = { ...prevData, image: downloadURL };
+                        console.log("Updated User Profile Data Before Upload:", updatedData);
+                        uploadData(updatedData);
+                        return updatedData;
+                    });
+                    const uploadData = async (updatedData) => {
+                        try {
+                            const response = await axios.post(apiUpdatePicsUrl, { updatedData });
+                            console.log("Profile Data:>>>>", profileFormData);
+                            const message = response.data.message;
+                            console.log("Response:>>>>", message);
+                            toast(`Data updated successfully!`, { type: "success" } );
+                            downloadProfileData();
+                        } catch (error) {
+                            toast(`Error updating data. ${error}`, { type: "error" } );
+                            console.error(error);
+                        } finally {
+                            setButtonText("Save");
+                            setIsLoading(false);
+                        }
+                    }
                 });
             }
         );

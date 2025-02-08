@@ -22,7 +22,7 @@ const Navbar = () => {
         menuOpened, setMenuOpened, profileFormData, isLoggedIn, 
         isTokenExpired, pathAccess, active, setActive, cartItemNumber
     } = useContext(MainContext);
-    const { name, profilePics } = profileFormData;
+    const { name, image } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
 
@@ -57,7 +57,7 @@ const Navbar = () => {
                 {/* Profile Avatar */}
                 <Avatar
                     alt="Guest"
-                    src={profilePics}
+                    src={image}
                     onClick={() => navigate("/profile")}
                     sx={{
                         display: { xs: "flex", sm: "none" },
@@ -202,7 +202,7 @@ const Navbar = () => {
                         {/* Profile Avatar */}
                         <Avatar
                             alt="Guest"
-                            src={profilePics}
+                            src={image}
                             onClick={()=>navigate("/profile")}
                             sx={{ 
                                 width: window.innerWidth > 768 ? 40 : 

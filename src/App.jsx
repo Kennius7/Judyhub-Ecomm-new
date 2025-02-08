@@ -40,8 +40,7 @@ function App () {
     email: "guest@mail.com",
     number: "10000100001",
     address: "",
-    id: "",
-    profilePics: "",
+    image: "",
   });
 
 
@@ -70,17 +69,17 @@ function App () {
           },
           // withCredentials: false,
         });
-        const { name, email, number, id, profilePics } = response.data.data;
+        const { name, email, number, image, address } = response.data.data;
 
         setProfileFormData({ 
             ...profileFormData, 
             name: name, 
             email: email, 
             number: number,
-            id: id,
-            profilePics: profilePics,
+            address: address,
+            image: image,
         });
-        console.log("Updated Data: ", profileFormData);
+        console.log("Updated Profile Data: ", profileFormData);
         setIsTokenExpired(false);
     } catch (error) {
       const errorMessage = error?.response?.data;

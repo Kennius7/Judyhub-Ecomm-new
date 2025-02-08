@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileSection = () => {
     const { profileFormData, cartItemNumber } = useContext(MainContext);
-    const { name, email, profilePics, address, number } = profileFormData;
+    const { name, email, image, address, number } = profileFormData;
     const navigate = useNavigate();
+    console.log("Profile Form Data:", profileFormData);
 
 
     return (
@@ -31,17 +32,17 @@ const ProfileSection = () => {
                 {/* User Details */}
                 <Box display="flex" alignItems="center" flexDirection="column">
                     <Avatar 
-                        src={profilePics} 
+                        src={image} 
                         sx={{ 
                             width: window.innerWidth > 480 ? 150 : 120, 
                             height: window.innerWidth > 480 ? 150 : 120, 
                             mb: 2 
                         }} 
                     />
-                    <div className="w-full flex flex-col justify-center items-center">
+                    <div className="w-full flex flex-col justify-center items-start">
                         <Typography variant="h6" fontWeight="bold">Name: {name}</Typography>
                         <Typography variant="body1" color="text.secondary">Email: {email}</Typography>
-                        <Typography variant="body1" color="text.secondary">Home Address: {address}</Typography>
+                        <Typography variant="body1" color="text.secondary">H. Address: {address}</Typography>
                         <Typography variant="body1" color="text.secondary">Phone: {number}</Typography>
                     </div>
                 </Box>
