@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import MuiNavbar from "./components/MuiNavbar";
 import SettingsPage from "./pages/SettingsPage";
 import EditProfilePage from "./pages/EditProfilePage";
+import UploadPicture from "./components/UploadPicture";
 
 
 
@@ -32,6 +33,7 @@ function App () {
   let cartItemNumber = 6;
   const primaryGreen = "#0db915";
   const secondaryBrown = "#613207";
+  const checkEditProfilePicture = true;
 
   const [profileFormData, setProfileFormData] = useState({
     name: "Guest",
@@ -126,7 +128,7 @@ function App () {
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
         isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber, 
-        primaryGreen, secondaryBrown, adminChecker,
+        primaryGreen, secondaryBrown, adminChecker, checkEditProfilePicture
       }}
     >
       <ToastContainer 
