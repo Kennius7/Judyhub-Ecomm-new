@@ -46,7 +46,7 @@ const SignUp = () => {
                 setTimeout(() => navigate(-1), 3000);
             } catch (error) {
                 console.error("Error signing in:", error);
-                const errorMessage = error?.response?.data?.error || "An unexpected error occurred.";
+                const errorMessage = error?.response?.data?.error;
                 toast(`Error: ${errorMessage}`, { type: "error" });
                 setSigninText("Sign In Failed!");
                 setTimeout(() => setSigninText("Sign In"), 2000);

@@ -25,6 +25,13 @@ const Navbar = () => {
     const { name, image } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
+    const profPicsNavigator = () => {
+        if (isLoggedIn && !isTokenExpired) {
+            navigate("/profile");
+        } else {
+            navigate("/login");
+        }
+    }
 
     const drawer = (
         <List sx={{ 
@@ -58,7 +65,7 @@ const Navbar = () => {
                 <Avatar
                     alt="Guest"
                     src={image}
-                    onClick={() => navigate("/profile")}
+                    onClick={profPicsNavigator}
                     sx={{
                         display: { xs: "flex", sm: "none" },
                         flexDirection:  "row",
@@ -203,13 +210,13 @@ const Navbar = () => {
                         <Avatar
                             alt="Guest"
                             src={image}
-                            onClick={()=>navigate("/profile")}
+                            onClick={profPicsNavigator}
                             sx={{ 
                                 width: window.innerWidth > 768 ? 40 : 
                                 window.innerWidth < 768 && window.innerWidth > 480 ? 40 : 35,
                                 height: window.innerWidth > 768 ? 40 : 
                                 window.innerWidth < 768 && window.innerWidth > 480 ? 40 : 35, 
-                                cursor: "pointer",
+                                cursor: "pointer", border: isLoggedIn ? "2px solid #fff" : "none",
                             }}
                         />
 

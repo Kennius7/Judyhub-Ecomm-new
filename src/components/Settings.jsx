@@ -1,9 +1,11 @@
 
 import { useContext, useState } from "react";
 import { Card, CardContent, Typography, Switch, FormControlLabel, Button, Box, Divider } from "@mui/material";
-import { DarkMode, Notifications, Settings } from "@mui/icons-material";
+import { DarkMode, Notifications, Settings, LogoutRounded } from "@mui/icons-material";
 import { MainContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+
 
 
 
@@ -69,6 +71,16 @@ const SettingsPage = () => {
                         </Button>
                     )
                 }
+                <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<LogoutRounded />}
+                    fullWidth
+                    onClick={signOut}
+                    sx={{ mt: 2 }}
+                >
+                    Sign Out
+                </Button>
             </CardContent>
         </Card>
     );
