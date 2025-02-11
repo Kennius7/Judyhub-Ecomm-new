@@ -74,7 +74,7 @@ const Navbar = () => {
                         width: 38,
                         height: 38, 
                         cursor: "pointer",
-border: isLoggedIn ? "2px solid #fff" : "none",
+border: isLoggedIn ? "2px solid #fed000" : "none",
                     }}
                 />
             </ListItem>
