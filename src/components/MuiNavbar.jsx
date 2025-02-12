@@ -25,13 +25,14 @@ const Navbar = () => {
     const { name, image } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
+    // const handleNavClick = (name) => {
+    //     setActive(capitalize(name));
+    //     // setMenuOpened(true);
+    // }
     const profPicsNavigator = () => {
-        if (isLoggedIn && !isTokenExpired) {
-            navigate("/profile");
-        } else {
-            navigate("/login");
-        }
+        if (isLoggedIn && !isTokenExpired) { navigate("/profile") } else { navigate("/login") }
     }
+    console.log("Active Nav Item:", active);
 
     const drawer = (
         <List sx={{ 
@@ -52,7 +53,7 @@ const Navbar = () => {
                     alignItems: "center",
                 }}
             >
-                <Typography variant="h6" sx={{ fontStyle: "italic" }}>
+                <Typography variant="h6" sx={{ fontStyle: "italic", fontSize: 15 }}>
                     {
                         isLoggedIn !== null && !isTokenExpired 
                         ? "Hi, " + name?.split(" ")[0] 
@@ -74,7 +75,7 @@ const Navbar = () => {
                         width: 38,
                         height: 38, 
                         cursor: "pointer",
-                        border: isLoggedIn ? "2px solid #0db915" : "none",
+                        border: "2px solid #0db915",
                     }}
                 />
             </ListItem>
@@ -90,13 +91,14 @@ const Navbar = () => {
                             key={index} 
                             to={pathAccess ? nav.link : "/"} 
                             onClick={() => setActive(capitalize(nav.name))} 
-                            className={`flex justify-start items-center cursor-pointer text-[17px] font-EncodeSans
+                            onFocus={() => setMenuOpened(!menuOpened)}
+                            className={`flex justify-start items-center cursor-pointer font-EncodeSans
                                 duration-500 transition-all focus:outline-none focus:ring-0 my-2
                                 ${active === capitalize(nav.name) 
                                 ? "text-primaryGreen font-semibold" 
                                 : "text-secondaryBrown font-normal title-text-shadow4"}`}
                         >
-                            <Typography variant="h6">
+                            <Typography variant="h6" sx={{ fontSize: 18 }}>
                                 { capitalize(nav.name) }
                             </Typography>
                         </NavLink>
@@ -111,7 +113,7 @@ const Navbar = () => {
                 sx={{ width: "96%" }}
                 className='xs:hidden block font-semibold text-secondaryBrown bg-primaryGreen/50 rounded-md'
             >
-                <Typography variant="h6">
+                <Typography variant="h6" sx={{ fontSize: 18 }}>
                     Sign in
                 </Typography>
             </ListItem>
@@ -217,7 +219,8 @@ const Navbar = () => {
                                 window.innerWidth < 768 && window.innerWidth > 480 ? 40 : 35,
                                 height: window.innerWidth > 768 ? 40 : 
                                 window.innerWidth < 768 && window.innerWidth > 480 ? 40 : 35, 
-                                cursor: "pointer", border: isLoggedIn ? "2px solid #fff" : "none",
+                                cursor: "pointer", 
+                                border: "2px solid #fff",
                             }}
                         />
 

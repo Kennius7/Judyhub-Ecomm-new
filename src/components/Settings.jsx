@@ -1,10 +1,11 @@
 
 import { useContext, useState } from "react";
-import { Card, CardContent, Typography, Switch, FormControlLabel, Button, Box, Divider } from "@mui/material";
+import { Card, CardContent, Typography, Switch, FormControlLabel, Button, Box, Divider, CircularProgress } from "@mui/material";
 import { DarkMode, Notifications, Settings, LogoutRounded } from "@mui/icons-material";
 import { MainContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -13,8 +14,42 @@ import { signOut } from "firebase/auth";
 const SettingsPage = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { secondaryBrown, adminChecker } = useContext(MainContext);
+    const { secondaryBrown, adminChecker, profileFormData, setProfileFormData, downloadProfileData } = useContext(MainContext);
+    const { name } = profileFormData;
+    const apiSignOutUrl = import.meta.env.VITE_API_SIGNOUT_URL;
+
+    const handleSignOut = async () => {
+        setIsLoading(true);
+        if (name !== "Guest") {
+            try {
+                const response = await axios.post(apiSignOutUrl, { name });
+                const message = response.data.message;
+                console.log("Message:>>>", message);
+                toast(message, { type: "success" });
+                localStorage.setItem("user-token", "");
+                setProfileFormData({ 
+                    ...profileFormData, 
+                    name: "Guest", 
+                    email: "guest@mail.com",
+                    number: "10000100001",
+                    address: "",
+                    image: "", 
+                });
+                downloadProfileData();
+                setTimeout(() => { setIsLoading(false) }, 2000);
+            } catch (error) {
+                console.error(error);
+                toast(error.message, { type: "error" });
+                setTimeout(() => { setIsLoading(false) }, 2000);
+            }
+        } else {
+            console.log("Not signed in:", name);
+            toast(`Not signed in, ${name}`, { type: "warning" });
+            setTimeout(() => { setIsLoading(false) }, 2000);
+        }
+    }
 
 
     return (
@@ -74,12 +109,12 @@ const SettingsPage = () => {
                 <Button
                     variant="contained"
                     color="error"
-                    startIcon={<LogoutRounded />}
+                    startIcon={ isLoading ? <CircularProgress size={24} color="inherit"/> : <LogoutRounded />}
                     fullWidth
-                    onClick={signOut}
+                    onClick={handleSignOut}
                     sx={{ mt: 2 }}
                 >
-                    Sign Out
+                    { isLoading ? "Signing out..." : "Sign Out" }
                 </Button>
             </CardContent>
         </Card>

@@ -96,13 +96,11 @@ function App () {
   useEffect(() => {
     if (profileFormData.name !== "Guest") {
       setIsLoggedIn(true);
-      console.log("Logged In User:>>>", auth);
       console.log("Logged In (Success):", isLoggedIn);
       console.log("Has Token Expired:", isTokenExpired);
     } else {
       downloadProfileData();
       setIsLoggedIn(false);
-      console.log("Logged In User:>>>", auth);
       console.log("Logged In (Failure):", isLoggedIn);
       console.log("Has Token Expired:", isTokenExpired);
     }
