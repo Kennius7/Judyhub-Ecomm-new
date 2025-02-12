@@ -38,16 +38,21 @@ const SettingsPage = () => {
                     image: "", 
                 });
                 downloadProfileData();
-                setTimeout(() => { setIsLoading(false) }, 2000);
+                setTimeout(() => { 
+                    setIsLoading(false);
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 1000);
+                }, 1000);
             } catch (error) {
                 console.error(error);
                 toast(error.message, { type: "error" });
-                setTimeout(() => { setIsLoading(false) }, 2000);
+                setTimeout(() => { setIsLoading(false) }, 1000);
             }
         } else {
             console.log("Not signed in:", name);
             toast(`Not signed in, ${name}`, { type: "warning" });
-            setTimeout(() => { setIsLoading(false) }, 2000);
+            setTimeout(() => { setIsLoading(false) }, 1000);
         }
     }
 

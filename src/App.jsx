@@ -48,7 +48,6 @@ function App () {
 
 
   const downloadData = async () => {
-    // console.log("Fetched Data:", fetchedData);
     try {
         const response = await axios.get(apiGetDataUrl);
         const allProducts = response.data.data;
@@ -107,12 +106,10 @@ function App () {
   });
 
   const [adminChecker, setAdminChecker] = useState(false);
-  // const adminChecker = ["ogbogukenny@yahoo.com", "shinjinchu@gmail.com"].includes(profileFormData.email);
 
   useEffect(() => {
     setAdminChecker(["ogbogukenny@yahoo.com", "wealthyjudy@gmail.com"].includes(profileFormData.email));
   }, [profileFormData.email])
-  console.log("Are the authorized users logged in:>>>>", adminChecker);
 
   const AdminProtectedRoute = ({ isAuthenticated }) => {
     let location = useLocation();
@@ -135,7 +132,7 @@ function App () {
     >
       <ToastContainer 
         position='top-right' 
-        autoClose={3000} 
+        autoClose={1000} 
         hideProgressBar={false} 
         newestOnTop={true} 
         closeOnClick

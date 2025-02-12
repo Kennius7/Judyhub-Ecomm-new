@@ -27,7 +27,6 @@ const Navbar = () => {
     const profPicsNavigator = () => {
         if (isLoggedIn && !isTokenExpired) { navigate("/profile") } else { navigate("/login") }
     }
-    console.log("Active Nav Item:", active);
 
     const drawer = (
         <List sx={{ 

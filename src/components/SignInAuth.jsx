@@ -35,7 +35,7 @@ const SignUp = () => {
                 );
                 const fetchedToken = response?.data?.token;
                 localStorage.setItem("user-token", fetchedToken);
-                console.log("Token:>>>>", fetchedToken);
+                // console.log("Token:>>>>", fetchedToken);
                 const message = response?.data?.message;
                 // console.log("Message:>>>>", response);
                 toast(message, { type: "success" });
