@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useState, useContext } from "react";
-import { 
-    AppBar, Toolbar, Typography, IconButton, Badge, Avatar, 
-    Drawer, List, ListItem, ListItemText, Box 
-} from "@mui/material";
+import { useContext } from "react";
+import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, Drawer, List, ListItem, Box } from "@mui/material";
 import { ShoppingCart, Menu } from "@mui/icons-material";
-import { userIcon, logoSvg } from "../assets";
+import { logoSvg } from "../assets";
 import { useNavigate } from "react-router-dom";
 import { MainContext } from "../context/mainContext";
 import { NavLink } from "react-router-dom";
@@ -15,20 +12,18 @@ import { capitalize } from "lodash";
 
 
 const Navbar = () => {
-    // const [mobileOpen, setMobileOpen] = useState(false);
-    // const cartItemCount = 3;
     const navigate = useNavigate();
+
     const { 
         menuOpened, setMenuOpened, profileFormData, isLoggedIn, 
         isTokenExpired, pathAccess, active, setActive, cartItemNumber
     } = useContext(MainContext);
+
     const { name, image } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
-    // const handleNavClick = (name) => {
-    //     setActive(capitalize(name));
-    //     // setMenuOpened(true);
-    // }
+    const handleLoginNavigator = () => navigate("/login");
+    
     const profPicsNavigator = () => {
         if (isLoggedIn && !isTokenExpired) { navigate("/profile") } else { navigate("/login") }
     }
@@ -109,11 +104,13 @@ const Navbar = () => {
             {/* Login Button */}
             <ListItem 
                 component="div" 
-                onClick={()=>navigate("/login")} 
+                tabIndex={0}
+                onClick={handleLoginNavigator} 
+                onFocus={() => setMenuOpened(!menuOpened)}
                 sx={{ width: "96%" }}
                 className='xs:hidden block font-semibold text-secondaryBrown bg-primaryGreen/50 rounded-md'
             >
-                <Typography variant="h6" sx={{ fontSize: 18 }}>
+                <Typography variant="h6" sx={{ fontSize: 18 }} onFocus={() => setMenuOpened(!menuOpened)}>
                     Sign in
                 </Typography>
             </ListItem>
