@@ -12,7 +12,6 @@ const ProfileSection = () => {
     const { profileFormData, cartItemNumber } = useContext(MainContext);
     const { name, email, image, address, number } = profileFormData;
     const navigate = useNavigate();
-    console.log("Profile Form Data:", profileFormData);
 
 
     return (

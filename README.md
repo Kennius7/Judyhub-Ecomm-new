@@ -11,7 +11,7 @@ Currently, two official plugins are available:
 
 Note:
 
-1. Create a sign out feature.
-2. Create a user profile page and a cart page.
-3. Make the admin dashboard for editing.
-4. Create and design a cart page.
+1. Create a user profile page.
+2. Make the admin dashboard for editing.
+3. Create and design a cart page.
+4. Design the pages for the other nav items.
