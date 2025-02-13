@@ -116,7 +116,9 @@ const Navbar = () => {
 
             <ListItem 
                 component="div" 
-                sx={{ top: 310, right: 10 }}>
+                onClick={() => navigate("/cart")}
+                sx={{ top: 310, right: 10 }}
+            >
                 <IconButton color="inherit">
                     <Badge badgeContent={cartItemNumber} color="error">
                         <ShoppingCart 
@@ -223,6 +225,7 @@ const Navbar = () => {
                         {/* Cart Icon */}
                         <IconButton
                             color="inherit"
+                            onClick={() => navigate("/cart")}
                             sx={{ display: { xs: "none", sm: "inline-flex" } }}
                         >
                             <Badge badgeContent={cartItemNumber} color="error">

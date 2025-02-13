@@ -1,62 +1,66 @@
-import Star from "../assets/star.svg";
-import Button from "./Button";
+import { Box, Button, Typography, Container } from '@mui/material';
+import { MainContext } from '../context/mainContext';
+import { useContext } from 'react';
 
 
 
 const Hero = () => {
-    const starDimensions = "ss:w-8 ss:h-8 w-6 h-6";
+    const { primaryGreen } = useContext(MainContext);
 
     return (
-        <section className="bg-hero bg-cover ss:bg-center bg-no-repeat w-full sm:h-[500px] xs:h-[350px] h-[450px] relative">
-            <div className="w-full absolute z-[2] xs:top-32 top-24 pl-2">
-                <h1 
-                    style={{ 
-                        background: "linear-gradient(180deg, #146409, #000)",
-                        backgroundClip: "text",
-                        color: "transparent",
-                        WebkitBackgroundClip: "text",
-                        fontWeight: "700"
-                    }} 
-                    className="font-sans lg:text-[40px] ss:text-[35px] xs:text-[32px] text-[29px]"
+        <Box
+            className="bg-hero1 title-text-shadow5 !important"
+            sx={{
+                // backgroundImage: 'url(../assets/bg1.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                width: '100%',
+                height: '60vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                textAlign: 'center',
+                p: 4,
+            }}
+        >
+            <Typography 
+                variant={window.innerWidth > 500 ? "h3" : "h4"} 
+                fontWeight="bold" 
+                gutterBottom 
+                className="title-text-shadow5 outline-4 outline-slate-800 !important"
+                sx={{ 
+                    color: primaryGreen, 
+                    marginTop: window.innerWidth > 500 ? 0 : 7, 
+                    letterSpacing: window.innerWidth > 500 ? 0 : -4,
+                    outlineWidth: 4, outlineColor: "#fff",
+                }}
+            >
+                Judyhub Online Market
+            </Typography>
+            <Container>
+                <Typography 
+                    variant={window.innerWidth > 500 ? "h2" : "h4"} 
+                    fontWeight="bold" 
+                    gutterBottom
                 >
-                    Judyhub Online Market
-                </h1>
-                <h3 className="font-sans font-bold ss:text-[24px] text-[18px] text-white ss:mt-[10px] 
-                    mt-[6px] ss:w-full w-[70%] ss:leading-normal leading-[24px] title-text-shadow1">
-                    Shop the Latest Trends, Delivered to Your Doorstep!
-                </h3>
-                <p className="ss:max-w-[650px] xs:max-w-[400px] max-w-[250px] ss:mt-[6px] mt-[3px] ss:text-[20px] text-[15px] 
-                    font-semibold font-sans ss:leading-normal leading-[22px] title-text-shadow3">
-                    Discover fashion, electronics, home essentials, and more, all in one place. 
-                    Enjoy exclusive deals, fast shipping, and hassle-free returns. 
-                    Your one-stop shop for everything you need!
-                </p>
-                <div className="flex justify-start items-center ss:mt-[30px] mt-[10px]">
-                    <img src={Star} className={`${starDimensions}`}/>
-                    <img src={Star} className={`${starDimensions}`}/>
-                    <img src={Star} className={`${starDimensions}`}/>
-                    <img src={Star} className={`${starDimensions}`}/>
-                    <img src={Star} className={`${starDimensions}`}/>
-                    <div className="flex justify-start items-center text-white ss:text-[16px] text-[14px] 
-                        ml-[10px] pt-2 ss:font-medium font-semibold title-text-shadow1">
-                        125,027 Reviews
-                    </div>
-                </div>
-                <div 
-                    className="flex justify-between items-center ss:w-[40%] xs:w-[75%] w-[96%] ss:h-[40px] 
-                    h-[35px] ss:mt-8 mt-5"
+                    Shop the Latest Trends
+                </Typography>
+                <Typography variant={window.innerWidth > 500 ? "h5" : "h6"} gutterBottom>
+                    Discover exclusive deals and new arrivals every day.
+                </Typography>
+                <Button 
+                    variant="contained" 
+                    size="large" 
+                    className="shadow-inner"
+                    sx={{ backgroundColor: primaryGreen, marginTop: window.innerWidth > 500 ? 0 : 5}}
                 >
-                    <Button 
-                        buttonText={"Start Shopping Now"}
-                        className={`w-[48%] h-full rounded-[22px] shadow-[0px_0px_5px_0px_#0b1f139c] 
-                        font-sans ss:text-[16px] text-[14px] text-slate-900 font-semibold`} />
-                    <Button 
-                        buttonText={"Explore Today's Deals"}
-                        className={`w-[48%] h-full rounded-[22px] shadow-[0px_0px_5px_0px_#0b1f139c] 
-                        font-sans ss:text-[16px] text-[14px] text-slate-900 font-semibold`} />
-                </div>
-            </div>
-        </section>
+                    Shop Now
+                </Button>
+            </Container>
+        </Box>
     );
 };
 

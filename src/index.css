@@ -180,6 +180,14 @@
   text-shadow: 0 0 1px #0db915;
 }
 
+.title-text-shadow5{
+  text-shadow: 0 0 10px #270404;
+}
+
+.title-text-shadow6{
+  text-shadow: 0 0 2px #fff;
+}
+
 .title-text-no-shadow{
   text-shadow: 0 0 0 #e2eee2;
 }
@@ -192,8 +200,24 @@
   background-image: url("./assets/bg1.jpg");
 }
 
+.bg-hero1 {
+  background-image: url("./assets/BG-3.jpg");
+}
+
 .bg-offers {
   background-image: url("./assets/Offers_BG.jpg");
+}
+
+.text-contrast-css {
+  color: transparent; /* Make the original text color transparent */
+  -webkit-background-clip: text; /* Apply background to text */
+  background-clip: text;
+  -webkit-text-stroke: 0px white; /* Add a stroke to improve readability */
+}
+
+.text-on-background {
+  color: #fff;
+  filter: drop-shadow(4px 4px 18px rgba(0, 0, 0, 0.9));
 }
 
 .button-gradient1 {

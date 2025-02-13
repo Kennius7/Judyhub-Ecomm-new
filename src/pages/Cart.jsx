@@ -1,12 +1,11 @@
+import CartSection from "../components/CartSection";
 
 
 const Cart = () => {
 
   return (
-    <div className="w-full h-[70vh] flexCenter">
-        <div>
-            Your Cart Profile
-        </div>
+    <div className="w-full flexCenter">
+        <CartSection />
     </div>
   )
 }
