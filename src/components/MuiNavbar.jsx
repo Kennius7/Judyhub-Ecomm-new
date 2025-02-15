@@ -15,8 +15,8 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const { 
-        menuOpened, setMenuOpened, profileFormData, isLoggedIn, 
-        isTokenExpired, pathAccess, active, setActive, cartItemNumber
+        menuOpened, setMenuOpened, profileFormData, isLoggedIn, cartData,
+        isTokenExpired, pathAccess, active, setActive,
     } = useContext(MainContext);
 
     const { name, image } = profileFormData;
@@ -120,7 +120,7 @@ const Navbar = () => {
                 sx={{ top: 310, right: 10 }}
             >
                 <IconButton color="inherit">
-                    <Badge badgeContent={cartItemNumber} color="error">
+                    <Badge badgeContent={cartData.length} color="error">
                         <ShoppingCart 
                             className="animate-pulseBorder1 !important" 
                             sx={{ width: 30, height: 30, borderRadius: "51%" }} 
@@ -228,7 +228,7 @@ const Navbar = () => {
                             onClick={() => navigate("/cart")}
                             sx={{ display: { xs: "none", sm: "inline-flex" } }}
                         >
-                            <Badge badgeContent={cartItemNumber} color="error">
+                            <Badge badgeContent={cartData.length} color="error">
                                 <ShoppingCart 
                                     className="animate-pulseBorder !important" 
                                     sx={{ width: 35, height: 35, borderRadius: "51%" }} 

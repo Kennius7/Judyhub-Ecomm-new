@@ -14,9 +14,16 @@ import { MainContext } from "../context/mainContext";
 const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
     // const tags = ['New', 'Popular', 'Limited Edition'] 
     const navigate = useNavigate();
-    const { primaryGreen, secondaryBrown } = useContext(MainContext);
+    const { primaryGreen, secondaryBrown, cartData, addCartData } = useContext(MainContext);
     const stock = 20;
     const NGN = getSymbolFromCurrency('NGN');
+    const itemQuantity = cartData.find(item => item.id === id);
+    const productQuantity = itemQuantity ? itemQuantity.quantity : 1;
+    console.log("Filtered Data:>>>", productQuantity);
+
+    // const itemQuantity = cartData.map(item => item.id === id ? item : null);
+    // const productQuantity = itemQuantity.length === 0 ? 1 : itemQuantity;
+    // console.log("Filtered Data:>>>", productQuantity);
 
 
 
@@ -121,7 +128,11 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
 
             {/* Actions */}
             <CardActions className="w-full h-[25px] flexBetween xs:mx-2 mx-0 xs:-mt-6 -mt-8 !important">
-                <ShoppingCart htmlColor={primaryGreen} sx={{ width: 15, height: 15, borderRadius: "51%" }} />
+                <ShoppingCart 
+                    onClick={() => addCartData(id, name, newPrice, productQuantity)}
+                    htmlColor={primaryGreen} 
+                    sx={{ width: 15, height: 15, borderRadius: "51%" }} 
+                />
                 <Typography 
                     onClick={() => navigate(`/product/${id}`) }
                     variant="body2" 

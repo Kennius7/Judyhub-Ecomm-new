@@ -16,7 +16,6 @@ import Profile from "./pages/Profile";
 import MuiNavbar from "./components/MuiNavbar";
 import SettingsPage from "./pages/SettingsPage";
 import EditProfilePage from "./pages/EditProfilePage";
-import UploadPicture from "./components/UploadPicture";
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
@@ -32,7 +31,7 @@ function App () {
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
   const apiGetProfileUrl = import.meta.env.VITE_API_GETPROFILE_URL;
-  let cartItemNumber = 6;
+
   const primaryGreen = "#0db915";
   const secondaryBrown = "#613207";
   const checkEditProfilePicture = true;
@@ -45,6 +44,50 @@ function App () {
     address: "",
     image: "",
   });
+
+  const [cartData, setCartData] = useState([]);
+
+  const addCartData = (id, name, price, quantity) => {
+    console.log("No cart data...");
+    const cartDataList = cartData.find(item => item.id === id);
+
+    if (!cartDataList) {
+      setCartData(prevItems => [
+        ...prevItems, { id: id, name: name, price: price, quantity: quantity },
+      ])
+    } else {
+      setCartData(
+        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
+      )
+    }
+  }
+
+  const updateCartData = (id, quantity, role) => {
+    if (role === "add") {
+      console.log("Role:", role, "Cart Data Id:", id);
+      setCartData(
+        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
+      )
+    }
+    if (role === "remove") {
+      console.log("Role:", role, "Cart Data Id:", id);
+      setCartData(
+        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity - 1 } : item)
+      )
+    }
+    if (quantity === 0) {
+      console.log("Quantity after removed:", quantity);
+      setCartData(prevItems => prevItems.filter(item => item.id !== id))
+    } 
+  }
+
+  const removeCartData = (id) => {
+    setCartData(prevItems => prevItems.filter(item => item.id !== id))
+  }
+
+  const deleteAllCartData = () => {
+    setCartData([]);
+  }
 
 
   const downloadData = async () => {
@@ -126,8 +169,9 @@ function App () {
       value={{ 
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
-        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, cartItemNumber, 
-        primaryGreen, secondaryBrown, adminChecker, checkEditProfilePicture
+        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData,
+        primaryGreen, secondaryBrown, adminChecker, checkEditProfilePicture, cartData, setCartData,
+        addCartData, updateCartData, removeCartData, deleteAllCartData
       }}
     >
       <ToastContainer 
