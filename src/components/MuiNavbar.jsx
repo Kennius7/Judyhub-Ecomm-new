@@ -188,7 +188,7 @@ const Navbar = () => {
 
 
                     {/* From Login to Mobile Menu Button Section */}
-                    <div className="flexCenter gap-x-4">
+                    <div className="flexCenter xs:gap-x-4 gap-x-1">
                         {/* Login Button */}
                         <button 
                             onClick={()=>navigate("/login")} 
@@ -226,12 +226,23 @@ const Navbar = () => {
                         <IconButton
                             color="inherit"
                             onClick={() => navigate("/cart")}
-                            sx={{ display: { xs: "none", sm: "inline-flex" } }}
+                            // sx={{ display: { xs: "none", sm: "inline-flex" } }}
                         >
-                            <Badge badgeContent={cartData.length} color="error">
+                            <Badge 
+                                badgeContent={cartData.length} 
+                                color="error"
+                                sx={{ 
+                                    width: window.innerWidth > 500 ? 30 : 26, 
+                                    height: window.innerWidth > 500 ? 30 : 26, 
+                                }}
+                            >
                                 <ShoppingCart 
-                                    className="animate-pulseBorder !important" 
-                                    sx={{ width: 35, height: 35, borderRadius: "51%" }} 
+                                    className="xs:animate-pulseBorder animate-none !important" 
+                                    sx={{ 
+                                        width: window.innerWidth > 500 ? 35 : 30, 
+                                        height: window.innerWidth > 500 ? 35 : 30, 
+                                        borderRadius: "51%" 
+                                    }} 
                                 />
                             </Badge>
                         </IconButton>
