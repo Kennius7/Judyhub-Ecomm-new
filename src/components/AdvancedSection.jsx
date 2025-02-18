@@ -65,7 +65,7 @@ const AdminSection = () => {
             <div className="w-full text-center h-[70vh] flexCenter">
                 Advanced Settings
             </div>
-                {/* <div className="flexColCenter mt-10">
+                <div className="flexColCenter mt-10">
                     <div className="mb-10 text-[18px]">
                         Posting Data to Database
                     </div>
@@ -78,7 +78,7 @@ const AdminSection = () => {
                         transition-all duration-300`} 
                         isLoading={isPostLoading}
                     />
-                </div> */}
+                </div>
 
         </section>
     )
