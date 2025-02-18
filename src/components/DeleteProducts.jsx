@@ -5,7 +5,7 @@ import { MainContext } from "../context/mainContext";
 import Button from "./Button";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { apiDeleteProductUrl } from "../constants/api";
+import { deleteAPI } from "../constants/api";
 
 
 
@@ -30,7 +30,7 @@ const DeleteProducts = ({ selectedProducts, setSelectedProducts }) => {
         }
 
         try {
-            const response = await axios.delete(apiDeleteProductUrl, { data: { ids } });
+            const response = await axios.delete(deleteAPI, { data: { ids } });
             const message = response?.data?.message;
             setDeleteText("Deleted!");
             toast(message, { type: "success" });
