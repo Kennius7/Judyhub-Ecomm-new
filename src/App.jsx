@@ -122,7 +122,7 @@ function App () {
   const downloadData = async () => {
     try {
         const apiType = "GETPRODUCTS";
-        const response = await axios.get(productAPI, { apiType });
+        const response = await axios.post(productAPI, { apiType });
         const allProducts = response.data.data;
         setFetchedData({ ...fetchedData, products: allProducts, });
         console.log("Updated Data: ", fetchedData);
@@ -139,7 +139,7 @@ function App () {
     const apiType = "FETCHUSERDATA"; 
     try {
         const response = await axios.get(userAPI, {
-          apiType,
+          params: { apiType },
           headers: { 
               "Content-Type": "application/json", 
               Authorization: `Bearer ${userToken}`,
@@ -162,7 +162,7 @@ function App () {
     } catch (error) {
       const errorMessage = error?.response?.data;
       if (userToken && errorMessage === "Invalid Token!") setIsTokenExpired(true);
-      console.error("Error downloading data: >>>>", error);
+      console.error("Error downloading profile data: >>>>", error);
     }
   };
 

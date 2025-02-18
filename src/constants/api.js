@@ -12,7 +12,7 @@
 // export const apiUpdatePicsUrl = import.meta.env.VITE_API_UPDATE_PICS_URL;
 
 
-export const userAPI = import.meta.env.VITE_API_USER;
-export const productAPI = import.meta.env.VITE_API_PRODUCT;
-export const authAPI = import.meta.env.VITE_API_AUTH;
-export const deleteAPI = import.meta.env.VITE_API_DELETEDATA;
+export const userAPI = import.meta.env.VITE_API_USER_URL;
+export const productAPI = import.meta.env.VITE_API_PRODUCT_URL;
+export const authAPI = import.meta.env.VITE_API_AUTH_URL;
+export const deleteAPI = import.meta.env.VITE_API_DELETEDATA_URL;
