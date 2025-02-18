@@ -7,4 +7,5 @@ export { default as Product } from "../pages/Product";
 export { default as Profile } from "../pages/Profile";
 export { default as SettingsPage } from "../pages/SettingsPage";
 export { default as EditProfilePage } from "../pages/EditProfilePage";
+export { default as CheckoutPage } from "../pages/CheckoutPage";
 

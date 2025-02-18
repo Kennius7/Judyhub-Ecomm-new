@@ -10,36 +10,30 @@ import { MainContext } from '../context/mainContext';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { useNavigate } from 'react-router-dom';
 import { primaryGreen, secondaryBrown } from "../constants/colors.js";
+import { updateCartData, removeCartData, deleteAllCartData, calculateTotal, formatNumber, uploadCartData } from '../constants/functions.js';
+import ScrollToTop from '../../ScrollToTop.jsx';
 
 
 
 const CartSection = () => {
     const navigate = useNavigate();
-    const { 
-        profileFormData, updateCartData, removeCartData, deleteAllCartData, uploadCartData 
-    } = useContext(MainContext);
-
+    const { profileFormData, setProfileFormData } = useContext(MainContext);
     const { email, cartData } = profileFormData;
-
-    console.log("Cart Data:>>>", cartData);
     const NGN = getSymbolFromCurrency('NGN');
 
-    const calculateTotal = () => {
-        return cartData.reduce(
-            (total, item) => total + Number(item.price.replace(/,/g, "")) * item.quantity, 0
-        ).toFixed(2);
-    };
-
-    const formatNumber = (num) => {
-        let [integerPart, decimalPart] = num.toString().split(".");
-        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
+    const handleCheckout = () => {
+        uploadCartData(email, cartData);
+        navigate("/checkout");
+    }
+    const handleClearCart = () => {
+        deleteAllCartData(setProfileFormData);
     }
 
 
     return (
         <div className="xs:py-[150px] py-[250px] xs:px-4 px-2 xs:w-[40%] w-full flex flex-col justify-center 
             xs:items-center items-start">
+            <ScrollToTop/>
             <Typography variant="h4" gutterBottom>Shopping Cart</Typography>
             {
                 cartData.length === 0 
@@ -93,7 +87,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => updateCartData(item.id, item.quantity, "add", email, cartData)}
+                                                onClick={() => updateCartData(item.id, item.quantity, "add", setProfileFormData)}
                                             >
                                                 <AddIcon sx={{ color: "white", fontWeight: "bold" }}/>
                                             </IconButton>
@@ -103,7 +97,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => updateCartData(item.id, item.quantity, "remove", email, cartData)} 
+                                                onClick={() => updateCartData(item.id, item.quantity, "remove", setProfileFormData)} 
                                                 // disabled={item.quantity === 1}
                                             >
                                                 <RemoveIcon sx={{ color: "white", fontWeight: "bold" }}/>
@@ -114,7 +108,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => removeCartData(item.id, email, cartData)}
+                                                onClick={() => removeCartData(item.id, setProfileFormData)}
                                             >
                                                 <DeleteIcon sx={{ color: "white", fontWeight: "bold" }} />
                                             </IconButton>
@@ -124,13 +118,21 @@ const CartSection = () => {
                             ))
                         }
                         <div className="w-full flex justify-start items-center mb-8">
-                            <Typography variant="h6">Total: {NGN}{formatNumber(calculateTotal())}</Typography>
+                            <Typography variant="h6">Total: {NGN}{formatNumber(calculateTotal(cartData))}</Typography>
                         </div>
                         <div className="w-full flex justify-between items-center">
-                            <Button variant="contained" color="primary" onClick={() => navigate("/checkout")}>
+                            <Button 
+                                variant="contained" 
+                                color="primary" 
+                                onClick={handleCheckout}
+                            >
                                 Go to Checkout
                             </Button>
-                            <Button variant="contained" color="secondary" onClick={deleteAllCartData}>
+                            <Button 
+                                variant="contained" 
+                                color="secondary" 
+                                onClick={handleClearCart}
+                            >
                                 Clear Cart
                             </Button>
                         </div>

@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import { Footer, AdminSection, AdvancedSection, MuiNavbar } from "./components";
-import { Cart, Category, Login, Home, Product, Logout, Profile, SettingsPage, EditProfilePage } from "./pages";
+import { Cart, Category, Login, Home, Product, Logout, Profile, SettingsPage, EditProfilePage, CheckoutPage } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
 import bannerPics from "./assets/Offers_BG.jpg";
@@ -42,81 +41,6 @@ function App () {
     image: "",
     cartData: [],
   });
-
-
-  const uploadCartData = async (email, cartData) => {
-    try {
-      const apiType = "UPDATECART";
-      const response = await axios.post(userAPI, { email, cartData, apiType });
-      console.log("Cart Data:>>>>", cartData);
-      const message = response.data.message;
-      console.log("Response:>>>>", message);
-      // downloadProfileData();
-    } catch (error) {
-        console.error(error);
-    }
-  }
-
-  const addCartData = (id, name, price, quantity, email, cartData) => {
-    console.log("No cart data...");
-    setProfileFormData(prevData => {
-      const existingCart = prevData.cartData.find(item => item.id === id);
-  
-      if (!existingCart) {
-        // Add new item if it doesn't exist
-        return {
-          ...prevData,
-          cartData: [...prevData.cartData, { id, name, price, quantity }],
-        };
-      } else {
-        // Update quantity if item already exists
-        return {
-          ...prevData,
-          cartData: prevData.cartData.map(item =>
-            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-          ),
-        };
-      }
-    });
-    uploadCartData(email, cartData);
-  }
-
-  const updateCartData = (id, quantity, role, email, cartData) => {
-    if (role === "add") {
-      console.log("Role:", role, "Cart Data Id:", id);
-      setProfileFormData(prevItems => ({
-        ...prevItems,
-        cartData: prevItems.cartData.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
-      }))
-      uploadCartData(email, cartData);
-    }
-    if (role === "remove") {
-      console.log("Role:", role, "Cart Data Id:", id);
-      setProfileFormData(prevItems => ({
-        ...prevItems,
-        cartData: prevItems.cartData.map(item => item.id === id ? { ...item, quantity: quantity - 1 } : item)
-      }))
-      uploadCartData(email, cartData);
-    }
-    if (quantity === 0) {
-      console.log("Quantity after removed:", quantity);
-      setProfileFormData(prevItems => prevItems.cartData.filter(item => item.id !== id))
-      uploadCartData(email, cartData);
-    } 
-  }
-
-  const removeCartData = (id, email, cartData) => {
-    setProfileFormData(prevItems => ({
-      ...prevItems,
-      cartData: prevItems.cartData.filter(item => item.id !== id)
-    }));
-    uploadCartData(email, cartData);
-  }
-
-  const deleteAllCartData = (email, cartData) => { 
-    setProfileFormData(prevData => ({ ...prevData, cartData: [] }));
-    uploadCartData(email, cartData);
-  }
 
 
   const downloadData = async () => {
@@ -201,7 +125,7 @@ function App () {
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
         isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, adminChecker, 
-        checkEditProfilePicture, addCartData, updateCartData, removeCartData, deleteAllCartData, uploadCartData
+        checkEditProfilePicture,
       }}
     >
       <ToastContainer 
@@ -226,6 +150,7 @@ function App () {
             <Route path=":productId" element={<Product/>} />
           </Route>
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/checkout" element={<CheckoutPage/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
           <Route path="profile">

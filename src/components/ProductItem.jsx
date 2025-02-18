@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { Card, CardMedia, CardContent, CardActions, Typography, Box } from '@mui/material';
@@ -7,13 +6,14 @@ import getSymbolFromCurrency from 'currency-symbol-map'
 import { useContext } from "react";
 import { MainContext } from "../context/mainContext";
 import { primaryGreen, secondaryBrown } from "../constants/colors";
+import { addCartData } from "../constants/functions";
 
 
 
 const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
     // const tags = ['New', 'Popular', 'Limited Edition'] 
     const navigate = useNavigate();
-    const { profileFormData, addCartData } = useContext(MainContext);
+    const { profileFormData, setProfileFormData } = useContext(MainContext);
     const stock = 20;
     const NGN = getSymbolFromCurrency('NGN');
     const itemQuantity = profileFormData.cartData.find(item => item.id === id);
@@ -123,7 +123,7 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
             {/* Actions */}
             <CardActions className="w-full h-[25px] flexBetween xs:mx-2 mx-0 xs:-mt-6 -mt-8 !important">
                 <ShoppingCart 
-                    onClick={() => addCartData(id, name, newPrice, productQuantity)}
+                    onClick={() => addCartData(id, name, newPrice, productQuantity, setProfileFormData)}
                     htmlColor={primaryGreen} 
                     sx={{ width: 15, height: 15, borderRadius: "51%" }} 
                 />
