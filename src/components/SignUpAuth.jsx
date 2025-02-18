@@ -4,7 +4,7 @@ import axios from "axios";
 import ButtonGrad from "./ButtonGrad";
 import { toast } from "react-toastify";
 import { BsEyeSlash, BsFillEyeFill } from "react-icons/bs";
-import { apiSignUpUrl } from "../constants/api";
+import { authAPI } from "../constants/api";
 
 
 
@@ -24,11 +24,11 @@ const SignUp = () => {
     const handleSignUp = async() => {
         setIsLoading(true);
         setSignupText("Signing Up...");
-        const apiType = "SIGNUP";
         if ( name.trim() && email.trim() && number.trim() && password.trim()) {
             try {
+                const apiType = "SIGNUP";
                 const response = await axios.post(
-                    apiSignUpUrl, 
+                    authAPI, 
                     { name, email, number, password, address, image, cartData, apiType }, 
                     {
                         headers: { "Content-Type": "application/json" },

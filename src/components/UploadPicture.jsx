@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { AccountCircle } from "@mui/icons-material";
 import axios from "axios";
 import { MainContext } from "../context/mainContext";
-import { apiUpdatePicsUrl } from "../constants/api";
+import { userAPI } from "../constants/api";
 
 
 
@@ -99,7 +99,7 @@ const UploadPicture = ({
                     const uploadData = async (updatedData) => {
                         try {
                             const apiType = "UPDATEPICS";
-                            const response = await axios.post(apiUpdatePicsUrl, { updatedData, apiType });
+                            const response = await axios.post(userAPI, { updatedData, apiType });
                             console.log("Profile Data:>>>>", profileFormData);
                             const message = response.data.message;
                             console.log("Response:>>>>", message);

@@ -5,7 +5,7 @@ import Button from "./Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BsEyeSlash, BsFillEyeFill } from "react-icons/bs";
-import { apiSignInUrl } from "../constants/api";
+import { authAPI } from "../constants/api";
 
 
 
@@ -22,12 +22,12 @@ const SignUp = () => {
     const handleSignin = async () => {
         setIsLoading(true);
         setSigninText("Signing In...");
-        const apiType = "SIGNIN";
-    
+        
         if (email.trim() && password.trim()) {
             try {
+                const apiType = "SIGNIN";
                 const response = await axios.post(
-                    apiSignInUrl, 
+                    authAPI, 
                     { email, password, apiType }, 
                     {
                         headers: { "Content-Type": "application/json" },

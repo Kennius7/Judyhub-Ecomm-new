@@ -6,7 +6,7 @@ import { MainContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { apiSignOutUrl } from "../constants/api";
+import { authAPI } from "../constants/api";
 
 
 
@@ -24,7 +24,8 @@ const SettingsPage = () => {
         setIsLoading(true);
         if (name !== "Guest") {
             try {
-                const response = await axios.post(apiSignOutUrl, { name });
+                const apiType = "SIGNOUT";
+                const response = await axios.post(authAPI, { name, apiType });
                 const message = response.data.message;
                 console.log("Message:>>>", message);
                 toast(message, { type: "success" });

@@ -9,7 +9,7 @@ import PopularAdmin from "./PopularAdmin";
 import NewCollectionAdmin from "./NewCollectionAdmin";
 import OtherProductsAdmin from "./OtherProductsAdmin";
 import { MainContext } from "../context/mainContext";
-import { apiPostDataUrl } from "../constants/api";
+import { productAPI } from "../constants/api";
 
 
 
@@ -23,6 +23,7 @@ const AdminSection = () => {
     const [image, setImage] = useState(null);
     const [buttonText, setButtonText] = useState("Upload");
     const [postButtonText, setPostButtonText] = useState("Post");
+    const { allProducts } = judyhubProducts;
 
 
 
@@ -40,7 +41,8 @@ const AdminSection = () => {
         setIsPostLoading(true);
         setPostButtonText("Posting");
         try {
-            const res = await axios.post(apiPostDataUrl, judyhubProducts);
+            const apiType = "POSTPRODUCTDATA";
+            const res = await axios.post(productAPI, { allProducts, apiType });
             const responseMsg = res.data.message;
             console.log(responseMsg);
             console.log("Data updated successfully!");

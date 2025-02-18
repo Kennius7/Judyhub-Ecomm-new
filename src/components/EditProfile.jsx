@@ -7,7 +7,7 @@ import UploadPicture from "./UploadPicture";
 import { MainContext } from "../context/mainContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { apiUpdateProfileUrl } from "../constants/api";
+import { userAPI } from "../constants/api";
 
 
 
@@ -44,7 +44,8 @@ const EditProfilePage = () => {
         setIsLoading(true);
         setSaveButtonText("Saving...");
         try {
-            const response = await axios.post(apiUpdateProfileUrl, { profileFormData });
+            const apiType = "UPDATEUSER";
+            const response = await axios.post(userAPI, { profileFormData, apiType });
             console.log("Profile Data:>>>>", profileFormData);
             const message = response.data.message;
             console.log("Response:>>>>", message);

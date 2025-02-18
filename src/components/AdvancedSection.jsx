@@ -2,14 +2,14 @@
 import { useContext, useState } from "react";
 import UploadImage from "./UploadImages";
 import { toast } from "react-toastify";
-import { judyhubProducts } from "../constants/data";
+import { AllProducts, judyhubProducts } from "../constants/data";
 import Button from "./Button";
 import axios from "axios";
 import PopularAdmin from "./PopularAdmin";
 import NewCollectionAdmin from "./NewCollectionAdmin";
 import OtherProductsAdmin from "./OtherProductsAdmin";
 import { MainContext } from "../context/mainContext";
-import { apiPostDataUrl } from "../constants/api";
+import { productAPI } from "../constants/api";
 
 
 
@@ -40,7 +40,8 @@ const AdminSection = () => {
         setIsPostLoading(true);
         setPostButtonText("Posting");
         try {
-            const res = await axios.post(apiPostDataUrl, judyhubProducts);
+            const apiType = "POSTPRODUCTDATA";
+            const res = await axios.post(productAPI, { AllProducts, apiType });
             const responseMsg = res.data.message;
             console.log(responseMsg);
             console.log("Data updated successfully!");

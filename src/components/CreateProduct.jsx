@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { storage } from "../../firebaseConfig";
 import { BiMinus, BiPlus } from "react-icons/bi";
-import { apiCreateProductUrl } from "../constants/api";
+import { productAPI } from "../constants/api";
 
 
 
@@ -203,7 +203,8 @@ const CreateProduct = () => {
                         });
                         const uploadData = async (updatedData) => {
                             try {
-                                const response = await axios.post(apiCreateProductUrl, { updatedData });
+                                const apiType = "ADDPRODUCT";
+                                const response = await axios.post(productAPI, { updatedData, apiType });
                                 console.log("Product Data:>>>>", productData);
                                 const message = response.data.message;
                                 console.log("Response:>>>>", message);

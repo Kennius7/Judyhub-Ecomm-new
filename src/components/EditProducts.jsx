@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { PiPencil } from "react-icons/pi";
 import axios from "axios";
 import { MainContext } from "../context/mainContext";
-import { apiPostProductUrl } from "../constants/api";
+import { productAPI } from "../constants/api";
 
 
 
@@ -149,7 +149,8 @@ const EditProducts = ({
                         });
                         const uploadData = async (updatedData) => {
                             try {
-                                const response = await axios.post(apiPostProductUrl, { id, updatedData });
+                                const apiType = "EDITPRODUCTS";
+                                const response = await axios.post(productAPI, { id, updatedData, apiType });
                                 console.log("Product Data:>>>>", productData);
                                 const message = response.data.message;
                                 console.log("Response:>>>>", message);
