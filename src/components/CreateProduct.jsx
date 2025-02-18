@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { storage } from "../../firebaseConfig";
 import { BiMinus, BiPlus } from "react-icons/bi";
+import { apiCreateProductUrl } from "../constants/api";
 
 
 
@@ -66,7 +67,6 @@ const CreateProduct = () => {
     
     let progressWidthValue = progress.toString() + "%";
     console.log("Progress Value:>>>", progressWidthValue);
-    const apiCreateProductUrl = import.meta.env.VITE_API_CREATE_PRODUCT_URL
 
     const nameRef = useRef(null);
     const priceRef = useRef(null);

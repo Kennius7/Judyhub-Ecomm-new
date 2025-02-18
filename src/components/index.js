@@ -9,4 +9,5 @@ export { default as AdminSection } from "./AdminSection";
 export { default as AdvancedSection } from "./AdvancedSection";
 export { default as AdminButton } from "./AdminButton";
 export { default as PopularAdmin } from "./PopularAdmin";
+export { default as MuiNavbar } from "./MuiNavbar";
 

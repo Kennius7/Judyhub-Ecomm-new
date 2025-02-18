@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { Button, Card, CardContent, Typography, IconButton } from '@mui/material';
@@ -7,14 +8,18 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { useContext } from 'react';
 import { MainContext } from '../context/mainContext';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { useNavigate } from 'react-router-dom';
+import { primaryGreen, secondaryBrown } from "../constants/colors.js";
 
 
 
 const CartSection = () => {
+    const navigate = useNavigate();
     const { 
-        cartData, updateCartData, removeCartData, deleteAllCartData, 
-        primaryGreen, secondaryBrown 
+        profileFormData, updateCartData, removeCartData, deleteAllCartData, uploadCartData 
     } = useContext(MainContext);
+
+    const { email, cartData } = profileFormData;
 
     console.log("Cart Data:>>>", cartData);
     const NGN = getSymbolFromCurrency('NGN');
@@ -27,17 +32,9 @@ const CartSection = () => {
 
     const formatNumber = (num) => {
         let [integerPart, decimalPart] = num.toString().split(".");
-        // if (!decimalPart) return integerPart;
-    
-        // Insert commas every 3 digits from the LEFT in the decimal part
-
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
-
-        // integerPart = integerPart.replace(/(\d)(?=(\d{3})+(?!\d))/g, ",");
-        // return integerPart + "." + decimalPart;
     }
-
 
 
     return (
@@ -96,7 +93,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => updateCartData(item.id, item.quantity, "add")}
+                                                onClick={() => updateCartData(item.id, item.quantity, "add", email, cartData)}
                                             >
                                                 <AddIcon sx={{ color: "white", fontWeight: "bold" }}/>
                                             </IconButton>
@@ -106,7 +103,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => updateCartData(item.id, item.quantity, "remove")} 
+                                                onClick={() => updateCartData(item.id, item.quantity, "remove", email, cartData)} 
                                                 // disabled={item.quantity === 1}
                                             >
                                                 <RemoveIcon sx={{ color: "white", fontWeight: "bold" }}/>
@@ -117,7 +114,7 @@ const CartSection = () => {
                                                     width: window.innerWidth > 500 ? 40 : 25, 
                                                     height: window.innerWidth > 500 ? 40 : 25, 
                                                 }}
-                                                onClick={() => removeCartData(item.id)}
+                                                onClick={() => removeCartData(item.id, email, cartData)}
                                             >
                                                 <DeleteIcon sx={{ color: "white", fontWeight: "bold" }} />
                                             </IconButton>
@@ -126,12 +123,11 @@ const CartSection = () => {
                                 </Card>
                             ))
                         }
-                        {/* <Typography variant="h6">Total: ${calculateTotal() || 0}</Typography> */}
                         <div className="w-full flex justify-start items-center mb-8">
                             <Typography variant="h6">Total: {NGN}{formatNumber(calculateTotal())}</Typography>
                         </div>
                         <div className="w-full flex justify-between items-center">
-                            <Button variant="contained" color="primary" onClick={deleteAllCartData}>
+                            <Button variant="contained" color="primary" onClick={() => navigate("/checkout")}>
                                 Go to Checkout
                             </Button>
                             <Button variant="contained" color="secondary" onClick={deleteAllCartData}>

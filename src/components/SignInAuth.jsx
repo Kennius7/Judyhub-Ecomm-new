@@ -5,6 +5,7 @@ import Button from "./Button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BsEyeSlash, BsFillEyeFill } from "react-icons/bs";
+import { apiSignInUrl } from "../constants/api";
 
 
 
@@ -17,17 +18,17 @@ const SignUp = () => {
     const [signInFormData, setSignInFormData] = useState({ email: "", password: "" });
     const { email, password } = signInFormData;
     const handleChange = (e) => setSignInFormData({ ...signInFormData, [e.target.name]: e.target.value });
-    const apiSignInUrl = import.meta.env.VITE_API_SIGNIN_URL;
 
     const handleSignin = async () => {
         setIsLoading(true);
         setSigninText("Signing In...");
+        const apiType = "SIGNIN";
     
         if (email.trim() && password.trim()) {
             try {
                 const response = await axios.post(
                     apiSignInUrl, 
-                    { email, password }, 
+                    { email, password, apiType }, 
                     {
                         headers: { "Content-Type": "application/json" },
                         withCredentials: false,

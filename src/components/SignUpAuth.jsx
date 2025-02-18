@@ -4,7 +4,7 @@ import axios from "axios";
 import ButtonGrad from "./ButtonGrad";
 import { toast } from "react-toastify";
 import { BsEyeSlash, BsFillEyeFill } from "react-icons/bs";
-
+import { apiSignUpUrl } from "../constants/api";
 
 
 
@@ -14,20 +14,22 @@ const SignUp = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { setLoginState } = useContext(MainContext);
-    const [signUpFormData, setSignUpFormData] = useState({ name: "", email: "", number: "", password: "" });
-    const { name, email, number, password } = signUpFormData;
+    const [signUpFormData, setSignUpFormData] = useState({ 
+        name: "", email: "", number: "", password: "", address: "", image: "", cartData: [] 
+    });
+    const { name, email, number, password, address, image, cartData } = signUpFormData;
     const handleChange = (e) => setSignUpFormData({ ...signUpFormData, [e.target.name]: e.target.value });
-    const apiSignUpUrl = import.meta.env.VITE_API_SIGNUP_URL;
 
 
     const handleSignUp = async() => {
         setIsLoading(true);
         setSignupText("Signing Up...");
+        const apiType = "SIGNUP";
         if ( name.trim() && email.trim() && number.trim() && password.trim()) {
             try {
                 const response = await axios.post(
                     apiSignUpUrl, 
-                    { name, email, number, password }, 
+                    { name, email, number, password, address, image, cartData, apiType }, 
                     {
                         headers: { "Content-Type": "application/json" },
                         withCredentials: false,

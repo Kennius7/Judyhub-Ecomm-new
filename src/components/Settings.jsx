@@ -6,6 +6,7 @@ import { MainContext } from "../context/mainContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { apiSignOutUrl } from "../constants/api";
 
 
 
@@ -18,7 +19,6 @@ const SettingsPage = () => {
     const navigate = useNavigate();
     const { secondaryBrown, adminChecker, profileFormData, setProfileFormData, downloadProfileData } = useContext(MainContext);
     const { name } = profileFormData;
-    const apiSignOutUrl = import.meta.env.VITE_API_SIGNOUT_URL;
 
     const handleSignOut = async () => {
         setIsLoading(true);

@@ -7,7 +7,7 @@ import UploadPicture from "./UploadPicture";
 import { MainContext } from "../context/mainContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { apiUpdateProfileUrl } from "../constants/api";
 
 
 
@@ -24,7 +24,6 @@ const EditProfilePage = () => {
     const [saveButtonText, setSaveButtonText] = useState("Save Changes");
     const [fileName, setFileName] = useState("No File Selected");
     const [images, setImages] = useState(null);
-    const apiUpdateProfileUrl = import.meta.env.VITE_API_UPDATE_PROFILE_URL
 
     // console.log("Preview Edit Data:>>>", preview, "Image Edit Data:>>>", image, "Profile Data:>>>", profileFormData);
     

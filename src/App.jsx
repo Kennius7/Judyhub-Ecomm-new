@@ -1,23 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { Footer, AdminSection, AdvancedSection } from "./components";
-import { Cart, Category, Login, Home, Product, Logout } from "./pages";
+import { Footer, AdminSection, AdvancedSection, MuiNavbar } from "./components";
+import { Cart, Category, Login, Home, Product, Logout, Profile, SettingsPage, EditProfilePage } from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
 import bannerPics from "./assets/Offers_BG.jpg";
 import { ToastContainer } from 'react-toastify';
 import '@mantine/core/styles.css';
 import axios from "axios";
-import { useEffect } from "react";
-import Profile from "./pages/Profile";
-import MuiNavbar from "./components/MuiNavbar";
-import SettingsPage from "./pages/SettingsPage";
-import EditProfilePage from "./pages/EditProfilePage";
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import { userAPI, productAPI } from "./constants/api";
 
 
 
@@ -29,13 +25,14 @@ function App () {
   const [isTokenExpired, setIsTokenExpired] = useState(false);
   const [pathAccess, setPathAccess] = useState(false);
   const [fetchedData, setFetchedData] = useState({ products: [] });
-  const apiGetDataUrl = import.meta.env.VITE_API_GETDATA_URL;
-  const apiGetProfileUrl = import.meta.env.VITE_API_GETPROFILE_URL;
+  const [adminChecker, setAdminChecker] = useState(false);
 
-  const primaryGreen = "#0db915";
-  const secondaryBrown = "#613207";
   const checkEditProfilePicture = true;
-  setPersistence(auth, browserSessionPersistence);
+  const persistence = () => {
+    setPersistence(auth, browserSessionPersistence);
+    console.log("Persistence fired...");
+  }
+  persistence();
 
   const [profileFormData, setProfileFormData] = useState({
     name: "Guest",
@@ -43,56 +40,89 @@ function App () {
     number: "10000100001",
     address: "",
     image: "",
+    cartData: [],
   });
 
-  const [cartData, setCartData] = useState([]);
 
-  const addCartData = (id, name, price, quantity) => {
-    console.log("No cart data...");
-    const cartDataList = cartData.find(item => item.id === id);
-
-    if (!cartDataList) {
-      setCartData(prevItems => [
-        ...prevItems, { id: id, name: name, price: price, quantity: quantity },
-      ])
-    } else {
-      setCartData(
-        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
-      )
+  const uploadCartData = async (email, cartData) => {
+    try {
+      const apiType = "UPDATECART";
+      const response = await axios.post(userAPI, { email, cartData, apiType });
+      console.log("Cart Data:>>>>", cartData);
+      const message = response.data.message;
+      console.log("Response:>>>>", message);
+      // downloadProfileData();
+    } catch (error) {
+        console.error(error);
     }
   }
 
-  const updateCartData = (id, quantity, role) => {
+  const addCartData = (id, name, price, quantity, email, cartData) => {
+    console.log("No cart data...");
+    setProfileFormData(prevData => {
+      const existingCart = prevData.cartData.find(item => item.id === id);
+  
+      if (!existingCart) {
+        // Add new item if it doesn't exist
+        return {
+          ...prevData,
+          cartData: [...prevData.cartData, { id, name, price, quantity }],
+        };
+      } else {
+        // Update quantity if item already exists
+        return {
+          ...prevData,
+          cartData: prevData.cartData.map(item =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          ),
+        };
+      }
+    });
+    uploadCartData(email, cartData);
+  }
+
+  const updateCartData = (id, quantity, role, email, cartData) => {
     if (role === "add") {
       console.log("Role:", role, "Cart Data Id:", id);
-      setCartData(
-        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
-      )
+      setProfileFormData(prevItems => ({
+        ...prevItems,
+        cartData: prevItems.cartData.map(item => item.id === id ? { ...item, quantity: quantity + 1 } : item)
+      }))
+      uploadCartData(email, cartData);
     }
     if (role === "remove") {
       console.log("Role:", role, "Cart Data Id:", id);
-      setCartData(
-        prevItems => prevItems.map(item => item.id === id ? { ...item, quantity: quantity - 1 } : item)
-      )
+      setProfileFormData(prevItems => ({
+        ...prevItems,
+        cartData: prevItems.cartData.map(item => item.id === id ? { ...item, quantity: quantity - 1 } : item)
+      }))
+      uploadCartData(email, cartData);
     }
     if (quantity === 0) {
       console.log("Quantity after removed:", quantity);
-      setCartData(prevItems => prevItems.filter(item => item.id !== id))
+      setProfileFormData(prevItems => prevItems.cartData.filter(item => item.id !== id))
+      uploadCartData(email, cartData);
     } 
   }
 
-  const removeCartData = (id) => {
-    setCartData(prevItems => prevItems.filter(item => item.id !== id))
+  const removeCartData = (id, email, cartData) => {
+    setProfileFormData(prevItems => ({
+      ...prevItems,
+      cartData: prevItems.cartData.filter(item => item.id !== id)
+    }));
+    uploadCartData(email, cartData);
   }
 
-  const deleteAllCartData = () => {
-    setCartData([]);
+  const deleteAllCartData = (email, cartData) => { 
+    setProfileFormData(prevData => ({ ...prevData, cartData: [] }));
+    uploadCartData(email, cartData);
   }
 
 
   const downloadData = async () => {
     try {
-        const response = await axios.get(apiGetDataUrl);
+        const apiType = "GETPRODUCTS";
+        const response = await axios.get(productAPI, { apiType });
         const allProducts = response.data.data;
         setFetchedData({ ...fetchedData, products: allProducts, });
         console.log("Updated Data: ", fetchedData);
@@ -106,15 +136,17 @@ function App () {
   const downloadProfileData = async () => {
     const userToken = localStorage.getItem("user-token");
     console.log("User Token: >>>>", userToken);
+    const apiType = "FETCHUSERDATA"; 
     try {
-        const response = await axios.get(apiGetProfileUrl, {
+        const response = await axios.get(userAPI, {
+          apiType,
           headers: { 
               "Content-Type": "application/json", 
               Authorization: `Bearer ${userToken}`,
           },
           // withCredentials: false,
         });
-        const { name, email, number, image, address } = response.data.data;
+        const { name, email, number, image, address, cartData } = response.data.data;
 
         setProfileFormData({ 
             ...profileFormData, 
@@ -123,6 +155,7 @@ function App () {
             number: number,
             address: address,
             image: image,
+            cartData: cartData,
         });
         console.log("Updated Profile Data: ", profileFormData);
         setIsTokenExpired(false);
@@ -148,8 +181,6 @@ function App () {
     }
   });
 
-  const [adminChecker, setAdminChecker] = useState(false);
-
   useEffect(() => {
     setAdminChecker(["ogbogukenny@yahoo.com", "wealthyjudy@gmail.com"].includes(profileFormData.email));
   }, [profileFormData.email])
@@ -169,9 +200,8 @@ function App () {
       value={{ 
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
-        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData,
-        primaryGreen, secondaryBrown, adminChecker, checkEditProfilePicture, cartData, setCartData,
-        addCartData, updateCartData, removeCartData, deleteAllCartData
+        isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, adminChecker, 
+        checkEditProfilePicture, addCartData, updateCartData, removeCartData, deleteAllCartData, uploadCartData
       }}
     >
       <ToastContainer 

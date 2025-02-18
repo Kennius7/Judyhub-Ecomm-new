@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { AccountCircle } from "@mui/icons-material";
 import axios from "axios";
 import { MainContext } from "../context/mainContext";
+import { apiUpdatePicsUrl } from "../constants/api";
 
 
 
@@ -23,7 +24,6 @@ const UploadPicture = ({
     const [heightSize, setHeightSize] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
     let progressWidthValue = progress.toString() + "%";
-    const apiUpdatePicsUrl = import.meta.env.VITE_API_UPDATE_PICS_URL
 
     let imageURL1 = "https://firebasestorage.googleapis.com/v0/b/judy-hub-ecommerce.appspot.com/o/images%2F858374ea-890c-4a01-ab01-0ce9fbceaa02_shirts3.jpg?alt=media&token=c621b372-3f70-46d1-8e1e-4b9c25b58da8";
 
@@ -98,7 +98,8 @@ const UploadPicture = ({
                     });
                     const uploadData = async (updatedData) => {
                         try {
-                            const response = await axios.post(apiUpdatePicsUrl, { updatedData });
+                            const apiType = "UPDATEPICS";
+                            const response = await axios.post(apiUpdatePicsUrl, { updatedData, apiType });
                             console.log("Profile Data:>>>>", profileFormData);
                             const message = response.data.message;
                             console.log("Response:>>>>", message);

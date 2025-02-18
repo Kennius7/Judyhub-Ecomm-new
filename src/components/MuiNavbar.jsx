@@ -15,11 +15,11 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const { 
-        menuOpened, setMenuOpened, profileFormData, isLoggedIn, cartData,
+        menuOpened, setMenuOpened, profileFormData, isLoggedIn,
         isTokenExpired, pathAccess, active, setActive,
     } = useContext(MainContext);
 
-    const { name, image } = profileFormData;
+    const { name, image, cartData } = profileFormData;
 
     const handleDrawerToggle = () => { setMenuOpened(!menuOpened) };
     const handleLoginNavigator = () => navigate("/login");

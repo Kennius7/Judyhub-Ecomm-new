@@ -1,30 +1,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { SearchIcon, NairaSign } from "../assets";
 import { Card, CardMedia, CardContent, CardActions, Typography, Box } from '@mui/material';
 import { ShoppingCart, Search } from "@mui/icons-material";
 import getSymbolFromCurrency from 'currency-symbol-map'
 import { useContext } from "react";
 import { MainContext } from "../context/mainContext";
-
+import { primaryGreen, secondaryBrown } from "../constants/colors";
 
 
 
 const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
     // const tags = ['New', 'Popular', 'Limited Edition'] 
     const navigate = useNavigate();
-    const { primaryGreen, secondaryBrown, cartData, addCartData } = useContext(MainContext);
+    const { profileFormData, addCartData } = useContext(MainContext);
     const stock = 20;
     const NGN = getSymbolFromCurrency('NGN');
-    const itemQuantity = cartData.find(item => item.id === id);
+    const itemQuantity = profileFormData.cartData.find(item => item.id === id);
     const productQuantity = itemQuantity ? itemQuantity.quantity : 1;
     console.log("Filtered Data:>>>", productQuantity);
-
-    // const itemQuantity = cartData.map(item => item.id === id ? item : null);
-    // const productQuantity = itemQuantity.length === 0 ? 1 : itemQuantity;
-    // console.log("Filtered Data:>>>", productQuantity);
-
 
 
     return (

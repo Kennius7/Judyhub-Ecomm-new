@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { PiPencil } from "react-icons/pi";
 import axios from "axios";
 import { MainContext } from "../context/mainContext";
+import { apiPostProductUrl } from "../constants/api";
 
 
 
@@ -34,7 +35,6 @@ const EditProducts = ({
     
     let progressWidthValue = progress.toString() + "%";
     console.log("Progress Value:>>>", progressWidthValue);
-    const apiPostProductUrl = import.meta.env.VITE_API_POST_PRODUCT_URL
 
     const nameRef = useRef(null);
     const priceRef = useRef(null);

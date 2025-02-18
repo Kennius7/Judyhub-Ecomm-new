@@ -1,11 +1,9 @@
 import { Box, Button, Typography, Container } from '@mui/material';
-import { MainContext } from '../context/mainContext';
-import { useContext } from 'react';
+import { primaryGreen } from '../constants/colors';
 
 
 
 const Hero = () => {
-    const { primaryGreen } = useContext(MainContext);
 
     return (
         <Box

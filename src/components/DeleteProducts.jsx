@@ -5,6 +5,7 @@ import { MainContext } from "../context/mainContext";
 import Button from "./Button";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { apiDeleteProductUrl } from "../constants/api";
 
 
 
@@ -14,7 +15,6 @@ const DeleteProducts = ({ selectedProducts, setSelectedProducts }) => {
     console.log("Selected IDs:>>>>", ids);
     const [isLoading, setIsLoading] = useState(false);
     const [deleteText, setDeleteText] = useState("Delete");
-    const apiDeleteProductUrl = import.meta.env.VITE_API_DELETEDATA_URL;
 
     const handleDeletes = async () => {
         setIsLoading(true);

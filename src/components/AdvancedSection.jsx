@@ -9,6 +9,7 @@ import PopularAdmin from "./PopularAdmin";
 import NewCollectionAdmin from "./NewCollectionAdmin";
 import OtherProductsAdmin from "./OtherProductsAdmin";
 import { MainContext } from "../context/mainContext";
+import { apiPostDataUrl } from "../constants/api";
 
 
 
@@ -22,7 +23,6 @@ const AdminSection = () => {
     const [image, setImage] = useState(null);
     const [buttonText, setButtonText] = useState("Upload");
     const [postButtonText, setPostButtonText] = useState("Post");
-    const apiPostDataUrl = import.meta.env.VITE_API_POSTDATA_URL;
 
 
 
