@@ -2,17 +2,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { Footer, AdminSection, AdvancedSection, MuiNavbar } from "./components";
-import { Cart, Category, Login, Home, Product, Logout, Profile, SettingsPage, EditProfilePage, CheckoutPage } from "./pages";
+import { Footer, AdminSection, AdvancedSection, MuiNavbar, PaymentProcess, OrderVerify } from "./components";
+import { 
+  Cart, Category, Login, Home, Product, Logout, Profile, SettingsPage, EditProfilePage, CheckoutPage, 
+  OrderConfirmPage, AllTransactionPage, OrderPage
+} from "./pages";
 import { navLinks } from "./constants/data";
 import { MainContext } from "./context/mainContext";
 import bannerPics from "./assets/Offers_BG.jpg";
 import { ToastContainer } from 'react-toastify';
 import '@mantine/core/styles.css';
 import axios from "axios";
-import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+// import { browserSessionPersistence, setPersistence } from "firebase/auth";
+// import { auth } from "../firebaseConfig";
 import { userAPI, productAPI } from "./constants/api";
+
 
 
 
@@ -27,11 +31,11 @@ function App () {
   const [adminChecker, setAdminChecker] = useState(false);
 
   const checkEditProfilePicture = true;
-  const persistence = () => {
-    setPersistence(auth, browserSessionPersistence);
-    console.log("Persistence fired...");
-  }
-  persistence();
+  // const persistence = () => {
+  //   setPersistence(auth, browserSessionPersistence);
+  //   console.log("Persistence fired...");
+  // }
+  // persistence();
 
   const [profileFormData, setProfileFormData] = useState({
     name: "Guest",
@@ -151,6 +155,9 @@ function App () {
           </Route>
           <Route path="/cart" element={<Cart/>} />
           <Route path="/checkout" element={<CheckoutPage/>} />
+          <Route path="/placeorder" element={<OrderConfirmPage/>} />
+          <Route path="/payment" element={<PaymentProcess/>} />
+          <Route path="/verify" element={<OrderVerify/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/logout" element={<Logout/>} />
           <Route path="profile">
@@ -163,6 +170,8 @@ function App () {
               <Route path="advanced" element={<AdvancedSection/>} />
             </Route>
             <Route path="editprofile" element={<EditProfilePage/>} />
+            {adminChecker ? <Route path="allorders" element={<AllTransactionPage/>} /> : null}
+            <Route path="orders" element={<OrderPage/>} />
           </Route>
         </Routes>
         <Footer/>

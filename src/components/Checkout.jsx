@@ -8,6 +8,7 @@ import {
 import { calculateTotal, formatNumber } from "../constants/functions";
 import getSymbolFromCurrency from 'currency-symbol-map';
 import ScrollToTop from "../../ScrollToTop";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,14 +16,16 @@ const CheckoutPage = () => {
     const { profileFormData, setProfileFormData } = useContext(MainContext);
     const { cartData, paymentMethod } = profileFormData;
     const NGN = getSymbolFromCurrency('NGN');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setProfileFormData({ ...profileFormData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert("Order placed successfully!");
+    const handleSubmit = () => {
+        // e.preventDefault();
+        navigate("/payment");
+        // alert("Order placed successfully!");
     };
 
 

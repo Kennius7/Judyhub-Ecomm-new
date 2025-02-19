@@ -8,4 +8,7 @@ export { default as Profile } from "../pages/Profile";
 export { default as SettingsPage } from "../pages/SettingsPage";
 export { default as EditProfilePage } from "../pages/EditProfilePage";
 export { default as CheckoutPage } from "../pages/CheckoutPage";
+export { default as OrderConfirmPage } from "./OrderConfirmPage";
+export { default as AllTransactionPage } from "./AllTransactionPage";
+export { default as OrderPage } from "./OrderPage";
 
