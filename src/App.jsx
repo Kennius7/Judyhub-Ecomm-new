@@ -29,6 +29,7 @@ function App () {
   const [pathAccess, setPathAccess] = useState(false);
   const [fetchedData, setFetchedData] = useState({ products: [] });
   const [adminChecker, setAdminChecker] = useState(false);
+  const [selectedProductNumber, setSelectedProductNumber] = useState(0);
 
   const checkEditProfilePicture = true;
   // const persistence = () => {
@@ -129,7 +130,7 @@ function App () {
         active, setActive, loginState, setLoginState, fetchedData, menuOpened, profileFormData,
         setMenuOpened, pathAccess, setPathAccess, setFetchedData, downloadData, setProfileFormData,
         isLoggedIn, setIsLoggedIn, isTokenExpired, setIsTokenExpired, downloadProfileData, adminChecker, 
-        checkEditProfilePicture,
+        checkEditProfilePicture, selectedProductNumber, setSelectedProductNumber
       }}
     >
       <ToastContainer 

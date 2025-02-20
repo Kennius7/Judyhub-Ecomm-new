@@ -44,7 +44,7 @@ const CreateProduct = () => {
         setProductData((prev) => ({ ...prev, id: newID }));
     }, [newID]);
 
-    console.log("Fetched Data:>>>>", fetchedData);
+    // console.log("Fetched Data:>>>>", fetchedData);
     const [productData, setProductData] = useState({
         productName: "Sample Name",
         newPrice: "New Price",
@@ -54,7 +54,7 @@ const CreateProduct = () => {
         image: sampleImageUrl,
         id: newID,
     }); 
-    console.log("New Id:>>>>", productData.id);
+    // console.log("New Id:>>>>", productData.id);
     const [isShow, setIsShow] = useState(false);
     const handleCreate = () => setIsShow(true);
     const handleClose = () => setIsShow(false);
@@ -66,7 +66,7 @@ const CreateProduct = () => {
 
     
     let progressWidthValue = progress.toString() + "%";
-    console.log("Progress Value:>>>", progressWidthValue);
+    // console.log("Progress Value:>>>", progressWidthValue);
 
     const nameRef = useRef(null);
     const priceRef = useRef(null);

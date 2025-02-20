@@ -11,13 +11,20 @@ import { PiPencil } from "react-icons/pi";
 import axios from "axios";
 import { MainContext } from "../context/mainContext";
 import { productAPI } from "../constants/api";
+import EditDescription from "../components/EditDescription";
+
 
 
 
 const EditProducts = ({ 
-    isShow, onClose, title, id, newPrice, oldPrice, productName, category, tags, image,
+    isShow, onClose, title, id, newPrice, oldPrice, productName, category, tags, image, description
 }) => {
 
+    const [show, setShow] = useState(false);
+    const handleEdit = () => setShow(true);
+    const handleClose = () => setShow(false);
+    console.log("Name:>>>", productName);
+    console.log("ID:>>>", id);
     const [productData, setProductData] = useState({
         productName: productName,
         newPrice: newPrice,
@@ -25,6 +32,7 @@ const EditProducts = ({
         category: category,
         tags: tags,
         image: image,
+        description: description,
     }); 
     const { downloadData } = useContext(MainContext);
     const [preview, setPreview] = useState(productData.image);
@@ -34,13 +42,14 @@ const EditProducts = ({
     const [buttonText, setButtonText] = useState("Save");
     
     let progressWidthValue = progress.toString() + "%";
-    console.log("Progress Value:>>>", progressWidthValue);
+    // console.log("Progress Value:>>>", progressWidthValue);
 
     const nameRef = useRef(null);
     const priceRef = useRef(null);
     const oldPriceRef = useRef(null);
     const categoryRef = useRef(null);
     const tagsRef = useRef(null);
+    const descriptionRef = useRef(null);
 
     const [isEditProfile, setIsEditProfile] = useState({
         productName: false,
@@ -48,6 +57,7 @@ const EditProducts = ({
         oldPrice: false,
         category: false,
         tags: false,
+        description: false,
     });
 
 
@@ -97,6 +107,13 @@ const EditProducts = ({
                 [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
             }));
         }
+        if (ref.current && ref.current.firstChild.name === "description") {
+            setIsEditProfile({ ...isEditProfile, description: !isEditProfile.description });
+            setProductData(prevData => ({
+                ...prevData,
+                [ref.current.firstChild.name]: prevData[ref.current.firstChild.name] 
+            }));
+        }
     }
 
     const handleFileChange = (e) => {
@@ -111,18 +128,18 @@ const EditProducts = ({
         setIsLoading(true);
         setButtonText("Saving");
         setProgress(0);
-        if (!images && productData?.image?.length === 0) {
+        if (!images) {
             toast("Please select a picture to upload", { type: "warning" });
             setIsLoading(false);
             setButtonText("Save");
             return;
         }
 
-        if (images?.name) {
+        if (images?.name || image.length > 0) {
             const uniqueFileName = `${uuidv4()}_${images?.name}`;
             const storageRef = ref(storage, `images/${uniqueFileName}`);
             const uploadTask = uploadBytesResumable(storageRef, images);
-            const addVar = 0.001;
+            // const addVar = 0.001;
     
             uploadTask.on(
                 "state_changed",
@@ -204,7 +221,7 @@ const EditProducts = ({
                                             Preview:
                                         </h3>
                                         <img 
-                                            src={preview} 
+                                            src={preview || image} 
                                             alt="Selected Preview" 
                                             className="xs:w-[200px] w-full xs:h-[200px] h-[240px] 
                                             object-cover bg-slate-700" 
@@ -356,6 +373,31 @@ const EditProducts = ({
                                 />
                             </div>
                         </div>
+                        <div className="w-full flexCenter">
+                            <div className="sm:text-[17px] text-[14px] text-slate-700 xs:w-[130px] w-[100px]">
+                                Description:
+                            </div>
+                            <div ref={descriptionRef} className="flexBetween">
+                                <input 
+                                    placeholder={ productData.description } 
+                                    disabled={!isEditProfile.description}
+                                    name="description"
+                                    value={!isEditProfile.description ? "" : productData.description}
+                                    // onChange={handleChange}
+                                    // onBlur={() => editField(descriptionRef)}
+                                    className="placeholder:text-slate-700 placeholder:text-[16px] text-[15px]
+                                    placeholder:italic bg-transparent outline-none cursor-pointer text-end pr-2 
+                                    w-[190px]"
+                                />
+                                <PiPencil 
+                                    onClick={handleEdit} 
+                                    size={20} 
+                                    color={isEditProfile.description ? "#ff0101" : "#000"} 
+                                    style={{ width: 20, height: 20, opacity: 0.7}} 
+                                    className={`cursor-pointer`}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="w-[200px] xs:hidden flex flex-row justify-start xs:mt-10 mt-4">
@@ -385,7 +427,20 @@ const EditProducts = ({
                     )
                 }
             </div>
-
+            {
+                isShow && (
+                    <EditDescription 
+                        isShow={show} 
+                        onClose={handleClose} 
+                        title="Edit Description"
+                        id={id} 
+                        productName={productName}
+                        description={description}
+                        productData={productData} 
+                        setProductData={setProductData}
+                    />
+                )
+            }
         </Modal>
     );
 };

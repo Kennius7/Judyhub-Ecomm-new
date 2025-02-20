@@ -89,7 +89,16 @@ export const formatNumber = (num) => {
     return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
 }
 
+export function removeSpaces(str) {
+    return str.includes(' ') ? str.replace(/\s+/g, '') : str;
+}
 
+export function shortenString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.slice(0, maxLength - 3) + "...";
+    }
+    return str;
+}
 
 
 

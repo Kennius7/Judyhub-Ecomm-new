@@ -121,11 +121,15 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
             </CardContent>
 
             {/* Actions */}
-            <CardActions className="w-full h-[25px] flexBetween xs:mx-2 mx-0 xs:-mt-6 -mt-8 !important">
+            <CardActions className="w-full h-[25px] flexBetween xs:-mt-6 -mt-8 !important">
                 <ShoppingCart 
                     onClick={() => addCartData(id, name, newPrice, productQuantity, setProfileFormData)}
                     htmlColor={primaryGreen} 
-                    sx={{ width: 15, height: 15, borderRadius: "51%" }} 
+                    sx={{ 
+                        width: window.innerWidth > 500 ? 22 : 15, 
+                        height: window.innerWidth > 500 ? 22 : 15, 
+                        borderRadius: "51%" 
+                    }} 
                 />
                 <Typography 
                     onClick={() => navigate(`/product/${id}`) }

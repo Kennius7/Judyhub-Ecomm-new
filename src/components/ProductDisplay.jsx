@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import Button from "../components/Button";
 import { Star } from "../assets/SvgExport";
 
@@ -36,6 +35,14 @@ const ProductDisplay = ({ product }) => {
                         <div className="text-slate-900">Price:</div>
                         <div className="text-secondaryBrown line-through">{ product.oldPrice }</div>
                         <div className="text-primaryGreen">{ product.newPrice }</div>
+                    </div>
+                    <div className="xs:mb-2 mb-1">
+                        <h2 className="font-semibold text-[20px]">
+                            Description:
+                        </h2>
+                        <p className="italic">
+                            { product.description }
+                        </p>
                     </div>
                     <div>
                         <h4 className="text-[20px] text-slate-900 font-semibold mb-3">
