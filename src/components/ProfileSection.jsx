@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Card, CardContent, Typography, Avatar, Button, IconButton, Box, Divider } from "@mui/material";
@@ -41,7 +42,7 @@ const ProfileSection = () => {
                 width: window.innerWidth > 768 ? 500 : 
                 window.innerWidth < 768 && window.innerWidth > 480 ? 450 : "96%",
                 height: window.innerWidth > 768 ? 480 : 
-                window.innerWidth < 768 && window.innerWidth > 480 ? 400 : 600, 
+                window.innerWidth < 768 && window.innerWidth > 480 ? 400 : 550, 
                 cursor: "pointer", 
                 padding: "4px",
             }}
@@ -59,21 +60,30 @@ const ProfileSection = () => {
                     />
                     <div className="w-full flex flex-col justify-center items-start">
                         <Typography variant="h6" fontWeight="bold">Name: {name}</Typography>
-                        <Typography variant="body1" color="text.secondary">Email: {email}</Typography>
-                        <Typography variant="body1" color="text.secondary">H. Address: {address}</Typography>
-                        <Typography variant="body1" color="text.secondary">Phone: {number}</Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            <span className="font-semibold text-[15px] underline">Email:</span>
+                            &nbsp;{email}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            <span className="font-semibold text-[15px] underline">H. Address:</span>
+                            &nbsp;{address}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                            <span className="font-semibold text-[15px] underline">Phone:</span>
+                            &nbsp;{number}
+                        </Typography>
                     </div>
                 </Box>
 
                 <Divider sx={{ my: 2, borderWidth: 2 }} />
 
                 {/* Cart Details */}
-                <Box display="flex" justifyContent="space-around" alignItems="center" mb={2}>
+                {/* <Box display="flex" justifyContent="space-around" alignItems="center" mb={2}>
                     <Typography variant="body1">Cart Items: {cartItemNumber}</Typography>
                     <IconButton color="primary">
                         <ShoppingCart />
                     </IconButton>
-                </Box>
+                </Box> */}
 
                 {/* Settings & Edit Profile */}
                 <Box display="flex" flexDirection="column" justifyContent="space-around" gap={1}>
@@ -83,23 +93,25 @@ const ProfileSection = () => {
                             color="error" 
                             startIcon={<Settings />}
                             sx={{
-                                width: window.innerWidth > 500 ? "30%" : "100%",
+                                width: window.innerWidth > 500 ? "48%" : "100%",
                                 marginBottom: window.innerWidth > 500 ? 0 : 2,
+                                fontSize: 13,
                             }}
                             onClick={() => navigate("settings")}
                         >
                             Settings
                         </Button>
                         {
-                            adminChecker
+                            adminChecker && window.innerWidth < 500
                             ?
                             <Button 
                                 variant="contained" 
                                 color="warning" 
                                 startIcon={<Edit />}
                                 sx={{
-                                    width: window.innerWidth > 500 ? "30%" : "100%",
-                                    marginBottom: window.innerWidth > 500 ? 0 : 2,
+                                    width: "100%",
+                                    marginBottom: 2,
+                                    fontSize: 13,
                                 }}
                                 onClick={() => navigate("orders")}
                             >
@@ -113,14 +125,34 @@ const ProfileSection = () => {
                             color="primary" 
                             startIcon={<Edit />}
                             sx={{
-                                width: window.innerWidth > 500 ? "30%" : "100%",
+                                width: window.innerWidth > 500 ? "48%" : "100%",
                                 marginBottom: window.innerWidth > 500 ? 0 : 2,
+                                fontSize: 13,
                             }}
                             onClick={() => navigate("editprofile")}
                         >
                             Edit Profile
                         </Button>
                     </div>
+                    {
+                        adminChecker && window.innerWidth > 500
+                        ?
+                        <Button 
+                            variant="contained" 
+                            color="warning" 
+                            startIcon={<Edit />}
+                            sx={{
+                                // width: window.innerWidth > 500 ? "30%" : "100%",
+                                marginBottom: window.innerWidth > 500 ? 0 : 2,
+                                fontSize: 13,
+                            }}
+                            onClick={() => navigate("orders")}
+                        >
+                            My Orders
+                        </Button>
+                        :
+                        null
+                    }
                     <Button 
                         variant="contained" 
                         color={adminChecker ? "success" : "warning"} 

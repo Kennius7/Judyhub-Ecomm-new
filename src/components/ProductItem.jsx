@@ -18,7 +18,7 @@ const ProductItem = ({ item: { id, name, image, newPrice, oldPrice } }) => {
     const NGN = getSymbolFromCurrency('NGN');
     const itemQuantity = profileFormData.cartData.find(item => item.id === id);
     const productQuantity = itemQuantity ? itemQuantity.quantity : 1;
-    console.log("Filtered Data:>>>", productQuantity);
+    // console.log("Filtered Data:>>>", productQuantity);
 
 
     return (
